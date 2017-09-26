@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAI.Data.Abstraction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace CAI.Data.Importer
     {
         static void Main(string[] args)
         {
+            //IUnitOfWork d = new UnitOfWork();
+            //d.BotRepository.All().wh
         }
     }
 }

@@ -56,5 +56,19 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CAI.Data.Abstraction\CAI.Data.Abstraction.csproj">
+      <Project>{A2BCD0BD-D125-4D0C-934F-305ED0FCE15D}</Project>
+      <Name>CAI.Data.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
+      <Project>{e9779a9e-32af-4dee-b9cf-dc138cb45e2c}</Project>
+      <Name>CAI.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data\CAI.Data.csproj">
+      <Project>{0f040a2e-83bd-47e2-ac76-a541f18799dc}</Project>
+      <Name>CAI.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

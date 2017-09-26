@@ -51,12 +51,19 @@
     <Compile Include="ICaiDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Abstraction\GenericRepository.cs" />
+    <Compile Include="Repositories\BotRepository.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CAI.Data.Abstraction\CAI.Data.Abstraction.csproj">
+      <Project>{A2BCD0BD-D125-4D0C-934F-305ED0FCE15D}</Project>
+      <Name>CAI.Data.Abstraction</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
       <Project>{E9779A9E-32AF-4DEE-B9CF-DC138CB45E2C}</Project>
       <Name>CAI.Data.Models</Name>

@@ -12,6 +12,8 @@ namespace CAI.IoC.App_Start
     using Ninject.Web.Common;
     using Services;
     using Services.Abstraction;
+    using CAI.Data.Abstraction;
+    using CAI.Data;
 
     public static class WebContainer
     {
@@ -26,7 +28,7 @@ namespace CAI.IoC.App_Start
         //    DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
         //    bootstrapper.Initialize(CreateKernel);
         //}
-        
+
         ///// <summary>
         ///// Stops the application.
         ///// </summary>
@@ -43,14 +45,8 @@ namespace CAI.IoC.App_Start
         {
             get
             {
-                IKernel kernel = null;
-
-                if (kernel == null)
-                {
-                    kernel = new StandardKernel();
-                    RegisterServices(kernel);
-                }
-
+                IKernel kernel = new StandardKernel();
+                RegisterServices(kernel);
                 return kernel;
             }
         }
@@ -61,7 +57,10 @@ namespace CAI.IoC.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ICaiDbContext>().To<CaiDbContext>();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+
             kernel.Bind<ITestService>().To<TestService>();
-        }        
+        }
     }
 }
