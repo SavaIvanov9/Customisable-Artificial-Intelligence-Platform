@@ -83,6 +83,7 @@ namespace CAI.IoC
 
             //Services
             kernel.Bind<ITestService>().To<TestService>();
+            kernel.Bind<IBotService>().To<BotService>();
         }
     }
 }

@@ -23,7 +23,9 @@
                 .Select(x => new BotViewModel
                 {
                     Id = x.Id,
-                    Name = x.Name
+                    Name = x.Name,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = x.ModifiedOn
                 })
                 .AsEnumerable();
 
