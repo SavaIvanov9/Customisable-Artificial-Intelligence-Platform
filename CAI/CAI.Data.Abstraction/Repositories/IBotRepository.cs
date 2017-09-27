@@ -1,4 +1,4 @@
-﻿namespace CAI.Data.Repositories.Abstraction
+﻿namespace CAI.Data.Abstraction.Repositories
 {
     public interface IBotRepository
     {

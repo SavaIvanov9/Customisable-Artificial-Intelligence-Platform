@@ -6,17 +6,13 @@
     using CAI.Data.Repositories;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ICaiDbContext context;
         private readonly IDictionary<Type, object> repositories;
 
-        public UnitOfWork()
-            : this(new CaiDbContext())
+        public UnitOfWork() : this(new CaiDbContext())
         {
         }
 

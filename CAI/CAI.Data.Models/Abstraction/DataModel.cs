@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-namespace CAI.Data.Models.Abstraction
+﻿namespace CAI.Data.Models.Abstraction
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.Data;
 
     public abstract class DataModel : IDataModel
     {

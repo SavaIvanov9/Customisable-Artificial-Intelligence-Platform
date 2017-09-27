@@ -77,9 +77,11 @@ namespace CAI.IoC
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            //Data
             kernel.Bind<ICaiDbContext>().To<CaiDbContext>();
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
+            //Services
             kernel.Bind<ITestService>().To<TestService>();
         }
     }
