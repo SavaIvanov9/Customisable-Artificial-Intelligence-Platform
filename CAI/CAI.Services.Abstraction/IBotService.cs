@@ -7,6 +7,6 @@
     {
         IEnumerable<BotViewModel> GetAllBots();
 
-        long CreateNewBot(BotCreateModel model);
+        long CreateNewBot(BotCreateModel model, string createdBy);
     }
 }

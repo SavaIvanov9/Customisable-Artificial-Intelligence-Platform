@@ -6,11 +6,11 @@
 
     public abstract class DataModel : IDataModel
     {
-        protected DataModel()
-        {
-            this.CreatedOn = DateTime.Now;
-            this.IsDeleted = false;
-        }
+        //protected DataModel()
+        //{
+        //    this.CreatedOn = DateTime.Now;
+        //    this.IsDeleted = false;
+        //}
 
         [Key]
         public long Id { get; set; }

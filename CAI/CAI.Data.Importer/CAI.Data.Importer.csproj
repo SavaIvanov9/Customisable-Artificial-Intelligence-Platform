@@ -49,7 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ImporterEngine.cs" />
+    <Compile Include="Launcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +69,14 @@
     <ProjectReference Include="..\CAI.Data\CAI.Data.csproj">
       <Project>{0f040a2e-83bd-47e2-ac76-a541f18799dc}</Project>
       <Name>CAI.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Services.Abstraction\CAI.Services.Abstraction.csproj">
+      <Project>{E1E198E3-B376-4E67-9056-690469CE9BBD}</Project>
+      <Name>CAI.Services.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Services\CAI.Services.csproj">
+      <Project>{8DB2FB13-D923-48DB-BDCB-A62A16944E99}</Project>
+      <Name>CAI.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

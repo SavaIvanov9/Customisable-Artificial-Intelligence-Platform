@@ -1,11 +1,16 @@
 ﻿namespace CAI.Data.Abstraction
 {
+    using System.Threading.Tasks;
     using CAI.Data.Models;
+    using Repositories;
+    using System;
 
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        IRepository<Bot> BotRepository { get; }
+        IBotRepository BotRepository { get; }
 
         int SaveChanges();
+
+        Task<int> SaveChangesAsync();
     }
 }

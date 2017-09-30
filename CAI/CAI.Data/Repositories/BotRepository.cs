@@ -1,14 +1,26 @@
 ﻿namespace CAI.Data.Repositories
 {
-    using CAI.Data.Abstraction;
-    using CAI.Data.Abstraction.Repositories;
+    using Abstraction;
     using CAI.Data.Models;
+    using Data.Abstraction.Repositories;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    class BotRepository : GenericRepository<Bot>, IRepository<Bot>
+    public class BotRepository : DataRepository<Bot>, IBotRepository
     {
         public BotRepository(ICaiDbContext context)
             : base(context)
         {
+        }
+
+        public IEnumerable<Bot> AllContainingInName(string query)
+        {
+            return this.Set.Where(x => x.Name.Contains(query)).AsEnumerable();
+        }
+
+        public Bot FindByName(string name)
+        {
+            return this.Set.FirstOrDefault(x => x.Name.ToLower().Equals(name.ToLower()));
         }
     }
 }

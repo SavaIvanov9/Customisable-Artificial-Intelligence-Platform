@@ -19,7 +19,6 @@
         {
             var result = this.Data.BotRepository
                 .All()
-                .Where(x => !x.IsDeleted)
                 .Select(x => new BotViewModel
                 {
                     Id = x.Id,
@@ -32,23 +31,20 @@
             return result;
         }
 
-        public long CreateNewBot(BotCreateModel model)
+        public long CreateNewBot(BotCreateModel model, string createdBy)
         {
-            if (this.Data.BotRepository
-                .All()
-                .Any(x => x.Name == model.Name))
+            if (this.Data.BotRepository.FindByName(model.Name) != null)
             {
                 throw new ExistingObjectException("Bot", "Use different name!");
             }
 
             var bot = new Bot()
             {
-                CreatedBy = "S",
+                CreatedBy = createdBy,
                 Name = model.Name
             };
 
-            this.Data.BotRepository
-                .Add(bot);
+            this.Data.BotRepository.Add(bot);
             this.Data.SaveChanges();
 
             return bot.Id;

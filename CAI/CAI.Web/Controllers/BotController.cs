@@ -45,5 +45,31 @@
             this._botService.CreateNewBot(model);
             return RedirectToAction("Index");
         }
+
+        [HttpPut]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Edit(BotCreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+
+            }
+
+            this._botService.CreateNewBot(model);
+            return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(long id)
+        {
+            if (!ModelState.IsValid)
+            {
+
+            }
+
+            //this._botService(model);
+            return RedirectToAction("Index");
+        }
     }
 }
