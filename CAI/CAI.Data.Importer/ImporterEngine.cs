@@ -23,8 +23,9 @@ namespace CAI.Data.Importer
             using (IUnitOfWork db = new UnitOfWork())
             {
                 this.DisplayDbStatus(db);
-                //this.AddTestData(db);
-                //this.DisplayDbStatus(db);
+                this.AddTestData(db);
+                this.AddTestData(db);
+                this.DisplayDbStatus(db);
             }
         }
 
@@ -49,9 +50,10 @@ namespace CAI.Data.Importer
             {
                 yield return new Bot()
                 {
-                    CreatedBy = $"Test User {i}",
+                    CreatedOn = DateTime.Now.ToLocalTime(),
+                    CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
-                    Type = BotType.Production
+                    Type = BotType.Test
                 };
             }
         }

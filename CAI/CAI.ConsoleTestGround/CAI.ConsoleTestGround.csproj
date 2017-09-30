@@ -32,7 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,11 +49,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Launcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestGroundEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CAI.Common\CAI.Common.csproj">
+      <Project>{ab877ee0-95c6-4992-9001-1d6bc6f853ac}</Project>
+      <Name>CAI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data.Abstraction\CAI.Data.Abstraction.csproj">
+      <Project>{a2bcd0bd-d125-4d0c-934f-305ed0fce15d}</Project>
+      <Name>CAI.Data.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data.Filtering\CAI.Data.Filtering.csproj">
+      <Project>{c88227b3-57bf-4bb5-867c-141ab9b7bbcb}</Project>
+      <Name>CAI.Data.Filtering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
+      <Project>{e9779a9e-32af-4dee-b9cf-dc138cb45e2c}</Project>
+      <Name>CAI.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data\CAI.Data.csproj">
+      <Project>{0f040a2e-83bd-47e2-ac76-a541f18799dc}</Project>
+      <Name>CAI.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Services.Abstraction\CAI.Services.Abstraction.csproj">
+      <Project>{e1e198e3-b376-4e67-9056-690469ce9bbd}</Project>
+      <Name>CAI.Services.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Services.Models\CAI.Services.Models.csproj">
+      <Project>{13bd51f8-e798-4cd4-a7d5-b811aa3ec731}</Project>
+      <Name>CAI.Services.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Services\CAI.Services.csproj">
+      <Project>{8db2fb13-d923-48db-bdcb-a62a16944e99}</Project>
+      <Name>CAI.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -61,15 +61,15 @@ namespace CAI.Data.Migrations
                 {
                     Name = "Information Test Bot",
                     Type = BotType.System,
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = DateTime.Now.ToLocalTime(),
                     CreatedBy = BotType.System.ToString(),
                     IsDeleted = false
                 },
                 new Bot
                 {
                     Name = "Library Test Bot",
-                    Type = BotType.Test,
-                    CreatedOn = DateTime.Now,
+                    Type = BotType.System,
+                    CreatedOn = DateTime.Now.ToLocalTime(),
                     CreatedBy = BotType.System.ToString(),
                     IsDeleted = false
                 }
@@ -82,10 +82,10 @@ namespace CAI.Data.Migrations
             {
                 yield return new Bot()
                 {
-                    CreatedOn = DateTime.Now,
-                    CreatedBy = $"Test User {i}",
+                    CreatedOn = DateTime.Now.ToLocalTime(),
+                    CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
-                    Type = BotType.Production
+                    Type = BotType.Test
                 };
             }
         }

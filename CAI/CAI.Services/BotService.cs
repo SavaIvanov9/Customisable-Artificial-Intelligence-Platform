@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Common.CustomExceptions;
+    using Data.Filtering;
     using Data.Models;
 
     public class BotService : BaseService, IBotService
@@ -73,7 +74,7 @@
 
         private void CheckForExistingName(string name)
         {
-            if (this.Data.BotRepository.FindByName(name) != null)
+            if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
             {
                 throw new ExistingObjectException("Bot", "Use different name!");
             }

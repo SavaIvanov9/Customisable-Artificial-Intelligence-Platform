@@ -2,8 +2,8 @@
 {
     public enum BotType
     {
-        Test,
-        System,
-        Production
+        System = 0,
+        Production = 1,
+        Test = 2
     }
 }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A2BCD0BD-D125-4D0C-934F-305ED0FCE15D}</ProjectGuid>
+    <ProjectGuid>{C88227B3-57BF-4BB5-867C-141AB9B7BBCB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CAI.Data.Abstraction</RootNamespace>
-    <AssemblyName>CAI.Data.Abstraction</AssemblyName>
+    <RootNamespace>CAI.Data.Filtering</RootNamespace>
+    <AssemblyName>CAI.Data.Filtering</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,17 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDataRepository.cs" />
-    <Compile Include="Repositories\IBotRepository.cs" />
-    <Compile Include="IGenericRepository.cs" />
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Base\DataFilter.cs" />
+    <Compile Include="Base\IDataFilter.cs" />
+    <Compile Include="BotFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\CAI.Data.Filtering\CAI.Data.Filtering.csproj">
-      <Project>{C88227B3-57BF-4BB5-867C-141AB9B7BBCB}</Project>
-      <Name>CAI.Data.Filtering</Name>
+    <ProjectReference Include="..\CAI.Common\CAI.Common.csproj">
+      <Project>{AB877EE0-95C6-4992-9001-1D6BC6F853AC}</Project>
+      <Name>CAI.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
       <Project>{E9779A9E-32AF-4DEE-B9CF-DC138CB45E2C}</Project>

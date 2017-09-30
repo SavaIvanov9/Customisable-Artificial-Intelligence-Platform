@@ -69,6 +69,10 @@
       <Project>{A2BCD0BD-D125-4D0C-934F-305ED0FCE15D}</Project>
       <Name>CAI.Data.Abstraction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CAI.Data.Filtering\CAI.Data.Filtering.csproj">
+      <Project>{C88227B3-57BF-4BB5-867C-141AB9B7BBCB}</Project>
+      <Name>CAI.Data.Filtering</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
       <Project>{E9779A9E-32AF-4DEE-B9CF-DC138CB45E2C}</Project>
       <Name>CAI.Data.Models</Name>

@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace CAI.ConsoleTestGround
 {
-    class Program
+    class Launcher
     {
         static void Main(string[] args)
         {
+            var engine = new TestGroundEngine();
+            engine.Start();
         }
     }
 }
