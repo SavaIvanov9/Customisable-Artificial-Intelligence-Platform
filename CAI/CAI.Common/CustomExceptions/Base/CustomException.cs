@@ -1,4 +1,4 @@
-﻿namespace CAI.Common.CustomExceptions
+﻿namespace CAI.Common.CustomExceptions.Base
 {
     using System;
 

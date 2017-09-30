@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CAI.Data.Repositories.Abstraction
+﻿namespace CAI.Data.Repositories.Abstraction
 {
-    using System.Data.Entity;
     using Data.Abstraction;
-    using Data.Abstraction.Repositories;
     using Models.Abstraction;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class DataRepository<T> : GenericRepository<T>, IDataRepository<T> where T : class, IDataModel
     {
@@ -44,6 +39,11 @@ namespace CAI.Data.Repositories.Abstraction
             entity.DeletedOn = DateTime.Now;
             //this.ValidateAuditingUser(entity.DeletedBy);
             this.Update(entity);
+        }
+
+        public T FindById(long id, bool isDeleted = false)
+        {
+            return this.Set.FirstOrDefault(x => x.Id == id && x.IsDeleted == isDeleted);
         }
 
         public IEnumerable<T> AllWithDeleted()

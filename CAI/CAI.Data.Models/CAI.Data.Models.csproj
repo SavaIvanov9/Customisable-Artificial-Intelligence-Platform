@@ -56,5 +56,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CAI.Common\CAI.Common.csproj">
+      <Project>{ab877ee0-95c6-4992-9001-1d6bc6f853ac}</Project>
+      <Name>CAI.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

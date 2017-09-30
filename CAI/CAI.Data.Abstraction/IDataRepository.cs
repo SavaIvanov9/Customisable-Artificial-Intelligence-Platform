@@ -9,6 +9,8 @@
 
     public interface IDataRepository<T> : IGenericRepository<T> where T : class, IDataModel
     {
+        T FindById(long id, bool isDeleted = false);
+
         IEnumerable<T> AllWithDeleted();
 
         void HardDelete(T entity);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace CAI.Data.Importer
 {
     using Abstraction;
+    using Common.Enums;
     using Models;
     using Services;
     using Services.Abstraction;
@@ -22,8 +23,8 @@ namespace CAI.Data.Importer
             using (IUnitOfWork db = new UnitOfWork())
             {
                 this.DisplayDbStatus(db);
-                this.AddTestData(db);
-                this.DisplayDbStatus(db);
+                //this.AddTestData(db);
+                //this.DisplayDbStatus(db);
             }
         }
 
@@ -49,7 +50,8 @@ namespace CAI.Data.Importer
                 yield return new Bot()
                 {
                     CreatedBy = $"Test User {i}",
-                    Name = $"Test Name {i}"
+                    Name = $"Test Name {i}",
+                    Type = BotType.Production
                 };
             }
         }

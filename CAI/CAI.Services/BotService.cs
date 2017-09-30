@@ -1,5 +1,6 @@
 ﻿namespace CAI.Services
 {
+    using System;
     using Abstraction;
     using Base;
     using Data.Abstraction;
@@ -33,10 +34,7 @@
 
         public long CreateNewBot(BotCreateModel model, string createdBy)
         {
-            if (this.Data.BotRepository.FindByName(model.Name) != null)
-            {
-                throw new ExistingObjectException("Bot", "Use different name!");
-            }
+            this.CheckForExistingName(model.Name);
 
             var bot = new Bot()
             {
@@ -48,6 +46,49 @@
             this.Data.SaveChanges();
 
             return bot.Id;
+        }
+
+        public bool EditBot(BotCreateModel model, long id, string modifiedBy)
+        {
+            this.CheckForExistingName(model.Name);
+
+            var bot = this.FindBot(id);
+
+            bot.Name = model.Name;
+            bot.ModifiedBy = modifiedBy;
+            this.Data.BotRepository.Update(bot);
+
+            return Convert.ToBoolean(this.Data.SaveChanges());
+        }
+
+        public bool DeleteBot(long id, string deletedBy)
+        {
+            var bot = this.FindBot(id);
+
+            bot.DeletedBy = deletedBy;
+            this.Data.BotRepository.Delete(bot);
+
+            return Convert.ToBoolean(this.Data.SaveChanges());
+        }
+
+        private void CheckForExistingName(string name)
+        {
+            if (this.Data.BotRepository.FindByName(name) != null)
+            {
+                throw new ExistingObjectException("Bot", "Use different name!");
+            }
+        }
+
+        private Bot FindBot(long id)
+        {
+            var bot = this.Data.BotRepository.FindById(id);
+
+            if (bot == null)
+            {
+                throw new NotFoundException("Bot");
+            }
+
+            return bot;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace CAI.Common.CustomExceptions
 {
+    using Base;
+
     public class ExistingObjectException : CustomException
     {
         public ExistingObjectException(string objectName) 

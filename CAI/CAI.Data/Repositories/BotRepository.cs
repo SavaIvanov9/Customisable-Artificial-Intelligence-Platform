@@ -13,14 +13,18 @@
         {
         }
 
-        public IEnumerable<Bot> AllContainingInName(string query)
+        public IEnumerable<Bot> AllContainingInName(string query, bool isDeleted = false)
         {
-            return this.Set.Where(x => x.Name.Contains(query)).AsEnumerable();
+            return this.Set
+                .Where(x => x.Name.Contains(query) && x.IsDeleted == isDeleted)
+                .AsEnumerable();
         }
 
-        public Bot FindByName(string name)
+        public Bot FindByName(string name, bool isDeleted = false)
         {
-            return this.Set.FirstOrDefault(x => x.Name.ToLower().Equals(name.ToLower()));
+            return this.Set
+                .FirstOrDefault(x => x.Name.ToLower().Equals(name.ToLower())
+                    && x.IsDeleted == isDeleted);
         }
     }
 }

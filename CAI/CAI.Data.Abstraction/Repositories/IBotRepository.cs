@@ -5,8 +5,8 @@
 
     public interface IBotRepository : IDataRepository<Bot>
     {
-        IEnumerable<Bot> AllContainingInName(string query);
+        IEnumerable<Bot> AllContainingInName(string query, bool isDeleted = false);
 
-        Bot FindByName(string name);
+        Bot FindByName(string name, bool isDeleted = false);
     }
 }

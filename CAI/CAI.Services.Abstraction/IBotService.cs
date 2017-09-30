@@ -8,5 +8,9 @@
         IEnumerable<BotViewModel> GetAllBots();
 
         long CreateNewBot(BotCreateModel model, string createdBy);
+
+        bool EditBot(BotCreateModel model, long id, string modifiedBy);
+
+        bool DeleteBot(long id, string deletedBy);
     }
 }

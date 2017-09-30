@@ -1,10 +1,9 @@
-﻿namespace CAI.Data.Abstraction.Repositories
+﻿namespace CAI.Data.Repositories.Abstraction
 {
-    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using System.Linq.Expressions;
+    using Data.Abstraction;
 
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -25,40 +24,16 @@
 
         public virtual void Add(T entity)
         {
-        //    var entry = this.Context.Entry(entity);
-        //    if (entry.State == EntityState.Detached)
-        //    {
-        //        this.Set.Attach(entity);
-        //    }
-
-        //    entry.State = EntityState.Added;
-
             this.ChangeEntityState(entity, EntityState.Added);
         }
 
         public virtual void Update(T entity)
         {
-            //var entry = this.Context.Entry(entity);
-            //if (entry.State == EntityState.Detached)
-            //{
-            //    this.Set.Attach(entity);
-            //}
-
-            //entry.State = EntityState.Modified;
-
             this.ChangeEntityState(entity, EntityState.Modified);
         }
 
         public virtual void Delete(T entity)
         {
-            //var entry = this.Context.Entry(entity);
-            //if (entry.State == EntityState.Detached)
-            //{
-            //    this.Set.Attach(entity);
-            //}
-
-            //entry.State = EntityState.Deleted;
-
             this.ChangeEntityState(entity, EntityState.Deleted);
         }
 
@@ -70,9 +45,6 @@
 
         public void Detach(T entity)
         {
-            //var entry = this.Context.Entry(entity);
-            //entry.State = EntityState.Detached;
-
             this.ChangeEntityState(entity, EntityState.Detached);
         }
 

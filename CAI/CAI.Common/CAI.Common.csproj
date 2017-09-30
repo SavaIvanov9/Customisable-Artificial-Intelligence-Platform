@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="CustomExceptions\Base\CustomException.cs" />
     <Compile Include="CustomExceptions\ExistingObjectException.cs" />
+    <Compile Include="CustomExceptions\NotFoundException.cs" />
+    <Compile Include="Enums\BotType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

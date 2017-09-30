@@ -20,6 +20,7 @@
 
             return View(bots);
         }
+        
 
         public ActionResult Create()
         {
@@ -42,24 +43,26 @@
 
             }
 
-            this._botService.CreateNewBot(model);
+            this._botService.CreateNewBot(model, this.User.Identity.Name);
             return RedirectToAction("Index");
         }
 
         [HttpPut]
+        [Authorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit(BotCreateModel model)
+        public ActionResult Edit(BotCreateModel model, long id)
         {
             if (!ModelState.IsValid)
             {
 
             }
 
-            this._botService.CreateNewBot(model);
+            this._botService.EditBot(model, id, this.User.Identity.Name);
             return RedirectToAction("Index");
         }
 
         [HttpDelete]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Delete(long id)
         {
@@ -68,7 +71,7 @@
 
             }
 
-            //this._botService(model);
+            this._botService.DeleteBot(id, this.User.Identity.Name);
             return RedirectToAction("Index");
         }
     }
