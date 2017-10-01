@@ -1,10 +1,10 @@
 ﻿namespace CAI.Web.Controllers
 {
-    using CAI.Web.Models;
     using Identity;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
+    using Models.Manage;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
