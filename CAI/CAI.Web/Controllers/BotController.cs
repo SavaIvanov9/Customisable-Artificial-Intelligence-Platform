@@ -21,8 +21,6 @@
             return View(bots);
         }
         
-
-
         public ActionResult Create()
         {
             //ViewData["MeasuringUnitId"] = new SelectList(
