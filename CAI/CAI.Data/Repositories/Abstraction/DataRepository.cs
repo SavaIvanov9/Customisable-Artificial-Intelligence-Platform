@@ -60,7 +60,7 @@
             base.Delete(entity);
         }
 
-        protected IQueryable<T> ApplyFilter(IQueryable<T> query, BotFilter filter = null)
+        protected IQueryable<T> ApplyFilter(IQueryable<T> query, object filter = null)
         {
             if (filter != null)
             {

@@ -3,8 +3,6 @@
 
 namespace CAI.IoC
 {
-    using System;
-    using System.Web;
     using Data;
     using Data.Abstraction;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -12,6 +10,8 @@ namespace CAI.IoC
     using Ninject.Web.Common;
     using Services;
     using Services.Abstraction;
+    using System;
+    using System.Web;
 
     public static class WebContainer
     {

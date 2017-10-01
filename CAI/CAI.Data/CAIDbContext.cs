@@ -2,12 +2,18 @@
 {
     using System.Data.Entity;
     using System.Net;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Migrations;
     using Models;
 
-    public class CaiDbContext : DbContext, ICaiDbContext
+    public class CaiDbContext : IdentityDbContext<User> /*,DbContext*/, ICaiDbContext
     {
-        public CaiDbContext() : base("CAIData")
+        //public static CaiDbContext Create()
+        //{
+        //    return new CaiDbContext();
+        //}
+
+        public CaiDbContext() : base("CAIData", throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<CaiDbContext, Configuration>());
 
