@@ -1,14 +1,22 @@
 ﻿namespace CAI.Data.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using Abstraction;
     using Common.Enums;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Bot : DataModel
     {
-        //[Index(IsUnique = true)]
-        [MaxLength(20, ErrorMessage = "Bot's Name must be between 20 and 5 chacters long"), MinLength(5)]
+        private ICollection<Intention> _intentions;
+
+        public Bot()
+        {
+            this._intentions = new HashSet<Intention>();
+        }
+
+        [Index("Name", IsUnique = true)]
+        [MaxLength(30, ErrorMessage = "Bot's Name must be between 30 and 2 chacters long"), MinLength(2)]
         public string Name { get; set; }
 
         [Required]
@@ -17,5 +25,10 @@
         [Required]
         public EnvironmentType EnvironmentType { get; set; }
 
+        public virtual ICollection<Intention> Teams
+        {
+            get => this._intentions;
+            set => this._intentions = value;
+        }
     }
 }

@@ -54,8 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstraction\DataModel.cs" />
+    <Compile Include="Abstraction\IAuditableModel.cs" />
+    <Compile Include="Abstraction\IIndex.cs" />
+    <Compile Include="ActivationKey.cs" />
     <Compile Include="Bot.cs" />
     <Compile Include="Abstraction\IDataModel.cs" />
+    <Compile Include="Intention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

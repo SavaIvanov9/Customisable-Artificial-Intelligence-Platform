@@ -2,18 +2,16 @@
 {
     using System;
 
-    public interface IDataModel
+    public interface IDataModel : IIndex, IAuditableModel
     {
-        long Id { get; set; }
+        //string CreatedBy { get; set; }
+        //DateTime CreatedOn { get; set; }
 
-        string CreatedBy { get; set; }
-        DateTime CreatedOn { get; set; }
+        //string ModifiedBy { get; set; }
+        //DateTime? ModifiedOn { get; set; }
 
-        string ModifiedBy { get; set; }
-        DateTime? ModifiedOn { get; set; }
-
-        bool IsDeleted { get; set; }
-        DateTime? DeletedOn { get; set; }
-        string DeletedBy { get; set; }
+        //bool IsDeleted { get; set; }
+        //DateTime? DeletedOn { get; set; }
+        //string DeletedBy { get; set; }
     }
 }
