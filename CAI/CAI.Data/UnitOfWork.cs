@@ -25,9 +25,9 @@
             this._repositories = new Dictionary<Type, object>();
         }
 
-        public IBotRepository BotRepository => (BotRepository)this.GetRepository<Bot>();
+        public IBotRepository BotRepository => (BotRepository)this.GetDataRepository<Bot>();
 
-        //public BotGenericRepository BotGenericRepository => (BotGenericRepository)this.GetRepository<Bot>();
+        public IUserRepository UserRepository => (UserRepository)this.GetAuditableRepository<User>();
         
         public int SaveChanges()
         {
@@ -39,7 +39,7 @@
             return this._context.SaveChangesAsync();
         }
 
-        private IDataRepository<T> GetRepository<T>() where T : class, IDataModel
+        private IDataRepository<T> GetDataRepository<T>() where T : class, IDataModel
         {
             var repositoryType = typeof(T);
 
@@ -55,12 +55,28 @@
             return (IDataRepository<T>)this._repositories[repositoryType];
         }
 
+        private IAuditableRepository<T> GetAuditableRepository<T>() where T : class, IAuditableModel
+        {
+            var repositoryType = typeof(T);
+
+            if (!this._repositories.ContainsKey(repositoryType))
+            {
+                var type = typeof(AuditableRepository<T>);
+
+                this.SetType(repositoryType, ref type);
+
+                this._repositories.Add(repositoryType, Activator.CreateInstance(type, this._context));
+            }
+
+            return (IAuditableRepository<T>)this._repositories[repositoryType];
+        }
+
         private void SetType(Type repositoryType, ref Type type)
         {
             if (repositoryType.IsAssignableFrom(typeof(Bot)))
                 type = typeof(BotRepository);
-            //else if (repositoryType.IsAssignableFrom(typeof(Position)))
-            //    type = typeof(PositionRepository);
+            else if (repositoryType.IsAssignableFrom(typeof(User)))
+                type = typeof(UserRepository);
         }
 
         public void Dispose()

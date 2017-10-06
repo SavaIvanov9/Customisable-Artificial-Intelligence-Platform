@@ -10,7 +10,7 @@
     using Filtering;
     using Models;
 
-    public abstract class DataRepository<T> : GenericRepository<T>, IDataRepository<T> where T : class, IDataModel
+    public abstract class DataRepository<T> : AuditableRepository<T>, IDataRepository<T> where T : class, IDataModel
     {
         protected DataRepository(ICaiDbContext context) : base(context)
         {
@@ -23,7 +23,7 @@
 
         public override void Add(T entity)
         {
-            entity.CreatedOn = DateTime.Now.ToLocalTime();
+            entity.CreatedOn = DateTime.Now;
             //this.ValidateAuditingUser(entity.ModifiedBy);
             //this.auditChecker.CheckAndAudit(entity, audit);
             base.Add(entity);
@@ -31,7 +31,7 @@
 
         public override void Update(T entity)
         {
-            entity.ModifiedOn = DateTime.Now.ToLocalTime();
+            entity.ModifiedOn = DateTime.Now;
             //this.ValidateAuditingUser(entity.ModifiedBy);
             //this.auditChecker.CheckAndAudit(entity, audit);
             base.Update(entity);
@@ -40,7 +40,7 @@
         public override void Delete(T entity)
         {
             entity.IsDeleted = true;
-            entity.DeletedOn = DateTime.Now.ToLocalTime();
+            entity.DeletedOn = DateTime.Now;
             //this.ValidateAuditingUser(entity.DeletedBy);
             this.Update(entity);
         }
@@ -48,16 +48,6 @@
         public T FindById(long id, bool isDeleted = false)
         {
             return this.Set.FirstOrDefault(x => x.Id == id && x.IsDeleted == isDeleted);
-        }
-
-        public IEnumerable<T> AllWithDeleted()
-        {
-            return base.All();
-        }
-
-        public void HardDelete(T entity)
-        {
-            base.Delete(entity);
         }
 
         protected IQueryable<T> ApplyFilter(IQueryable<T> query, object filter = null)

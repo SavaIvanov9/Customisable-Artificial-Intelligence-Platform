@@ -9,6 +9,8 @@
     {
         IBotRepository BotRepository { get; }
 
+        IUserRepository UserRepository { get; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

@@ -7,12 +7,17 @@
     using System.Threading.Tasks;
     using Models.Abstraction;
 
-    public interface IDataRepository<T> : IGenericRepository<T> where T : class, IDataModel
+    public interface IDataRepository<T> : IAuditableRepository<T> where T : class, IDataModel
     {
         T FindById(long id, bool isDeleted = false);
-
-        IEnumerable<T> AllWithDeleted();
-
-        void HardDelete(T entity);
     }
+
+    //public interface IDataRepository<T> : IGenericRepository<T> where T : class, IDataModel
+    //{
+    //    T FindById(long id, bool isDeleted = false);
+
+    //    IEnumerable<T> AllWithDeleted();
+
+    //    void HardDelete(T entity);
+    //}
 }

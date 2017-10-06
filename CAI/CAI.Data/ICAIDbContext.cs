@@ -10,6 +10,8 @@
     {
         IDbSet<Bot> Bots { get; set; }
 
+        IDbSet<User> Users { get; set; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();
