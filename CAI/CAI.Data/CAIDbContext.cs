@@ -22,6 +22,10 @@
 
         public virtual IDbSet<Bot> Bots { get; set; }
 
+        public virtual IDbSet<Intention> Intentions { get; set; }
+
+        public virtual IDbSet<ActivationKey> ActivationKeys { get; set; }
+
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();

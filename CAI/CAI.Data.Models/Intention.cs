@@ -15,7 +15,6 @@
         }
 
         [Required]
-        [Index("Name", IsUnique = true)]
         public string Name { get; set; }
 
         public virtual ICollection<ActivationKey> ActivationKeys

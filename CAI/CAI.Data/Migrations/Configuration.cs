@@ -65,7 +65,9 @@ namespace CAI.Data.Migrations
                     BotType = BotType.IntentionRecognizer,
                     CreatedOn = DateTime.Now,
                     CreatedBy = UserRoleType.Admin.ToString(),
-                    IsDeleted = false
+                    IsDeleted = false,
+                    Intentions = this.GenerateSampleIntentions()
+
                 },
                 new Bot
                 {
@@ -74,7 +76,8 @@ namespace CAI.Data.Migrations
                     BotType = BotType.InformationFinder,
                     CreatedOn = DateTime.Now,
                     CreatedBy = UserRoleType.Admin.ToString(),
-                    IsDeleted = false
+                    IsDeleted = false,
+                    //Intentions = this.GenerateSampleIntentions()
                 }
             };
         }
@@ -85,13 +88,51 @@ namespace CAI.Data.Migrations
             {
                 yield return new Bot()
                 {
-                    CreatedOn = DateTime.Now.ToLocalTime(),
+                    CreatedOn = DateTime.Now,
                     CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
                     BotType = i % 2 == 0 ? BotType.IntentionRecognizer : BotType.InformationFinder,
                     EnvironmentType = EnvironmentType.Production
                 };
             }
+        }
+
+        private ICollection<Intention> GenerateSampleIntentions()
+        {
+            return new HashSet<Intention>
+            {
+                new Intention()
+                {
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = UserRoleType.Admin.ToString(),
+                    Name = "Love pizza",
+                    ActivationKeys = this.GenerateSampleActivationKeys(new [] {"i", "like", "pizza", "eat", "lunch", "every", "day"})
+                },
+                new Intention()
+                {
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = UserRoleType.Admin.ToString(),
+                    Name = "Introduction",
+                    ActivationKeys = this.GenerateSampleActivationKeys(new [] {"i", "am", "name", "is", "hello", "hi", "how", "are", "you", "who", "what"})
+                },
+            };
+        }
+
+        private ICollection<ActivationKey> GenerateSampleActivationKeys(string[] values)
+        {
+            var result = new HashSet<ActivationKey>();
+
+            foreach (var value in values)
+            {
+                result.Add(new ActivationKey()
+                {
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = UserRoleType.Admin.ToString(),
+                    Name = value
+                });
+            }
+
+            return result;
         }
     }
 }

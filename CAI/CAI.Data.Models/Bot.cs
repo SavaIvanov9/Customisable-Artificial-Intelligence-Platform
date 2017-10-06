@@ -25,7 +25,7 @@
         [Required]
         public EnvironmentType EnvironmentType { get; set; }
 
-        public virtual ICollection<Intention> Teams
+        public virtual ICollection<Intention> Intentions
         {
             get => this._intentions;
             set => this._intentions = value;

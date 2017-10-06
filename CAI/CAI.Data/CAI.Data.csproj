@@ -60,7 +60,9 @@
     <Compile Include="Repositories\Abstraction\AuditableRepository.cs" />
     <Compile Include="Repositories\Abstraction\DataRepository.cs" />
     <Compile Include="Repositories\Abstraction\GenericRepository.cs" />
+    <Compile Include="Repositories\ActivationKeyRepository.cs" />
     <Compile Include="Repositories\BotRepository.cs" />
+    <Compile Include="Repositories\IntentionRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

@@ -7,9 +7,13 @@
 
     public interface IUnitOfWork : IDisposable
     {
+        IUserRepository UserRepository { get; }
+
         IBotRepository BotRepository { get; }
 
-        IUserRepository UserRepository { get; }
+        IIntentionRepository IntentionRepository { get; }
+
+        IActivationKeyRepository ActivationKeyRepository { get; }
 
         int SaveChanges();
 

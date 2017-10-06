@@ -12,6 +12,10 @@
 
         IDbSet<User> Users { get; set; }
 
+        IDbSet<Intention> Intentions { get; set; }
+
+        IDbSet<ActivationKey> ActivationKeys { get; set; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

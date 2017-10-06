@@ -7,7 +7,6 @@
     public class ActivationKey : DataModel
     {
         [Required]
-        [Index("Name", IsUnique = true)]
         public string Name { get; set; }
     }
 }

@@ -18,9 +18,9 @@
             using (IUnitOfWork db = new UnitOfWork())
             {
                 this.DisplayDbStatus(db);
-                this.AddTestData(db);
-                this.AddTestData(db);
-                this.DisplayDbStatus(db);
+                //this.AddTestData(db);
+                //this.AddTestData(db);
+                //this.DisplayDbStatus(db);
             }
         }
 
@@ -45,7 +45,7 @@
             {
                 yield return new Bot()
                 {
-                    CreatedOn = DateTime.Now.ToLocalTime(),
+                    CreatedOn = DateTime.Now,
                     CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
                     BotType = i % 2 == 0 ? BotType.IntentionRecognizer : BotType.InformationFinder,

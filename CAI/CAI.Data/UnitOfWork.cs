@@ -27,6 +27,10 @@
 
         public IBotRepository BotRepository => (BotRepository)this.GetDataRepository<Bot>();
 
+        public IIntentionRepository IntentionRepository => (IntentionRepository)this.GetDataRepository<Intention>();
+
+        public IActivationKeyRepository ActivationKeyRepository => (ActivationKeyRepository)this.GetDataRepository<ActivationKey>();
+
         public IUserRepository UserRepository => (UserRepository)this.GetAuditableRepository<User>();
         
         public int SaveChanges()
@@ -77,6 +81,10 @@
                 type = typeof(BotRepository);
             else if (repositoryType.IsAssignableFrom(typeof(User)))
                 type = typeof(UserRepository);
+            else if (repositoryType.IsAssignableFrom(typeof(Intention)))
+                type = typeof(IntentionRepository);
+            else if (repositoryType.IsAssignableFrom(typeof(ActivationKey)))
+                type = typeof(ActivationKey);
         }
 
         public void Dispose()
