@@ -6,11 +6,18 @@
     using Data;
     using Data.Abstraction;
     using Data.Filtering;
+    using Modules;
     using Services;
 
     public class TestGroundEngine
     {
         public void Start()
+        {
+            var nnModule = new NeuralNetworkModule();
+            nnModule.Start();
+        }
+
+        private void TestDb()
         {
             using (IUnitOfWork db = new UnitOfWork())
             {

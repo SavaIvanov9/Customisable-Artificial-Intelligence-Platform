@@ -31,8 +31,9 @@ namespace CAI.Data.Migrations
             foreach (var bot in defaultBots)
             {
                 if (!context.Bots.Any(b => b.Name == bot.Name
-                                           && b.Type == bot.Type
+                                           && b.BotType == bot.BotType
                                            && b.CreatedBy == bot.CreatedBy
+                                           && b.EnvironmentType == bot.EnvironmentType
                                            && !b.IsDeleted))
                 {
                     context.Bots.Add(bot);
@@ -42,9 +43,9 @@ namespace CAI.Data.Migrations
 
         private void SeedTestBots(CaiDbContext context, int count)
         {
-            if (!context.Bots.Any(b => b.Type == BotType.Test))
+            if (!context.Bots.Any(b => b.EnvironmentType == EnvironmentType.Test))
             {
-                var testBots = this.GenerateTestBots(count);
+                var testBots = this.GenerateSampleBots(count);
 
                 foreach (var bot in testBots)
                 {
@@ -59,24 +60,26 @@ namespace CAI.Data.Migrations
             {
                 new Bot
                 {
-                    Name = "Information Test Bot",
-                    Type = BotType.System,
-                    CreatedOn = DateTime.Now.ToLocalTime(),
-                    CreatedBy = BotType.System.ToString(),
+                    Name = "Intention Recognizer Test Bot",
+                    EnvironmentType = EnvironmentType.Test,
+                    BotType = BotType.IntentionRecognizer,
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = UserRoleType.Admin.ToString(),
                     IsDeleted = false
                 },
                 new Bot
                 {
-                    Name = "Library Test Bot",
-                    Type = BotType.System,
-                    CreatedOn = DateTime.Now.ToLocalTime(),
-                    CreatedBy = BotType.System.ToString(),
+                    Name = "Information Finder Test Bot",
+                    EnvironmentType = EnvironmentType.Test,
+                    BotType = BotType.InformationFinder,
+                    CreatedOn = DateTime.Now,
+                    CreatedBy = UserRoleType.Admin.ToString(),
                     IsDeleted = false
                 }
             };
         }
 
-        private IEnumerable<Bot> GenerateTestBots(int count)
+        private IEnumerable<Bot> GenerateSampleBots(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -85,7 +88,8 @@ namespace CAI.Data.Migrations
                     CreatedOn = DateTime.Now.ToLocalTime(),
                     CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
-                    Type = BotType.Test
+                    BotType = i % 2 == 0 ? BotType.IntentionRecognizer : BotType.InformationFinder,
+                    EnvironmentType = EnvironmentType.Production
                 };
             }
         }

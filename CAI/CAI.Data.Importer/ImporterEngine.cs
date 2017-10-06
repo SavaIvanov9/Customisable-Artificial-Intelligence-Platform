@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CAI.Data.Importer
+﻿namespace CAI.Data.Importer
 {
     using Abstraction;
     using Common.Enums;
     using Models;
-    using Services;
-    using Services.Abstraction;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class ImporterEngine
     {
@@ -33,7 +28,7 @@ namespace CAI.Data.Importer
         {
             Console.WriteLine("Seeding test data...");
 
-            var testBots = this.GenerateTestBots(10);
+            var testBots = this.GenerateSampleBots(10);
             foreach (var bot in testBots)
             {
                 db.BotRepository.Add(bot);
@@ -44,7 +39,7 @@ namespace CAI.Data.Importer
             Console.WriteLine();
         }
 
-        private IEnumerable<Bot> GenerateTestBots(int count)
+        private IEnumerable<Bot> GenerateSampleBots(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -53,7 +48,8 @@ namespace CAI.Data.Importer
                     CreatedOn = DateTime.Now.ToLocalTime(),
                     CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
-                    Type = BotType.Test
+                    BotType = i % 2 == 0 ? BotType.IntentionRecognizer : BotType.InformationFinder,
+                    EnvironmentType = EnvironmentType.Production
                 };
             }
         }

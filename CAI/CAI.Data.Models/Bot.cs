@@ -12,6 +12,10 @@
         public string Name { get; set; }
 
         [Required]
-        public BotType Type { get; set; }
+        public BotType BotType { get; set; }
+
+        [Required]
+        public EnvironmentType EnvironmentType { get; set; }
+
     }
 }
