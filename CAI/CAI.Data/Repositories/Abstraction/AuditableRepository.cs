@@ -4,6 +4,7 @@
     using Models.Abstraction;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class AuditableRepository<T> : GenericRepository<T>, IAuditableRepository<T> where T : class, IAuditableModel
     {
@@ -19,6 +20,35 @@
         public void HardDelete(T entity)
         {
             base.Delete(entity);
+        }
+
+        public override IEnumerable<T> All()
+        {
+            return base.Set.Where(x => !x.IsDeleted).AsEnumerable();
+        }
+
+        public override void Add(T entity)
+        {
+            entity.CreatedOn = DateTime.Now;
+            //this.ValidateAuditingUser(entity.ModifiedBy);
+            //this.auditChecker.CheckAndAudit(entity, audit);
+            base.Add(entity);
+        }
+
+        public override void Update(T entity)
+        {
+            entity.ModifiedOn = DateTime.Now;
+            //this.ValidateAuditingUser(entity.ModifiedBy);
+            //this.auditChecker.CheckAndAudit(entity, audit);
+            base.Update(entity);
+        }
+
+        public override void Delete(T entity)
+        {
+            entity.IsDeleted = true;
+            entity.DeletedOn = DateTime.Now;
+            //this.ValidateAuditingUser(entity.DeletedBy);
+            this.Update(entity);
         }
     }
 }

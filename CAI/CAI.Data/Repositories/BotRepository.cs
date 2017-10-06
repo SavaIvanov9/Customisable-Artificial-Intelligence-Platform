@@ -1,15 +1,11 @@
 ﻿namespace CAI.Data.Repositories
 {
-    using System;
     using Abstraction;
     using CAI.Data.Models;
     using Data.Abstraction.Repositories;
+    using Filtering;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
-    using System.Reflection;
-    using System.Security.Cryptography.X509Certificates;
-    using Filtering;
 
     public class BotRepository : DataRepository<Bot>, IBotRepository
     {
