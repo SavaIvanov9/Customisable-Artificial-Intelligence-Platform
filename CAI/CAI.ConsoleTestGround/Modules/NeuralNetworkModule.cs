@@ -34,13 +34,11 @@
                     new double[] {0, 1}
                 };
 
-                var network = nnService.GenerateNetwork(input[0].Length, output[0].Length, true);
+                //var network = nnService.GenerateNetwork(input[0].Length, output[0].Length, true);
+                //Console.ReadLine();
+                //nnService.TrainNetwork(network, input, output, 0.001);
 
-                Console.ReadLine();
-
-                nnService.TrainNetwork(network, input, output, 0.001);
-
-                //var network = this.LoadNetwork();
+                var network = nnService.LoadNeuralNetwork(1);
 
                 nnService.TestNetwork(network, input, output);
 
@@ -49,10 +47,10 @@
                 //    network.Save(fileStream);
                 //}
 
-                var id = nnService.RegisterNewNetwork(network, 1, "admin", NeuralNetworkType.Test);
-                Console.WriteLine(id);
-                var bot = uw.BotRepository.FindFirstByFilter(new BotFilter() { Id = 1 });
-                Console.WriteLine(bot.NeuralNetworkDatas.Count);
+                //var id = nnService.RegisterNewNetwork(network, 1, "admin", NeuralNetworkType.Test);
+                //Console.WriteLine(id);
+                //var bot = uw.BotRepository.FindFirstByFilter(new BotFilter() { Id = 1 });
+                //Console.WriteLine(bot.NeuralNetworkDatas.Count);
             }
         }
 

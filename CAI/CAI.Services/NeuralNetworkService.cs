@@ -2,6 +2,7 @@
 {
     using DeepLearning;
     using System;
+    using System.IO;
     using Base;
     using Common.CustomExceptions;
     using Common.Enums;
@@ -40,10 +41,23 @@
             };
 
             this.Data.NeuralNetworkDataRepository.Add(networkDataModel);
-            //this.Data.BotRepository.Update(bot);
             this.Data.SaveChanges();
 
             return networkDataModel.Id;
+        }
+
+        public NeuralNetwork LoadNeuralNetwork(long id)
+        {
+            var networkData = this.FindNeuralNetworkData(id);
+
+            NeuralNetwork network;
+
+            using (var stream = new MemoryStream(networkData.Data))
+            {
+                network = new NeuralNetwork(stream);
+            }
+
+            return network;
         }
 
         public void TestNetwork(NeuralNetwork network, double[][] inputs, double[][] outputs)
@@ -54,18 +68,6 @@
 
                 Console.WriteLine($"{string.Join(" / ", result)} - Target: {string.Join(" / ", outputs[i])}");
             }
-        }
-
-        private Bot FindBot(long id)
-        {
-            var bot = this.Data.BotRepository.FindById(id);
-
-            if (bot == null)
-            {
-                throw new NotFoundException("Bot");
-            }
-
-            return bot;
         }
     }
 }

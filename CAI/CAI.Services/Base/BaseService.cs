@@ -1,7 +1,9 @@
 ﻿namespace CAI.Services.Base
 {
     using System;
+    using Common.CustomExceptions;
     using Data.Abstraction;
+    using Data.Models;
 
     public abstract class BaseService : IDisposable
     {
@@ -13,6 +15,30 @@
         }
 
         protected IUnitOfWork Data { get => this._data;  }
+
+        protected Bot FindBot(long id)
+        {
+            var bot = this.Data.BotRepository.FindById(id);
+
+            if (bot == null)
+            {
+                throw new NotFoundException("Bot");
+            }
+
+            return bot;
+        }
+
+        protected NeuralNetworkData FindNeuralNetworkData(long id)
+        {
+            var bot = this.Data.NeuralNetworkDataRepository.FindById(id);
+
+            if (bot == null)
+            {
+                throw new NotFoundException("Neural Network Data");
+            }
+
+            return bot;
+        }
 
         public void Dispose()
         {

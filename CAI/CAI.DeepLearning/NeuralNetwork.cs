@@ -10,7 +10,7 @@
 
     public class NeuralNetwork
     {
-        private readonly ActivationNetwork _network;
+        private readonly Network _network;
         private readonly double _sigmoidAlphaValue;
         private readonly Stopwatch _stopwatch;
         private bool _isLogging;
@@ -21,6 +21,14 @@
             this._isLogging = isLogging;
             this._stopwatch = new Stopwatch();
             this._network = this.GenerateNetwork(inputLayer, outputLayer);
+        }
+
+        public NeuralNetwork(MemoryStream stream, bool isLogging = false)
+        {
+            this._sigmoidAlphaValue = 2;
+            this._isLogging = isLogging;
+            this._stopwatch = new Stopwatch();
+            this._network = this.LoadNetwork(stream);
         }
 
         public bool IsLogging
@@ -39,7 +47,7 @@
             this.Log("Started learning...");
             this.StartStopwatch();
 
-            BackPropagationLearning teacher = new BackPropagationLearning(this._network);
+            BackPropagationLearning teacher = new BackPropagationLearning((ActivationNetwork) this._network);
 
             bool isTraining = true;
             while (isTraining)
@@ -60,11 +68,15 @@
 
         public byte[] GetNetworkBytes()
         {
+            byte[] bytes;
+
             using (var stream = new MemoryStream())
             {
                 this._network.Save(stream);
-                return stream.ToArray();
+                bytes = stream.ToArray();
             }
+
+            return bytes;
         }
 
         public void TestNetwork(double[][] input)
@@ -75,6 +87,11 @@
 
                 this.Log(string.Join(" / ", result));
             }
+        }
+
+        private Network LoadNetwork(MemoryStream stream)
+        {
+            return Network.Load(stream);
         }
 
         private ActivationNetwork GenerateNetwork(int inputLayer, int outputLayer)

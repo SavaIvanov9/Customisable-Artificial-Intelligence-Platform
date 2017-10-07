@@ -79,17 +79,5 @@
                 throw new ExistingObjectException("Bot", "Use different name!");
             }
         }
-
-        private Bot FindBot(long id)
-        {
-            var bot = this.Data.BotRepository.FindById(id);
-
-            if (bot == null)
-            {
-                throw new NotFoundException("Bot");
-            }
-
-            return bot;
-        }
     }
 }
