@@ -7,7 +7,7 @@
     {
         IEnumerable<BotViewModel> GetAllBots();
 
-        long CreateNewBot(BotCreateModel model, string createdBy);
+        long RegisterNewBot(BotCreateModel model, string createdBy);
 
         bool EditBot(BotCreateModel model, long id, string modifiedBy);
 

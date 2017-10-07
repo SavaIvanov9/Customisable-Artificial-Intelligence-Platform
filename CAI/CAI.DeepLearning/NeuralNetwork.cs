@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using AForge.Neuro;
     using AForge.Neuro.Learning;
@@ -55,6 +56,15 @@
             this.Log($"Target rate: {errorRate}");
             this.Log("----------------------------");
             this.StopStopwatch();
+        }
+
+        public byte[] GetNetworkBytes()
+        {
+            using (var stream = new MemoryStream())
+            {
+                this._network.Save(stream);
+                return stream.ToArray();
+            }
         }
 
         public void TestNetwork(double[][] input)

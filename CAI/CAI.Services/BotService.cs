@@ -33,7 +33,7 @@
             return result;
         }
 
-        public long CreateNewBot(BotCreateModel model, string createdBy)
+        public long RegisterNewBot(BotCreateModel model, string createdBy)
         {
             this.CheckForExistingName(model.Name);
 

@@ -2,6 +2,7 @@
 {
     public enum NeuralNetworkType
     {
+        Test,
         IntentionRecognition
     }
 }

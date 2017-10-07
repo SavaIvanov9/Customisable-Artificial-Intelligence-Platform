@@ -6,8 +6,10 @@
 
     public class NeuralNetworkData : DataModel
     {
-        [MaxLength]
-        public string Data { get; set; }
+        //[MaxLength]
+        //public string Data { get; set; }
+
+        public byte[] Data { get; set; }
 
         [Required]
         [ForeignKey("Bot")]

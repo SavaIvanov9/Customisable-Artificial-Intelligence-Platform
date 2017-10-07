@@ -4,43 +4,56 @@
     using System.Diagnostics;
     using System.IO;
     using AForge.Neuro;
+    using Common.Enums;
+    using Data;
+    using Data.Filtering;
     using Services;
 
     public class NeuralNetworkModule
     {
-        private readonly NeuralNetworkService _nnService = new NeuralNetworkService();
-
         public void Start()
         {
-            double[][] input = new double[][] {
-                new double[] { 1, 1, 1, 0, 0, 0, 0, 0, 0 },
-                new double[] { 0, 0, 0, 1, 1, 1, 0, 0, 0 },
+            using (var uw = new UnitOfWork())
+            {
+                var nnService = new NeuralNetworkService(uw);
 
-                new double[] { 1, 0, 0, 0, 0, 0, 1, 1, 0 },
-                new double[] { 0, 1, 1, 0, 0, 0, 0, 1, 1 },
-            };
+                double[][] input = new double[][]
+                {
+                    new double[] {1, 1, 1, 0, 0, 0, 0, 0, 0},
+                    new double[] {0, 0, 0, 1, 1, 1, 0, 0, 0},
 
-            double[][] output = new double[][] {
-                new double[] {1, 0},
-                new double[] {1, 0},
-                new double[] {0, 1},
-                new double[] {0, 1}
-            };
+                    new double[] {1, 0, 0, 0, 0, 0, 1, 1, 0},
+                    new double[] {0, 1, 1, 0, 0, 0, 0, 1, 1},
+                };
 
-            var network = this._nnService.GenerateNetwork(input[0].Length, output[0].Length, true);
+                double[][] output = new double[][]
+                {
+                    new double[] {1, 0},
+                    new double[] {1, 0},
+                    new double[] {0, 1},
+                    new double[] {0, 1}
+                };
 
-            Console.ReadLine();
+                var network = nnService.GenerateNetwork(input[0].Length, output[0].Length, true);
 
-            this._nnService.TrainNetwork(network, input, output, 0.001);
+                Console.ReadLine();
 
-            //var network = this.LoadNetwork();
+                nnService.TrainNetwork(network, input, output, 0.001);
 
-            this._nnService.TestNetwork(network, input, output);
+                //var network = this.LoadNetwork();
 
-            //using (var fileStream = File.Create("test1.txt"))
-            //{
-            //    network.Save(fileStream);
-            //}
+                nnService.TestNetwork(network, input, output);
+
+                //using (var fileStream = File.Create("test1.txt"))
+                //{
+                //    network.Save(fileStream);
+                //}
+
+                var id = nnService.RegisterNewNetwork(network, 1, "admin", NeuralNetworkType.Test);
+                Console.WriteLine(id);
+                var bot = uw.BotRepository.FindFirstByFilter(new BotFilter() { Id = 1 });
+                Console.WriteLine(bot.NeuralNetworkDatas.Count);
+            }
         }
 
         private Network LoadNetwork()
