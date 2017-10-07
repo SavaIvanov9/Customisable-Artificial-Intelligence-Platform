@@ -91,6 +91,10 @@
       <Project>{0f040a2e-83bd-47e2-ac76-a541f18799dc}</Project>
       <Name>CAI.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CAI.DeepLearning\CAI.DeepLearning.csproj">
+      <Project>{C6A7095F-7CDF-48F7-8BC3-0B371BDECDDC}</Project>
+      <Name>CAI.DeepLearning</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAI.Services.Abstraction\CAI.Services.Abstraction.csproj">
       <Project>{e1e198e3-b376-4e67-9056-690469ce9bbd}</Project>
       <Name>CAI.Services.Abstraction</Name>

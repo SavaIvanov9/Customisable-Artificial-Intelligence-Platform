@@ -8,7 +8,7 @@
 
     public class NeuralNetworkModule
     {
-        private NeuralNetworkService _nnService = new NeuralNetworkService();
+        private readonly NeuralNetworkService _nnService = new NeuralNetworkService();
 
         public void Start()
         {
@@ -27,24 +27,20 @@
                 new double[] {0, 1}
             };
 
-            var st = new Stopwatch();
-            st.Start();
+            var network = this._nnService.GenerateNetwork(input[0].Length, output[0].Length, true);
 
-            var network = this._nnService.GenerateNetwork(input[0].Length, output[0].Length);
             Console.ReadLine();
-            this._nnService.TrainNetwork(network, input, output, 0.0001);
+
+            this._nnService.TrainNetwork(network, input, output, 0.001);
 
             //var network = this.LoadNetwork();
 
-            st.Stop();
-            Console.WriteLine(st.Elapsed);
+            this._nnService.TestNetwork(network, input, output);
 
-            this._nnService.TestNN(network, input);
-
-            using (var fileStream = File.Create("test1.txt"))
-            {
-                network.Save(fileStream);
-            }
+            //using (var fileStream = File.Create("test1.txt"))
+            //{
+            //    network.Save(fileStream);
+            //}
         }
 
         private Network LoadNetwork()
