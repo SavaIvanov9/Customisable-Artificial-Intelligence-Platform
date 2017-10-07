@@ -11,35 +11,35 @@
     {
         private double _sigmoidAlphaValue = 2;
 
-        public void Start()
-        {
-            double[][] input = new double[][] {
-                new double[] { 1, 1, 1, 0, 0, 0, 0, 0, 0 },
-                new double[] { 0, 0, 0, 1, 1, 1, 0, 0, 0 },
+        //public void Start()
+        //{
+        //    double[][] input = new double[][] {
+        //        new double[] { 1, 1, 1, 0, 0, 0, 0, 0, 0 },
+        //        new double[] { 0, 0, 0, 1, 1, 1, 0, 0, 0 },
 
-                new double[] { 1, 0, 0, 0, 0, 0, 1, 1, 0 },
-                new double[] { 0, 1, 1, 0, 0, 0, 0, 1, 1 },
-            };
+        //        new double[] { 1, 0, 0, 0, 0, 0, 1, 1, 0 },
+        //        new double[] { 0, 1, 1, 0, 0, 0, 0, 1, 1 },
+        //    };
 
-            double[][] output = new double[][] {
-                new double[] {1, 0},
-                new double[] {1, 0},
-                new double[] {0, 1},
-                new double[] {0, 1}
-            };
+        //    double[][] output = new double[][] {
+        //        new double[] {1, 0},
+        //        new double[] {1, 0},
+        //        new double[] {0, 1},
+        //        new double[] {0, 1}
+        //    };
 
-            var st = new Stopwatch();
-            st.Start();
+        //    var st = new Stopwatch();
+        //    st.Start();
 
-            var network = this.GenerateNetwork(input[0].Length, output[0].Length);
-            Console.ReadLine();
-            this.TrainNetwork(network, input, output, 0.0001);
+        //    var network = this.GenerateNetwork(input[0].Length, output[0].Length);
+        //    Console.ReadLine();
+        //    this.TrainNetwork(network, input, output, 0.0001);
 
-            st.Stop();
-            Console.WriteLine(st.Elapsed);
+        //    st.Stop();
+        //    Console.WriteLine(st.Elapsed);
 
-            this.TestNN(network, input);
-        }
+        //    this.TestNN(network, input);
+        //}
 
         public ActivationNetwork GenerateNetwork(int inputLayer, int outputLayer)
         {

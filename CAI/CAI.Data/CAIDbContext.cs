@@ -17,7 +17,7 @@
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<CaiDbContext, Configuration>());
 
-            //Database.SetInitializer(new DropCreateDatabaseAlways<ManagementSystemDbContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<CaiDbContext>());
         }
 
         public virtual IDbSet<Bot> Bots { get; set; }
@@ -25,6 +25,8 @@
         public virtual IDbSet<Intention> Intentions { get; set; }
 
         public virtual IDbSet<ActivationKey> ActivationKeys { get; set; }
+
+        public virtual IDbSet<NeuralNetworkData> NeuralNetworkDatas { get; set; }
 
         public new IDbSet<T> Set<T>() where T : class
         {

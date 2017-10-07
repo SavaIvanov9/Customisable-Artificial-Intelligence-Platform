@@ -45,6 +45,7 @@
     <Compile Include="CustomExceptions\NotFoundException.cs" />
     <Compile Include="Enums\BotType.cs" />
     <Compile Include="Enums\EnvironmentType.cs" />
+    <Compile Include="Enums\NeuralNetworkType.cs" />
     <Compile Include="Enums\UserRoleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

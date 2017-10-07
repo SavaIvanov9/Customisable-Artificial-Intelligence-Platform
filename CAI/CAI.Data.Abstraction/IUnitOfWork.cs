@@ -1,7 +1,6 @@
 ﻿namespace CAI.Data.Abstraction
 {
     using System.Threading.Tasks;
-    using CAI.Data.Models;
     using Repositories;
     using System;
 
@@ -14,6 +13,8 @@
         IIntentionRepository IntentionRepository { get; }
 
         IActivationKeyRepository ActivationKeyRepository { get; }
+
+        INeuralNetworkDataRepository NeuralNetworkDataRepository { get; }
 
         int SaveChanges();
 

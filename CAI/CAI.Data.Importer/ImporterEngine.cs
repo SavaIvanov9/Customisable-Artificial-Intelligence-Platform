@@ -5,6 +5,7 @@
     using Models;
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     public class ImporterEngine
@@ -15,6 +16,8 @@
 
         public void Start()
         {
+            Database.SetInitializer(new DropCreateDatabaseAlways<CaiDbContext>());
+
             using (IUnitOfWork db = new UnitOfWork())
             {
                 this.DisplayDbStatus(db);

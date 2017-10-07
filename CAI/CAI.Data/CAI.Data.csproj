@@ -63,6 +63,7 @@
     <Compile Include="Repositories\ActivationKeyRepository.cs" />
     <Compile Include="Repositories\BotRepository.cs" />
     <Compile Include="Repositories\IntentionRepository.cs" />
+    <Compile Include="Repositories\NeuralNetworkDataRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

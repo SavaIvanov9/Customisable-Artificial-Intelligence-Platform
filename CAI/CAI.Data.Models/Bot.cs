@@ -9,10 +9,12 @@
     public class Bot : DataModel
     {
         private ICollection<Intention> _intentions;
+        private ICollection<NeuralNetworkData> _neuralNetworkDatas;
 
         public Bot()
         {
             this._intentions = new HashSet<Intention>();
+            this._neuralNetworkDatas = new HashSet<NeuralNetworkData>();
         }
 
         [Index("Name", IsUnique = true)]
@@ -29,6 +31,12 @@
         {
             get => this._intentions;
             set => this._intentions = value;
+        }
+
+        public virtual ICollection<NeuralNetworkData> NeuralNetworkDatas
+        {
+            get => this._neuralNetworkDatas;
+            set => this._neuralNetworkDatas = value;
         }
     }
 }

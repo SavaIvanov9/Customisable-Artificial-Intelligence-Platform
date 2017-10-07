@@ -31,6 +31,8 @@
 
         public IActivationKeyRepository ActivationKeyRepository => (ActivationKeyRepository)this.GetDataRepository<ActivationKey>();
 
+        public INeuralNetworkDataRepository NeuralNetworkDataRepository => (NeuralNetworkDataRepository)this.GetDataRepository<NeuralNetworkData>();
+
         public IUserRepository UserRepository => (UserRepository)this.GetAuditableRepository<User>();
         
         public int SaveChanges()
@@ -84,7 +86,9 @@
             else if (repositoryType.IsAssignableFrom(typeof(Intention)))
                 type = typeof(IntentionRepository);
             else if (repositoryType.IsAssignableFrom(typeof(ActivationKey)))
-                type = typeof(ActivationKey);
+                type = typeof(ActivationKeyRepository);
+            else if (repositoryType.IsAssignableFrom(typeof(NeuralNetworkData)))
+                type = typeof(NeuralNetworkDataRepository);
         }
 
         public void Dispose()

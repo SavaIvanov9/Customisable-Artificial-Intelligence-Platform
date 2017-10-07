@@ -60,6 +60,7 @@
     <Compile Include="Bot.cs" />
     <Compile Include="Abstraction\IDataModel.cs" />
     <Compile Include="Intention.cs" />
+    <Compile Include="NeuralNetworkData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
