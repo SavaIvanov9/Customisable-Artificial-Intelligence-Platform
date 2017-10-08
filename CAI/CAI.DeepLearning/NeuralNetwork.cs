@@ -42,7 +42,7 @@
             return this._network.Compute(input);
         }
 
-        public void TrainNetwork(double[][] input, double[][] output, double errorRate = 0.001)
+        public void TrainNetwork(double[][] input, double[][] output, double errorRate = 0.01)
         {
             this.Log("Started learning...");
             this.StartStopwatch();

@@ -10,11 +10,13 @@
     {
         private ICollection<Intention> _intentions;
         private ICollection<NeuralNetworkData> _neuralNetworkDatas;
+        private ICollection<TrainingData> _trainingDatas;
 
         public Bot()
         {
             this._intentions = new HashSet<Intention>();
             this._neuralNetworkDatas = new HashSet<NeuralNetworkData>();
+            this._trainingDatas = new HashSet<TrainingData>();
         }
 
         [Index("Name", IsUnique = true)]
@@ -22,10 +24,10 @@
         public string Name { get; set; }
 
         [Required]
-        public BotType BotType { get; set; }
+        public string BotType { get; set; }
 
         [Required]
-        public EnvironmentType EnvironmentType { get; set; }
+        public string EnvironmentType { get; set; }
 
         public virtual ICollection<Intention> Intentions
         {
@@ -37,6 +39,12 @@
         {
             get => this._neuralNetworkDatas;
             set => this._neuralNetworkDatas = value;
+        }
+
+        public virtual ICollection<TrainingData> TrainingDatas
+        {
+            get => this._trainingDatas;
+            set => this._trainingDatas = value;
         }
     }
 }

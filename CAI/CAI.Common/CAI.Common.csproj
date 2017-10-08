@@ -43,6 +43,8 @@
     <Compile Include="CustomExceptions\Base\CustomException.cs" />
     <Compile Include="CustomExceptions\ExistingObjectException.cs" />
     <Compile Include="CustomExceptions\NotFoundException.cs" />
+    <Compile Include="CustomExceptions\NotMatchingTypeException.cs" />
+    <Compile Include="CustomExceptions\NotRecognizedException.cs" />
     <Compile Include="Enums\BotType.cs" />
     <Compile Include="Enums\EnvironmentType.cs" />
     <Compile Include="Enums\NeuralNetworkType.cs" />

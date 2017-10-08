@@ -12,6 +12,7 @@ namespace CAI.IoC
     using Services.Abstraction;
     using System;
     using System.Web;
+    using Services.Bots;
 
     public static class WebContainer
     {
@@ -83,7 +84,8 @@ namespace CAI.IoC
 
             //Services
             kernel.Bind<ITestService>().To<TestService>();
-            kernel.Bind<IBotService>().To<BotService>();
+            kernel.Bind<INeuralNetworkService>().To<NeuralNetworkService>();
+            //kernel.Bind<IBotService>().To<BotService>();
         }
     }
 }

@@ -3,16 +3,31 @@
     using DeepLearning;
     using System;
     using System.IO;
+    using Abstraction;
     using Base;
     using Common.CustomExceptions;
     using Common.Enums;
     using Data.Abstraction;
     using Data.Models;
 
-    public class NeuralNetworkService : BaseService
+    public class NeuralNetworkService : BaseService, INeuralNetworkService
     {
         public NeuralNetworkService(IUnitOfWork data) : base(data)
         {
+        }
+
+        public NeuralNetworkData GenerateIntentionRecognitionNeuralNetworkData(
+            int inputLayer, int outputLayer)
+        {
+            var neuralNetwork = this.GenerateNetwork(inputLayer, outputLayer);
+
+            var neuralNetworkData = new NeuralNetworkData()
+            {
+                Type = NeuralNetworkType.IntentionRecognition.ToString(),
+                Data = neuralNetwork.GetNetworkBytes()
+            };
+
+            return neuralNetworkData;
         }
 
         public NeuralNetwork GenerateNetwork(int inputLayer, int outputLayer, bool isLogging = false)
@@ -20,8 +35,7 @@
             return new NeuralNetwork(inputLayer, outputLayer, isLogging);
         }
 
-        public void TrainNetwork(NeuralNetwork network, double[][] input, double[][] output,
-            double errorRate)
+        public void TrainNetwork(NeuralNetwork network, double[][] input, double[][] output, double errorRate = 0.01)
         {
             network.TrainNetwork(input, output, errorRate);
         }

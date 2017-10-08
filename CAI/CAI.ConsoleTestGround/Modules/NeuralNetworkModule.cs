@@ -34,11 +34,11 @@
                     new double[] {0, 1}
                 };
 
-                //var network = nnService.GenerateNetwork(input[0].Length, output[0].Length, true);
-                //Console.ReadLine();
-                //nnService.TrainNetwork(network, input, output, 0.001);
+                var network = nnService.GenerateNetwork(input[0].Length, output[0].Length, true);
+                Console.ReadLine();
+                nnService.TrainNetwork(network, input, output, 0.001);
 
-                var network = nnService.LoadNeuralNetwork(1);
+                //var network = nnService.LoadNeuralNetwork(1);
 
                 nnService.TestNetwork(network, input, output);
 

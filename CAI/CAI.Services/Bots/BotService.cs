@@ -1,23 +1,24 @@
-﻿namespace CAI.Services
+﻿namespace CAI.Services.Bots
 {
     using System;
-    using Abstraction;
-    using Base;
-    using Data.Abstraction;
-    using Models.Bot;
     using System.Collections.Generic;
     using System.Linq;
+    using Abstraction;
+    using Base;
     using Common.CustomExceptions;
+    using Common.Enums;
+    using Data.Abstraction;
     using Data.Filtering;
     using Data.Models;
+    using Models.Bot;
 
-    public class BotService : BaseService, IBotService
+    public abstract class BotService : BaseService//, IBotService
     {
-        public BotService(IUnitOfWork data) : base(data)
+        protected BotService(IUnitOfWork data) : base(data)
         {
         }
 
-        public IEnumerable<BotViewModel> GetAllBots()
+        protected IEnumerable<BotViewModel> GetAllBots()
         {
             var result = this.Data.BotRepository
                 .All()
@@ -33,15 +34,9 @@
             return result;
         }
 
-        public long RegisterNewBot(BotCreateModel model, string createdBy)
+        protected long RegisterNewBot(Bot bot)
         {
-            this.CheckForExistingName(model.Name);
-
-            var bot = new Bot()
-            {
-                CreatedBy = createdBy,
-                Name = model.Name
-            };
+            this.CheckForExistingName(bot.Name);
 
             this.Data.BotRepository.Add(bot);
             this.Data.SaveChanges();
@@ -49,7 +44,7 @@
             return bot.Id;
         }
 
-        public bool EditBot(BotCreateModel model, long id, string modifiedBy)
+        protected bool EditBot(BotCreateModel model, long id, string modifiedBy)
         {
             this.CheckForExistingName(model.Name);
 
@@ -62,7 +57,7 @@
             return Convert.ToBoolean(this.Data.SaveChanges());
         }
 
-        public bool DeleteBot(long id, string deletedBy)
+        protected bool DeleteBot(long id, string deletedBy)
         {
             var bot = this.FindBot(id);
 
@@ -72,7 +67,7 @@
             return Convert.ToBoolean(this.Data.SaveChanges());
         }
 
-        private void CheckForExistingName(string name)
+        protected void CheckForExistingName(string name)
         {
             if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
             {

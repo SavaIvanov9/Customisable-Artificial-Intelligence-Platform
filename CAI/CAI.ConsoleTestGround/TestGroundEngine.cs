@@ -8,13 +8,16 @@
     using Data.Filtering;
     using Modules;
     using Services;
+    using Services.Bots;
 
     public class TestGroundEngine
     {
         public void Start()
         {
-            var nnModule = new NeuralNetworkModule();
-            nnModule.Start();
+            //var module = new NeuralNetworkModule();
+            var module = new NLPModule();
+
+            module.Start();
         }
 
         private void TestDb()

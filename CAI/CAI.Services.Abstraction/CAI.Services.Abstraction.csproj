@@ -42,13 +42,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBotService.cs" />
+    <Compile Include="INeuralNetworkService.cs" />
     <Compile Include="ITestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CAI.Common\CAI.Common.csproj">
+      <Project>{AB877EE0-95C6-4992-9001-1D6BC6F853AC}</Project>
+      <Name>CAI.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
       <Project>{E9779A9E-32AF-4DEE-B9CF-DC138CB45E2C}</Project>
       <Name>CAI.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.DeepLearning\CAI.DeepLearning.csproj">
+      <Project>{C6A7095F-7CDF-48F7-8BC3-0B371BDECDDC}</Project>
+      <Name>CAI.DeepLearning</Name>
     </ProjectReference>
     <ProjectReference Include="..\CAI.Services.Models\CAI.Services.Models.csproj">
       <Project>{13BD51F8-E798-4CD4-A7D5-B811AA3EC731}</Project>

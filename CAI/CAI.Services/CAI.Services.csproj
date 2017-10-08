@@ -65,8 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseService.cs" />
-    <Compile Include="BotService.cs" />
-    <Compile Include="IntentionAnalysisService.cs" />
+    <Compile Include="Bots\BotIntentionRecognitionService.cs" />
+    <Compile Include="Bots\BotService.cs" />
+    <Compile Include="IntentionService.cs" />
+    <Compile Include="LanguageProcessinService.cs" />
     <Compile Include="NeuralNetworkService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestService.cs" />
