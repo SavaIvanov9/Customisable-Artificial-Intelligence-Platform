@@ -16,10 +16,35 @@
     {
         public void Start()
         {
+            this.TestCompute();
+        }
+
+        private void TestCompute()
+        {
             using (var uw = new UnitOfWork())
             {
                 var neuralNetworkService = new NeuralNetworkService(uw);
-                var botService = new BotIntentionRecognitionService(uw, neuralNetworkService, new LanguageProcessingService());
+                var botService = new BotIntentionRecognitionService(uw,
+                    neuralNetworkService, new LanguageProcessingService());
+
+                var input = Console.ReadLine();
+
+                while (input != "-1")
+                {
+                    var result = botService.RecognizeIntention(12, input);
+                    Console.WriteLine($"{result.Id}: {result.Name}");
+                    input = Console.ReadLine();
+                }
+            }
+        }
+
+        private void TestCreateAndTrain()
+        {
+            using (var uw = new UnitOfWork())
+            {
+                var neuralNetworkService = new NeuralNetworkService(uw);
+                var botService =
+                    new BotIntentionRecognitionService(uw, neuralNetworkService, new LanguageProcessingService());
                 //{ "i", "like", "pizza", "eat", "lunch", "every", "day"})
                 //{"i", "am", "name", "is", "hello", "hi", "how", "are", "you", "who", "what"})
                 Console.WriteLine("Creating new bot started...");
@@ -61,7 +86,6 @@
                 Console.WriteLine(result);
             }
         }
-
 
         private ICollection<IntentionCreateModel> GenerateSampleIntentions()
         {
@@ -134,3 +158,4 @@
         }
     }
 }
+

@@ -48,6 +48,7 @@
     <Compile Include="Bot\BotCreateModel.cs" />
     <Compile Include="Bot\BotViewModel.cs" />
     <Compile Include="Intention\IntentionCreateModel.cs" />
+    <Compile Include="Intention\IntentionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrainingData\TrainingDataCreateModel.cs" />
   </ItemGroup>

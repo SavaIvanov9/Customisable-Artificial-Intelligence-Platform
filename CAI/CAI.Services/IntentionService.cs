@@ -17,7 +17,10 @@
         {
         }
 
-        //public IEnumerable<In>
+        //public Intention FindIntention(long id)
+        //{
+            
+        //}
 
         //public long RegisterNewIntention(BotCreateModel model, string createdBy)
         //{

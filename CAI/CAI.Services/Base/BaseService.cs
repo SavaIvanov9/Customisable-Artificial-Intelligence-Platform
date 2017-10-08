@@ -28,6 +28,18 @@
             return bot;
         }
 
+        protected Intention FindIntention(long id)
+        {
+            var intention = this.Data.IntentionRepository.FindById(id);
+
+            if (intention == null)
+            {
+                throw new NotFoundException("Intention");
+            }
+
+            return intention;
+        }
+
         protected NeuralNetworkData FindNeuralNetworkData(long id)
         {
             var bot = this.Data.NeuralNetworkDataRepository.FindById(id);

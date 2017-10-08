@@ -20,6 +20,12 @@
                 .AsEnumerable<ActivationKey>();
         }
         
+        //public IEnumerable<ActivationKey> FindAllByNames(long botId, bool isDeleted = false)
+        //{
+        //    return this.Set
+        //        .Where(x => x && x.IsDeleted == isDeleted)
+        //        .AsEnumerable<ActivationKey>();
+        //}
     }
 }
 

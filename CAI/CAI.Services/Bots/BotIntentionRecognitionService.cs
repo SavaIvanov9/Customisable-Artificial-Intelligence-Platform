@@ -12,6 +12,7 @@
     using Data.Abstraction;
     using Data.Models;
     using Models.Bot;
+    using Models.Intention;
 
     public class BotIntentionRecognitionService : BotService
     {
@@ -143,6 +144,39 @@
             return Convert.ToBoolean(this.Data.SaveChanges());
         }
 
+        public IntentionViewModel RecognizeIntention(long botId, string inputText)
+        {
+            var bot = this.FindBot(botId);
+            var networkData = bot.NeuralNetworkDatas.FirstOrDefault(x => x.Type == NeuralNetworkType.IntentionRecognition.ToString());
+
+            if (networkData == null)
+            {
+                throw new NotFoundException("Network data");
+            }
+
+            var knownKeys = this.ExtractKeys(bot);
+            var values = this._languageProcessinService
+                .Tokenize(inputText, false)
+                .Select(x => x.ToLower());
+
+            var input = knownKeys.Select(x => values.Contains(x) ? 1d : 0d).ToArray();
+            var network = this._neuralNetworkService.LoadNeuralNetwork(networkData.Data);
+
+            var output = network.Compute(input);
+            Console.WriteLine(string.Join(" ", output));
+
+            var max = output.Max();
+            var intentionId = output.ToList().FindIndex(x => Math.Abs(x - max) < 0.001);
+
+            var intention = this.FindIntention(intentionId + 1);
+
+            return new IntentionViewModel()
+            {
+                Id = intention.Id,
+                Name = intention.Name
+            };
+        }
+
         private NeuralNetworkData GenerateIntentionRecognizerBotNetwork(BotCreateModel bot)
         {
             var inputLayer = 0;
@@ -182,8 +216,6 @@
 
             foreach (var pair in data)
             {
-                var line = new List<double>();
-
                 var values = this._languageProcessinService
                     .Tokenize(pair.Key, false)
                     .Select(x => x.ToLower());
