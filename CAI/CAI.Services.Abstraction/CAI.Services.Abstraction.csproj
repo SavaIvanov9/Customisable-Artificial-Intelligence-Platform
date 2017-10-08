@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="IBotService.cs" />
     <Compile Include="IIntentionService.cs" />
-    <Compile Include="ILanguageProcessinService.cs" />
+    <Compile Include="ILanguageProcessingService.cs" />
     <Compile Include="INeuralNetworkService.cs" />
     <Compile Include="ITestService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

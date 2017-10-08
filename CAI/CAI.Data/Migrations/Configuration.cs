@@ -5,6 +5,7 @@ namespace CAI.Data.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Text;
     using Common.Enums;
     using Models;
 
@@ -58,17 +59,17 @@ namespace CAI.Data.Migrations
         {
             return new[]
             {
-                new Bot
-                {
-                    Name = "Intention Recognizer Test Bot",
-                    EnvironmentType = EnvironmentType.Test.ToString(),
-                    BotType = BotType.IntentionRecognizer.ToString(),
-                    CreatedOn = DateTime.Now,
-                    CreatedBy = UserRoleType.Admin.ToString(),
-                    IsDeleted = false,
-                    Intentions = this.GenerateSampleIntentions()
+                //new Bot
+                //{
+                //    Name = "Intention Recognizer Test Bot",
+                //    EnvironmentType = EnvironmentType.Test.ToString(),
+                //    BotType = BotType.IntentionRecognizer.ToString(),
+                //    CreatedOn = DateTime.Now,
+                //    CreatedBy = UserRoleType.Admin.ToString(),
+                //    IsDeleted = false,
+                //    Intentions = this.GenerateSampleIntentions()
 
-                },
+                //},
                 new Bot
                 {
                     Name = "Information Finder Test Bot",
@@ -78,6 +79,16 @@ namespace CAI.Data.Migrations
                     CreatedBy = UserRoleType.Admin.ToString(),
                     IsDeleted = false,
                     //Intentions = this.GenerateSampleIntentions()
+                    NeuralNetworkDatas = new List<NeuralNetworkData>()
+                    {
+                        new NeuralNetworkData()
+                        {
+                            CreatedOn = DateTime.Now,
+                            CreatedBy = UserRoleType.Admin.ToString(),
+                            Type = NeuralNetworkType.Test.ToString(),
+                            Data =  Encoding.ASCII.GetBytes("test")
+                        }
+                    }
                 }
             };
         }

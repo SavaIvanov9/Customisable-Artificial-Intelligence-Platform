@@ -3,7 +3,7 @@
     using System;
     using Abstraction;
 
-    public class LanguageProcessinService : ILanguageProcessinService
+    public class LanguageProcessingService : ILanguageProcessingService
     {
         // Use this to keep digits. 
         private readonly char[] _delimitersKeepDigits = new char[] {

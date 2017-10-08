@@ -32,5 +32,15 @@
         {
             return base.Set<T>();
         }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+
+        //    modelBuilder.Entity<NeuralNetworkData>()
+        //        .HasRequired(w => w.Bot)
+        //        .WithMany()
+        //        .Map(m => m.MapKey("Id"));
+        //}
     }
 }

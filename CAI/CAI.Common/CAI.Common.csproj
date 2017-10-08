@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomExceptions\Base\CustomException.cs" />
+    <Compile Include="CustomExceptions\UnsuccessfulOperationException.cs" />
     <Compile Include="CustomExceptions\ExistingObjectException.cs" />
     <Compile Include="CustomExceptions\NotFoundException.cs" />
     <Compile Include="CustomExceptions\NotMatchingTypeException.cs" />

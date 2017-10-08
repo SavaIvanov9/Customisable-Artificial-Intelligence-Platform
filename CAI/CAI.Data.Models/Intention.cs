@@ -17,6 +17,13 @@
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        [ForeignKey("Bot")]
+        public long BotId { get; set; }
+
+        [Required]
+        public Bot Bot { get; set; }
+
         public virtual ICollection<ActivationKey> ActivationKeys
         {
             get => this._activationKeys;

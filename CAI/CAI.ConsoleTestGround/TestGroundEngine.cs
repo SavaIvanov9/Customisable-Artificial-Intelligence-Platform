@@ -14,8 +14,9 @@
     {
         public void Start()
         {
+            var module = new BotModule();
             //var module = new NeuralNetworkModule();
-            var module = new NLPModule();
+            //var module = new NLPModule();
 
             module.Start();
         }
@@ -35,15 +36,6 @@
             var bots = db.BotRepository.FindAllByFilter(new BotFilter { IsDeleted = false});
 
             Console.WriteLine(bots.Count());
-        }
-
-        private void TestBotService(IUnitOfWork db)
-        {
-            var service = new BotService(db);
-
-            //var bots = service
-
-            Console.WriteLine();
         }
     }
 }

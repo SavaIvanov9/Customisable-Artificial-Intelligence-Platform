@@ -1,9 +1,16 @@
 ﻿namespace CAI.ConsoleTestGround.Modules
 {
     using System;
+    using System.Collections.Generic;
+    using System.Runtime.Hosting;
+    using Common.Enums;
     using Data;
+    using Data.Models;
     using Services;
     using Services.Bots;
+    using Services.Models.ActivationKey;
+    using Services.Models.Bot;
+    using Services.Models.Intention;
 
     public class BotModule
     {
@@ -12,11 +19,80 @@
             using (var uw = new UnitOfWork())
             {
                 var neuralNetworkService = new NeuralNetworkService(uw);
-                var botService = new BotIntentionRecognitionService(uw, neuralNetworkService);
+                var botService = new BotIntentionRecognitionService(uw, neuralNetworkService, new LanguageProcessingService());
+                //{ "i", "like", "pizza", "eat", "lunch", "every", "day"})
+                //{"i", "am", "name", "is", "hello", "hi", "how", "are", "you", "who", "what"})
+                Console.WriteLine("Creating new bot started...");
 
+                var botModel = new BotCreateModel()
+                {
+                    Name = "Pizza lover bot",
+                    BotType = BotType.IntentionRecognizer,
+                    EnvironmentType = EnvironmentType.Test,
+                    Intentions = this.GenerateSampleIntentions()
+                };
 
-               
+                var id = botService.RegisterNewIntentionRecognitionBot(botModel, "admin");
+
+                Console.WriteLine("Creating new bot done.");
+                Console.WriteLine();
+                Console.WriteLine("Training started...");
+
+                var trainingData = new Dictionary<string, long>()
+                {
+                    { "i like pizza", 1 },
+                    { "i lunch pizza", 1 },
+                    { "i eat pizza every day", 1 },
+                    { "i lunch pizza every day", 1 },
+                    { "i like pizza for lunch", 1 },
+                    { "every day is pizza day", 1 },
+
+                    { "i am john", 2 },
+                    { "my name is john", 2 },
+                    { "who are you", 2 },
+                    { "how are you", 2 },
+                    { "hi", 2 },
+                    { "hello", 2 }
+                 };
+
+                var result = botService.TrainIntentionRecognitionBot(id, trainingData);
+
+                Console.WriteLine("Training done...");
+                Console.WriteLine(result);
             }
+        }
+
+
+        private ICollection<IntentionCreateModel> GenerateSampleIntentions()
+        {
+            return new HashSet<IntentionCreateModel>
+            {
+                new IntentionCreateModel()
+                {
+                    Name = "Love pizza",
+                    ActivationKeys = this.GenerateSampleActivationKeys(new [] {"i", "like", "pizza", "eat", "lunch", "every", "day"})
+                },
+                new IntentionCreateModel()
+                {
+                    Name = "Introduction",
+                    ActivationKeys = this.GenerateSampleActivationKeys(new [] {"i", "am", "name", "is", "hello", "hi", "how", "are", "you", "who", "what"})
+                },
+            };
+        }
+
+        private ICollection<ActivationKeyCreateModel> GenerateSampleActivationKeys(string[] values)
+        {
+            var result = new HashSet<ActivationKeyCreateModel>();
+
+            foreach (var value in values)
+            {
+                result.Add(new ActivationKeyCreateModel()
+                {
+                    Name = value
+                });
+            }
+
+            return result;
         }
 
         private void Test()

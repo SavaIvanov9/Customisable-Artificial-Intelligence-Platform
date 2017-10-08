@@ -1,6 +1,6 @@
 ﻿namespace CAI.Services.Abstraction
 {
-    public interface ILanguageProcessinService
+    public interface ILanguageProcessingService
     {
         string[] GreedyTokenize(string text);
 
