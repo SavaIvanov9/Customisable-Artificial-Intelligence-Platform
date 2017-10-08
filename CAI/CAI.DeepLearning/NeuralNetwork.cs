@@ -42,7 +42,7 @@
             return this._network.Compute(input);
         }
 
-        public void TrainNetwork(double[][] input, double[][] output, double errorRate = 0.01)
+        public bool TrainNetwork(double[][] input, double[][] output, double errorRate = 0.01)
         {
             this.Log("Started learning...");
             this.StartStopwatch();
@@ -64,6 +64,8 @@
             this.Log($"Target rate: {errorRate}");
             this.Log("----------------------------");
             this.StopStopwatch();
+
+            return true;
         }
 
         public byte[] GetNetworkBytes()

@@ -43,7 +43,7 @@ namespace CAI.Data.Migrations
 
         private void SeedTestBots(CaiDbContext context, int count)
         {
-            if (!context.Bots.Any(b => b.EnvironmentType == EnvironmentType.Test))
+            if (!context.Bots.Any(b => b.EnvironmentType == EnvironmentType.Test.ToString()))
             {
                 var testBots = this.GenerateSampleBots(count);
 
@@ -61,8 +61,8 @@ namespace CAI.Data.Migrations
                 new Bot
                 {
                     Name = "Intention Recognizer Test Bot",
-                    EnvironmentType = EnvironmentType.Test,
-                    BotType = BotType.IntentionRecognizer,
+                    EnvironmentType = EnvironmentType.Test.ToString(),
+                    BotType = BotType.IntentionRecognizer.ToString(),
                     CreatedOn = DateTime.Now,
                     CreatedBy = UserRoleType.Admin.ToString(),
                     IsDeleted = false,
@@ -72,8 +72,8 @@ namespace CAI.Data.Migrations
                 new Bot
                 {
                     Name = "Information Finder Test Bot",
-                    EnvironmentType = EnvironmentType.Test,
-                    BotType = BotType.InformationFinder,
+                    EnvironmentType = EnvironmentType.Test.ToString(),
+                    BotType = BotType.InformationFinder.ToString(),
                     CreatedOn = DateTime.Now,
                     CreatedBy = UserRoleType.Admin.ToString(),
                     IsDeleted = false,
@@ -91,8 +91,8 @@ namespace CAI.Data.Migrations
                     CreatedOn = DateTime.Now,
                     CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
-                    BotType = i % 2 == 0 ? BotType.IntentionRecognizer : BotType.InformationFinder,
-                    EnvironmentType = EnvironmentType.Production
+                    BotType = i % 2 == 0 ? BotType.IntentionRecognizer.ToString() : BotType.InformationFinder.ToString(),
+                    EnvironmentType = EnvironmentType.Production.ToString()
                 };
             }
         }

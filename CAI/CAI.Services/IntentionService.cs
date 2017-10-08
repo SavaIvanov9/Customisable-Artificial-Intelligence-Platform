@@ -17,21 +17,23 @@
         {
         }
 
-        public long RegisterNewIntention(BotCreateModel model, string createdBy)
-        {
-            //this.CheckForExistingName(model.Name);
+        //public IEnumerable<In>
 
-            var bot = new Bot()
-            {
-                CreatedBy = createdBy,
-                Name = model.Name
-            };
+        //public long RegisterNewIntention(BotCreateModel model, string createdBy)
+        //{
+        //    //this.CheckForExistingName(model.Name);
 
-            this.Data.BotRepository.Add(bot);
-            this.Data.SaveChanges();
+        //    var bot = new Bot()
+        //    {
+        //        CreatedBy = createdBy,
+        //        Name = model.Name
+        //    };
 
-            return bot.Id;
-        }
+        //    this.Data.BotRepository.Add(bot);
+        //    this.Data.SaveChanges();
+
+        //    return bot.Id;
+        //}
 
         //public bool EditBot(BotCreateModel model, long id, string modifiedBy)
         //{

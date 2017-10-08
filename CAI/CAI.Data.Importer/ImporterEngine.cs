@@ -51,8 +51,8 @@
                     CreatedOn = DateTime.Now,
                     CreatedBy = i % 2 == 0 ? "Test User 1" : "Test User 2",
                     Name = $"Test Name {i}",
-                    BotType = i % 2 == 0 ? BotType.IntentionRecognizer : BotType.InformationFinder,
-                    EnvironmentType = EnvironmentType.Production
+                    BotType = i % 2 == 0 ? BotType.IntentionRecognizer.ToString() : BotType.InformationFinder.ToString(),
+                    EnvironmentType = EnvironmentType.Production.ToString()
                 };
             }
         }

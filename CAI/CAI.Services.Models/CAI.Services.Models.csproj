@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationKey\ActivationKeyCreateModel.cs" />
+    <Compile Include="ActivationKey\ActivationKeyViewModel.cs" />
     <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Bot\BotCreateModel.cs" />
     <Compile Include="Bot\BotViewModel.cs" />

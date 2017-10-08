@@ -50,7 +50,7 @@
             return this.RegisterNewBot(bot);
         }
 
-        public bool TrainIntentionRecognitionBot(long id, double[][] input, double[][] output)
+        public bool TrainIntentionRecognitionBot(long id)
         {
             var bot = this.FindBot(id);
 
@@ -66,7 +66,7 @@
             {
                 throw new NotFoundException($"{NeuralNetworkType.IntentionRecognition.ToString()} neural network");
             }
-
+            
             var network = this._neuralNetworkService.LoadNeuralNetwork(networkData.Data);
             return this._neuralNetworkService.TrainNetwork(network, input, output);
         }

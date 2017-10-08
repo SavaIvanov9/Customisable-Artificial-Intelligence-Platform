@@ -35,9 +35,9 @@
             return new NeuralNetwork(inputLayer, outputLayer, isLogging);
         }
 
-        public void TrainNetwork(NeuralNetwork network, double[][] input, double[][] output, double errorRate = 0.01)
+        public bool TrainNetwork(NeuralNetwork network, double[][] input, double[][] output, double errorRate = 0.01)
         {
-            network.TrainNetwork(input, output, errorRate);
+            return network.TrainNetwork(input, output, errorRate);
         }
 
         public long RegisterNewNetwork(NeuralNetwork network, long botId, string createdBy, NeuralNetworkType networkType)
@@ -67,6 +67,18 @@
             NeuralNetwork network;
 
             using (var stream = new MemoryStream(networkData.Data))
+            {
+                network = new NeuralNetwork(stream);
+            }
+
+            return network;
+        }
+
+        public NeuralNetwork LoadNeuralNetwork(byte[] data)
+        {
+            NeuralNetwork network;
+
+            using (var stream = new MemoryStream(data))
             {
                 network = new NeuralNetwork(stream);
             }

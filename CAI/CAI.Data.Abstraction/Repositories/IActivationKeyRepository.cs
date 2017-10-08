@@ -6,6 +6,8 @@
 
     public interface IActivationKeyRepository : IDataRepository<ActivationKey>
     {
+        IEnumerable<ActivationKey> FindAllByNames(string[] names, bool isDeleted = false);
+
         ////IEnumerable<Bot> AllContainingInName(string query, bool isDeleted = false);
         //IEnumerable<Bot> AllContainingInName(string query, BotFilter filter = null);
 

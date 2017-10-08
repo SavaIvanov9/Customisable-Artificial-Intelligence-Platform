@@ -1,8 +1,9 @@
 ﻿namespace CAI.Services
 {
     using System;
+    using Abstraction;
 
-    public class LanguageProcessinService
+    public class LanguageProcessinService : ILanguageProcessinService
     {
         // Use this to keep digits. 
         private readonly char[] _delimitersKeepDigits = new char[] {

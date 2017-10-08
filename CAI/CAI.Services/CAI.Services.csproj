@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivationKeyService.cs" />
     <Compile Include="Base\BaseService.cs" />
     <Compile Include="Bots\BotIntentionRecognitionService.cs" />
     <Compile Include="Bots\BotService.cs" />

@@ -10,7 +10,7 @@
 
         NeuralNetwork GenerateNetwork(int inputLayer, int outputLayer, bool isLogging = false);
 
-        void TrainNetwork(NeuralNetwork network, double[][] input, double[][] output, double errorRate);
+        bool TrainNetwork(NeuralNetwork network, double[][] input, double[][] output, double errorRate = 0.01);
 
         long RegisterNewNetwork(NeuralNetwork network, long botId, string createdBy, NeuralNetworkType networkType);
 
