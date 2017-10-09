@@ -203,6 +203,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IntentionRecognitionController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -218,6 +219,7 @@
     <Compile Include="Models\Account\SendCodeViewModel.cs" />
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
     <Compile Include="Models\BotsScreenModel.cs" />
+    <Compile Include="Models\CAIWebContext.cs" />
     <Compile Include="Models\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Models\Manage\ConfigureTwoFactorViewModel.cs" />
@@ -291,6 +293,11 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Bot\Index.cshtml" />
     <Content Include="Views\Bot\Create.cshtml" />
+    <Content Include="Views\IntentionRecognition\Create.cshtml" />
+    <Content Include="Views\IntentionRecognition\Delete.cshtml" />
+    <Content Include="Views\IntentionRecognition\Details.cshtml" />
+    <Content Include="Views\IntentionRecognition\Edit.cshtml" />
+    <Content Include="Views\IntentionRecognition\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

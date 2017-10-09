@@ -42,7 +42,7 @@
 
             }
 
-            this._botService.RegisterNewBot(model, this.User.Identity.Name);
+            //this._botService.RegisterNewBot(model, this.User.Identity.Name);
             return RedirectToAction("Index");
         }
 
