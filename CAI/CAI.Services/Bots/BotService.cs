@@ -12,13 +12,13 @@
     using Data.Models;
     using Models.Bot;
 
-    public abstract class BotService : BaseService//, IBotService
+    public class BotService : BaseService, IBotService
     {
-        protected BotService(IUnitOfWork data) : base(data)
+        public BotService(IUnitOfWork data) : base(data)
         {
         }
 
-        protected IEnumerable<BotViewModel> GetAllBots()
+        public IEnumerable<BotViewModel> GetAllBots()
         {
             var result = this.Data.BotRepository
                 .All()
@@ -34,17 +34,30 @@
             return result;
         }
 
-        protected long RegisterNewBot(Bot bot)
+        //protected long RegisterNewBot(Bot bot)
+        //{
+        //    this.CheckForExistingName(bot.Name);
+
+        //    this.Data.BotRepository.Add(bot);
+        //    this.Data.SaveChanges();
+
+        //    return bot.Id;
+        //}
+
+        public BotViewModel FindBotById(long id)
         {
-            this.CheckForExistingName(bot.Name);
+            var bot = this.FindBot(id);
 
-            this.Data.BotRepository.Add(bot);
-            this.Data.SaveChanges();
-
-            return bot.Id;
+            return new BotViewModel()
+            {
+                Id = bot.Id,
+                Name = bot.Name,
+                CreatedOn = bot.CreatedOn,
+                ModifiedOn = bot.ModifiedOn
+            };
         }
 
-        protected bool EditBot(BotCreateModel model, long id, string modifiedBy)
+        public bool EditBot(BotCreateModel model, long id, string modifiedBy)
         {
             this.CheckForExistingName(model.Name);
 
@@ -57,7 +70,7 @@
             return Convert.ToBoolean(this.Data.SaveChanges());
         }
 
-        protected bool DeleteBot(long id, string deletedBy)
+        public bool DeleteBot(long id, string deletedBy)
         {
             var bot = this.FindBot(id);
 
@@ -65,14 +78,6 @@
             this.Data.BotRepository.Delete(bot);
 
             return Convert.ToBoolean(this.Data.SaveChanges());
-        }
-
-        protected void CheckForExistingName(string name)
-        {
-            if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
-            {
-                throw new ExistingObjectException("Bot", "Use different name!");
-            }
         }
     }
 }

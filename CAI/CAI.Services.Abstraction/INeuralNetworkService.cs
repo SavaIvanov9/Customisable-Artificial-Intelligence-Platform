@@ -3,8 +3,9 @@
     using Common.Enums;
     using Data.Models;
     using DeepLearning;
+    using System;
 
-    public interface INeuralNetworkService
+    public interface INeuralNetworkService : IDisposable
     {
         NeuralNetworkData GenerateIntentionRecognitionNeuralNetworkData(int inputLayer, int outputLayer);
 

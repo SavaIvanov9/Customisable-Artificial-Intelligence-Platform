@@ -1,4 +1,4 @@
-﻿@model CAI.Data.Models.Bot
+﻿@model CAI.Services.Models.Bot.BotViewModel
 
 <div>
     <h4>Bot</h4>
@@ -29,27 +29,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.CreatedOn)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedBy)
         </dd>
 
         <dt>
@@ -60,33 +44,9 @@
             @Html.DisplayFor(model => model.ModifiedOn)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DeletedOn)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeletedOn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DeletedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeletedBy)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>

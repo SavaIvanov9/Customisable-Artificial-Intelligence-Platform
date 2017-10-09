@@ -1,40 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using CAI.Data.Models;
-using CAI.Web.Models;
+﻿
 
 namespace CAI.Web.Controllers
 {
+    using CAI.Data.Models;
+    using Data.Filtering;
+    using Services.Abstraction;
+    using System.Data.Entity;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using Common.CustomExceptions;
+
     public class IntentionRecognitionController : Controller
     {
-        private CAIWebContext db = new CAIWebContext();
+        //private CAIWebContext db = new CAIWebContext();
+
+        private readonly IBotIntentionRecognitionService _botIntentionRecognitionService;
+        private readonly IBotService _botService;
+
+        public IntentionRecognitionController(IBotService botService,
+            IBotIntentionRecognitionService botIntentionRecognitionService)
+        {
+            this._botIntentionRecognitionService = botIntentionRecognitionService;
+            this._botService = botService;
+        }
 
         // GET: IntentionRecognition
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Bots.ToListAsync());
+            var filter = new BotFilter() { IsDeleted = false };
+            var data = this._botIntentionRecognitionService.GetAllBotsByFilter(filter);
+
+            return View(data);
         }
 
         // GET: IntentionRecognition/Details/5
-        public async Task<ActionResult> Details(long? id)
+        public ActionResult Details(long? id)
         {
-            if (id == null)
+            if (id == null || id < 1)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bot bot = await db.Bots.FindAsync(id);
-            if (bot == null)
+
+            try
+            {
+                var bot = this._botService.FindBotById(id.Value);
+
+                return View(bot);
+            }
+            catch (NotFoundException)
             {
                 return HttpNotFound();
             }
-            return View(bot);
         }
 
         // GET: IntentionRecognition/Create
@@ -43,77 +60,81 @@ namespace CAI.Web.Controllers
             return View();
         }
 
-        // POST: IntentionRecognition/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] Bot bot)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Bots.Add(bot);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+        //// POST: IntentionRecognition/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] Bot bot)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Bots.Add(bot);
+        //        db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(bot);
-        }
+        //    return View(bot);
+        //}
 
-        // GET: IntentionRecognition/Edit/5
-        public async Task<ActionResult> Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Bot bot = await db.Bots.FindAsync(id);
-            if (bot == null)
-            {
-                return HttpNotFound();
-            }
-            return View(bot);
-        }
+        //// GET: IntentionRecognition/Edit/5
+        //public async Task<ActionResult> Edit(long? id)
+        //{
+        //    if (id == null || id < 1)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
 
-        // POST: IntentionRecognition/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] Bot bot)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(bot).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(bot);
-        }
+        //    Bot bot = await db.Bots.FindAsync(id);
+
+        //    if (bot == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    return View(bot);
+        //}
+
+        //// POST: IntentionRecognition/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Edit([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] Bot bot)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(bot).State = EntityState.Modified;
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(bot);
+        //}
 
         // GET: IntentionRecognition/Delete/5
-        public async Task<ActionResult> Delete(long? id)
+        public ActionResult Delete(long? id)
         {
-            if (id == null)
+            if (id == null || id < 1)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Bot bot = await db.Bots.FindAsync(id);
+
+            var bot = this._botService.FindBotById(id.Value);
+
             if (bot == null)
             {
                 return HttpNotFound();
             }
+
             return View(bot);
         }
 
         // POST: IntentionRecognition/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(long id)
         {
-            Bot bot = await db.Bots.FindAsync(id);
-            db.Bots.Remove(bot);
-            await db.SaveChangesAsync();
+            this._botService.DeleteBot(id, this.User.Identity.Name);
             return RedirectToAction("Index");
         }
 
@@ -121,8 +142,10 @@ namespace CAI.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this._botIntentionRecognitionService.Dispose();
+                this._botService.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

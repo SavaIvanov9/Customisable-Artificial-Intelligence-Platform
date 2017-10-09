@@ -318,6 +318,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CAI.Common\CAI.Common.csproj">
+      <Project>{AB877EE0-95C6-4992-9001-1D6BC6F853AC}</Project>
+      <Name>CAI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data.Filtering\CAI.Data.Filtering.csproj">
+      <Project>{C88227B3-57BF-4BB5-867C-141AB9B7BBCB}</Project>
+      <Name>CAI.Data.Filtering</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
       <Project>{E9779A9E-32AF-4DEE-B9CF-DC138CB45E2C}</Project>
       <Name>CAI.Data.Models</Name>

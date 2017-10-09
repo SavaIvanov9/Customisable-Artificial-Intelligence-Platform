@@ -7,14 +7,16 @@
     using System.Runtime.CompilerServices;
     using System.Text;
     using Abstraction;
+    using Base;
     using Common.CustomExceptions;
     using Common.Enums;
     using Data.Abstraction;
+    using Data.Filtering;
     using Data.Models;
     using Models.Bot;
     using Models.Intention;
 
-    public class BotIntentionRecognitionService : BotService
+    public class BotIntentionRecognitionService : BaseService, IBotIntentionRecognitionService
     {
         private readonly INeuralNetworkService _neuralNetworkService;
         private readonly ILanguageProcessingService _languageProcessinService;
@@ -26,6 +28,22 @@
         {
             this._neuralNetworkService = neuralNetworkService;
             this._languageProcessinService = languageProcessinService;
+        }
+
+        public IEnumerable<BotViewModel> GetAllBotsByFilter(BotFilter filter)
+        {
+            var result = this.Data.BotRepository
+                .FindAllByFilter(filter)
+                .Select(x => new BotViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = x.ModifiedOn
+                })
+                .AsEnumerable();
+
+            return result;
         }
 
         public long RegisterNewIntentionRecognitionBot(BotCreateModel model, string createdBy)
@@ -67,11 +85,13 @@
 
             //bot.NeuralNetworkDatas.Add(network);
 
-            var id = this.RegisterNewBot(bot);
+            this.CheckForExistingName(bot.Name);
+            this.Data.BotRepository.Add(bot);
+            this.Data.SaveChanges();
 
             var network = this.GenerateIntentionRecognizerBotNetwork(model);
             network.Bot = bot;
-            network.BotId = id;
+            network.BotId = bot.Id;
             network.CreatedBy = createdBy;
 
             this.Data.NeuralNetworkDataRepository.Add(network);
@@ -82,7 +102,7 @@
                 var intention = new Intention
                 {
                     Bot = bot,
-                    BotId = id,
+                    BotId = bot.Id,
                     Name = intentionModel.Name,
                     CreatedBy = createdBy,
                 };
@@ -106,7 +126,7 @@
                 this.Data.SaveChanges();
             }
 
-            return id;
+            return bot.Id;
         }
 
         public bool TrainIntentionRecognitionBot(long id, Dictionary<string, long> data)

@@ -58,20 +58,6 @@ namespace CAI.IoC
             }
         }
 
-        ///// <summary>
-        ///// Creates the kernel that will manage your application.
-        ///// </summary>
-        ///// <returns>The created kernel.</returns>
-        //public static IKernel GetNinjectKernel
-        //{
-        //    get
-        //    {
-        //        IKernel kernel = new StandardKernel();
-        //        RegisterServices(kernel);
-        //        return kernel;
-        //    }
-        //}
-
         /// <summary>
         /// Load your modules or register your services here!
         /// </summary>
@@ -85,6 +71,10 @@ namespace CAI.IoC
             //Services
             kernel.Bind<ITestService>().To<TestService>();
             kernel.Bind<INeuralNetworkService>().To<NeuralNetworkService>();
+            kernel.Bind<ILanguageProcessingService>().To<LanguageProcessingService>();
+            kernel.Bind<IBotIntentionRecognitionService>().To<BotIntentionRecognitionService>();
+            kernel.Bind<IBotService>().To<BotService>();
+
             //kernel.Bind<IBotService>().To<BotService>();
         }
     }

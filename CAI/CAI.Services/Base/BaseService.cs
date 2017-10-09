@@ -3,6 +3,7 @@
     using System;
     using Common.CustomExceptions;
     using Data.Abstraction;
+    using Data.Filtering;
     using Data.Models;
 
     public abstract class BaseService : IDisposable
@@ -50,6 +51,14 @@
             }
 
             return bot;
+        }
+
+        protected void CheckForExistingName(string name)
+        {
+            if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
+            {
+                throw new ExistingObjectException("Bot", "Use different name!");
+            }
         }
 
         public void Dispose()
