@@ -60,9 +60,9 @@
         //    return bot.Id;
         //}
 
-        public BotViewModel FindBotById(long id)
+        public BotViewModel FindBot(long id)
         {
-            var bot = this.FindBot(id);
+            var bot = base.FindBotById(id);
 
             return new BotViewModel()
             {
@@ -91,9 +91,9 @@
 
         public bool EditBot(BotCreateModel model, long id, string modifiedBy)
         {
-            this.CheckForExistingName(model.Name);
+            this.CheckBotForExistingName(model.Name);
 
-            var bot = this.FindBot(id);
+            var bot = base.FindBotById(id);
 
             bot.Name = model.Name;
             bot.ModifiedBy = modifiedBy;
@@ -104,7 +104,7 @@
 
         public bool DeleteBot(long id, string deletedBy)
         {
-            var bot = this.FindBot(id);
+            var bot = base.FindBotById(id);
 
             bot.DeletedBy = deletedBy;
             this.Data.BotRepository.Delete(bot);

@@ -58,42 +58,30 @@
                 @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BotType)
+                @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().CreatedOn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnvironmentType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedOn)
+                @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().ModifiedOn)
             </th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var intention in Model.Intentions)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => intention.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BotType)
+                    @Html.DisplayFor(modelItem => intention.CreatedOn)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EnvironmentType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModifiedOn)
+                    @Html.DisplayFor(modelItem => intention.ModifiedOn)
                 </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", "Intention", new { id = intention.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Intention", new { id = intention.Id }, null)
                 </td>
             </tr>
         }

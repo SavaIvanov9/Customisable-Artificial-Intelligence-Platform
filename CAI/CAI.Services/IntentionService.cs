@@ -9,6 +9,7 @@
     using Data.Abstraction;
     using Data.Filtering;
     using Data.Models;
+    using Models.ActivationKey;
     using Models.Bot;
     using Models.Intention;
 
@@ -18,30 +19,29 @@
         {
         }
 
-        //public Intention FindIntention(long id)
-        //{
-
-        //}
-
-        //public long RegisterNewIntention(BotCreateModel model, string createdBy)
-        //{
-        //    //this.CheckForExistingName(model.Name);
-
-        //    var bot = new Bot()
-        //    {
-        //        CreatedBy = createdBy,
-        //        Name = model.Name
-        //    };
-
-        //    this.Data.BotRepository.Add(bot);
-        //    this.Data.SaveChanges();
-
-        //    return bot.Id;
-        //}
-
-        public bool EditBot(IntentionViewModel model, long id, string modifiedBy)
+        public IntentionViewModel FindIntention(long id)
         {
-            var intention = this.FindIntention(id);
+            var intention = base.FindIntentionById(id);
+
+            return new IntentionViewModel()
+            {
+                Id = intention.Id,
+                Name = intention.Name,
+                CreatedOn = intention.CreatedOn,
+                ModifiedOn = intention.ModifiedOn,
+                ActivationKeys = intention.ActivationKeys.Select(a => new ActivationKeyViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    CreatedOn = a.CreatedOn,
+                    ModifiedOn = a.ModifiedOn
+                })
+            };
+        }
+
+        public bool EditIntention(IntentionViewModel model, long id, string modifiedBy)
+        {
+            var intention = base.FindIntentionById(id);
 
             intention.Name = model.Name;
             intention.ModifiedBy = modifiedBy;
@@ -51,22 +51,14 @@
             return Convert.ToBoolean(this.Data.SaveChanges());
         }
 
-        //public bool DeleteBot(long id, string deletedBy)
-        //{
-        //    var bot = this.FindBot(id);
+        public bool DeleteIntention(long id, string deletedBy)
+        {
+            var intention = base.FindIntentionById(id);
 
-        //    bot.DeletedBy = deletedBy;
-        //    this.Data.BotRepository.Delete(bot);
+            intention.DeletedBy = deletedBy;
+            this.Data.IntentionRepository.Delete(intention);
 
-        //    return Convert.ToBoolean(this.Data.SaveChanges());
-        //}
-
-        //private void CheckForExistingName(string name)
-        //{
-        //    if (this.Data.BotRepository.FindFirstByFilter(new BotFilter {Name = name}) != null)
-        //    {
-        //        throw new ExistingObjectException("Bot", "Use different name!");
-        //    }
-        //}
+            return Convert.ToBoolean(this.Data.SaveChanges());
+        }
     }
 }

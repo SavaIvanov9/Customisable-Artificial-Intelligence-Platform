@@ -42,7 +42,7 @@
 
         public long RegisterNewNetwork(NeuralNetwork network, long botId, string createdBy, NeuralNetworkType networkType)
         {
-            var bot = this.FindBot(botId);
+            var bot = this.FindBotById(botId);
             var networkBytes = network.GetNetworkBytes();
 
             var networkDataModel = new NeuralNetworkData()
@@ -62,7 +62,7 @@
 
         public NeuralNetwork LoadNeuralNetwork(long id)
         {
-            var networkData = this.FindNeuralNetworkData(id);
+            var networkData = this.FindNeuralNetworkDataById(id);
 
             NeuralNetwork network;
 

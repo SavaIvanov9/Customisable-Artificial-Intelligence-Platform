@@ -1,6 +1,8 @@
 ﻿namespace CAI.Services.Models.ActivationKey
 {
-    public class ActivationKeyViewModel
+    using Base;
+
+    public class ActivationKeyViewModel : BaseViewModel
     {
         public string Name { get; set; }
     }

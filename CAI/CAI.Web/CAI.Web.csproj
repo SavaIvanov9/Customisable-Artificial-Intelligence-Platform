@@ -203,6 +203,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IntentionController.cs" />
     <Compile Include="Controllers\IntentionRecognitionController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -298,6 +299,9 @@
     <Content Include="Views\IntentionRecognition\Details.cshtml" />
     <Content Include="Views\IntentionRecognition\Edit.cshtml" />
     <Content Include="Views\IntentionRecognition\Index.cshtml" />
+    <Content Include="Views\Intention\Delete.cshtml" />
+    <None Include="Views\Intention\Edit.cshtml" />
+    <Content Include="Views\Intention\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

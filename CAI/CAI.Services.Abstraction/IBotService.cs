@@ -11,7 +11,7 @@
 
         IEnumerable<BotViewModel> GetAllBotsByFilter(BotFilter filter);
 
-        BotViewModel FindBotById(long id);
+        BotViewModel FindBot(long id);
 
         //long RegisterNewBot(BotCreateModel model, string createdBy);
 
