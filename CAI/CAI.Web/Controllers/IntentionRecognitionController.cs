@@ -40,7 +40,7 @@
 
             try
             {
-                var bot = this._botService.FindBotById(id.Value);
+                var bot = this._botService.FindBot(id.Value);
 
                 return View(bot);
             }
@@ -115,7 +115,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var bot = this._botService.FindBotById(id.Value);
+            var bot = this._botService.FindBot(id.Value);
 
             if (bot == null)
             {

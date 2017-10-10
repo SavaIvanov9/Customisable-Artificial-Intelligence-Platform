@@ -73,8 +73,7 @@ namespace CAI.IoC
             kernel.Bind<ILanguageProcessingService>().To<LanguageProcessingService>();
             kernel.Bind<IIntentionRecognitionService>().To<IntentionRecognitionService>();
             kernel.Bind<IBotService>().To<BotService>();
-
-            //kernel.Bind<IBotService>().To<BotService>();
+            kernel.Bind<IIntentionService>().To<IntentionService>();
         }
     }
 }
