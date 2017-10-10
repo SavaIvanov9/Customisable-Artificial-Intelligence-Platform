@@ -12,7 +12,6 @@ namespace CAI.IoC
     using Services.Abstraction;
     using System;
     using System.Web;
-    using Services.Bots;
 
     public static class WebContainer
     {
@@ -72,7 +71,7 @@ namespace CAI.IoC
             kernel.Bind<ITestService>().To<TestService>();
             kernel.Bind<INeuralNetworkService>().To<NeuralNetworkService>();
             kernel.Bind<ILanguageProcessingService>().To<LanguageProcessingService>();
-            kernel.Bind<IBotIntentionRecognitionService>().To<BotIntentionRecognitionService>();
+            kernel.Bind<IIntentionRecognitionService>().To<IntentionRecognitionService>();
             kernel.Bind<IBotService>().To<BotService>();
 
             //kernel.Bind<IBotService>().To<BotService>();

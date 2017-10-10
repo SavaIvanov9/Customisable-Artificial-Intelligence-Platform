@@ -6,10 +6,8 @@
     using System;
     using System.Collections.Generic;
 
-    public interface IBotIntentionRecognitionService : IDisposable
+    public interface IIntentionRecognitionService : IDisposable
     {
-        IEnumerable<BotViewModel> GetAllBotsByFilter(BotFilter filter);
-
         long RegisterNewIntentionRecognitionBot(BotCreateModel model, string createdBy);
 
         bool TrainIntentionRecognitionBot(long id, Dictionary<string, long> data);

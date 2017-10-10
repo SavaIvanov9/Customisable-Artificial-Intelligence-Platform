@@ -1,11 +1,8 @@
-﻿namespace CAI.Services.Bots
+﻿namespace CAI.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity.Infrastructure;
     using System.Linq;
-    using System.Runtime.CompilerServices;
-    using System.Text;
     using Abstraction;
     using Base;
     using Common.CustomExceptions;
@@ -16,34 +13,18 @@
     using Models.Bot;
     using Models.Intention;
 
-    public class BotIntentionRecognitionService : BaseService, IBotIntentionRecognitionService
+    public class IntentionRecognitionService : BaseService, IIntentionRecognitionService
     {
         private readonly INeuralNetworkService _neuralNetworkService;
         private readonly ILanguageProcessingService _languageProcessinService;
 
-        public BotIntentionRecognitionService(IUnitOfWork data,
+        public IntentionRecognitionService(IUnitOfWork data,
             INeuralNetworkService neuralNetworkService,
             ILanguageProcessingService languageProcessinService)
             : base(data)
         {
             this._neuralNetworkService = neuralNetworkService;
             this._languageProcessinService = languageProcessinService;
-        }
-
-        public IEnumerable<BotViewModel> GetAllBotsByFilter(BotFilter filter)
-        {
-            var result = this.Data.BotRepository
-                .FindAllByFilter(filter)
-                .Select(x => new BotViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    CreatedOn = x.CreatedOn,
-                    ModifiedOn = x.ModifiedOn
-                })
-                .AsEnumerable();
-
-            return result;
         }
 
         public long RegisterNewIntentionRecognitionBot(BotCreateModel model, string createdBy)

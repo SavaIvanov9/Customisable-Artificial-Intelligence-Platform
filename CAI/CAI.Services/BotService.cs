@@ -1,15 +1,12 @@
-﻿namespace CAI.Services.Bots
+﻿namespace CAI.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Abstraction;
     using Base;
-    using Common.CustomExceptions;
-    using Common.Enums;
     using Data.Abstraction;
     using Data.Filtering;
-    using Data.Models;
     using Models.Bot;
 
     public class BotService : BaseService, IBotService
@@ -26,6 +23,24 @@
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    CreatedOn = x.CreatedOn,
+                    ModifiedOn = x.ModifiedOn
+                })
+                .AsEnumerable();
+
+            return result;
+        }
+
+        public IEnumerable<BotViewModel> GetAllBotsByFilter(BotFilter filter)
+        {
+            var result = this.Data.BotRepository
+                .FindAllByFilter(filter)
+                .Select(x => new BotViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    BotType = x.BotType,
+                    EnvironmentType = x.EnvironmentType,
                     CreatedOn = x.CreatedOn,
                     ModifiedOn = x.ModifiedOn
                 })

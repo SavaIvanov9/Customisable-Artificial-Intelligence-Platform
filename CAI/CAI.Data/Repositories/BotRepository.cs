@@ -18,18 +18,11 @@
         {
         }
 
-        //public IEnumerable<Bot> AllContainingInName(string query, bool isDeleted = false)
+        //public IEnumerable<Bot> FindByUser(string userId, BotFilter filter = null)
         //{
-        //    return this.Set
-        //        .Where(x => x.Name.Contains(query) && x.IsDeleted == isDeleted)
-        //        .AsEnumerable();
-        //}
+        //    var botsQuery = this.Set
+        //        .Where(x => x.);
 
-        //public Bot FindByName(string name, bool isDeleted = false)
-        //{
-        //    return this.Set
-        //        .FirstOrDefault(x => x.Name.ToLower().Equals(name.ToLower())
-        //            && x.IsDeleted == isDeleted);
         //}
 
         public IEnumerable<Bot> AllContainingInName(string query, BotFilter filter = null)

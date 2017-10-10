@@ -1,6 +1,4 @@
-﻿
-
-namespace CAI.Web.Controllers
+﻿namespace CAI.Web.Controllers
 {
     using CAI.Data.Models;
     using Data.Filtering;
@@ -13,15 +11,13 @@ namespace CAI.Web.Controllers
 
     public class IntentionRecognitionController : Controller
     {
-        //private CAIWebContext db = new CAIWebContext();
-
-        private readonly IBotIntentionRecognitionService _botIntentionRecognitionService;
+        private readonly IIntentionRecognitionService _intentionRecognitionService;
         private readonly IBotService _botService;
 
         public IntentionRecognitionController(IBotService botService,
-            IBotIntentionRecognitionService botIntentionRecognitionService)
+            IIntentionRecognitionService intentionRecognitionService)
         {
-            this._botIntentionRecognitionService = botIntentionRecognitionService;
+            this._intentionRecognitionService = intentionRecognitionService;
             this._botService = botService;
         }
 
@@ -29,7 +25,7 @@ namespace CAI.Web.Controllers
         public ActionResult Index()
         {
             var filter = new BotFilter() { IsDeleted = false };
-            var data = this._botIntentionRecognitionService.GetAllBotsByFilter(filter);
+            var data = this._botService.GetAllBotsByFilter(filter);
 
             return View(data);
         }
@@ -134,7 +130,11 @@ namespace CAI.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            this._botService.DeleteBot(id, this.User.Identity.Name);
+            if (!this._botService.DeleteBot(id, this.User.Identity.Name))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -142,7 +142,7 @@ namespace CAI.Web.Controllers
         {
             if (disposing)
             {
-                this._botIntentionRecognitionService.Dispose();
+                this._intentionRecognitionService.Dispose();
                 this._botService.Dispose();
             }
 

@@ -7,7 +7,6 @@
     using Data;
     using Data.Models;
     using Services;
-    using Services.Bots;
     using Services.Models.ActivationKey;
     using Services.Models.Bot;
     using Services.Models.Intention;
@@ -24,7 +23,7 @@
             using (var uw = new UnitOfWork())
             {
                 var neuralNetworkService = new NeuralNetworkService(uw);
-                var botService = new BotIntentionRecognitionService(uw,
+                var botService = new IntentionRecognitionService(uw,
                     neuralNetworkService, new LanguageProcessingService());
 
                 var input = Console.ReadLine();
@@ -44,7 +43,7 @@
             {
                 var neuralNetworkService = new NeuralNetworkService(uw);
                 var botService =
-                    new BotIntentionRecognitionService(uw, neuralNetworkService, new LanguageProcessingService());
+                    new IntentionRecognitionService(uw, neuralNetworkService, new LanguageProcessingService());
                 //{ "i", "like", "pizza", "eat", "lunch", "every", "day"})
                 //{"i", "am", "name", "is", "hello", "hi", "how", "are", "you", "who", "what"})
                 Console.WriteLine("Creating new bot started...");

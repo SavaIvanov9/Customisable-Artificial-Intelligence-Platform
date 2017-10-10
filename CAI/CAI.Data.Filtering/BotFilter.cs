@@ -7,8 +7,6 @@
     {
         public string Name { get; set; }
 
-        public BotType? Type { get; set; }
-
-
+        public BotType? BotType { get; set; }
     }
 }
