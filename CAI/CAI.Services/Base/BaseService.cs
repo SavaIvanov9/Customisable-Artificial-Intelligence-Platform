@@ -17,7 +17,7 @@
 
         protected IUnitOfWork Data { get => this._data;  }
 
-        protected Bot FindBot(long id)
+        protected Bot FindBotById(long id)
         {
             var bot = this.Data.BotRepository.FindById(id);
 
@@ -29,7 +29,7 @@
             return bot;
         }
 
-        protected Intention FindIntention(long id)
+        protected Intention FindIntentionById(long id)
         {
             var intention = this.Data.IntentionRepository.FindById(id);
 
@@ -41,7 +41,7 @@
             return intention;
         }
 
-        protected NeuralNetworkData FindNeuralNetworkData(long id)
+        protected NeuralNetworkData FindNeuralNetworkDataById(long id)
         {
             var bot = this.Data.NeuralNetworkDataRepository.FindById(id);
 
@@ -53,7 +53,7 @@
             return bot;
         }
 
-        protected void CheckForExistingName(string name)
+        protected void CheckBotForExistingName(string name)
         {
             if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
             {

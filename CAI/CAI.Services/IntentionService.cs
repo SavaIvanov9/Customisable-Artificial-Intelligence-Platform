@@ -10,8 +10,9 @@
     using Data.Filtering;
     using Data.Models;
     using Models.Bot;
+    using Models.Intention;
 
-    public class IntentionService : BaseService
+    public class IntentionService : BaseService, IIntentionService
     {
         public IntentionService(IUnitOfWork data) : base(data)
         {
@@ -19,7 +20,7 @@
 
         //public Intention FindIntention(long id)
         //{
-            
+
         //}
 
         //public long RegisterNewIntention(BotCreateModel model, string createdBy)
@@ -38,18 +39,17 @@
         //    return bot.Id;
         //}
 
-        //public bool EditBot(BotCreateModel model, long id, string modifiedBy)
-        //{
-        //    this.CheckForExistingName(model.Name);
+        public bool EditBot(IntentionViewModel model, long id, string modifiedBy)
+        {
+            var intention = this.FindIntention(id);
 
-        //    var bot = this.FindBot(id);
+            intention.Name = model.Name;
+            intention.ModifiedBy = modifiedBy;
 
-        //    bot.Name = model.Name;
-        //    bot.ModifiedBy = modifiedBy;
-        //    this.Data.BotRepository.Update(bot);
+            this.Data.IntentionRepository.Update(intention);
 
-        //    return Convert.ToBoolean(this.Data.SaveChanges());
-        //}
+            return Convert.ToBoolean(this.Data.SaveChanges());
+        }
 
         //public bool DeleteBot(long id, string deletedBy)
         //{

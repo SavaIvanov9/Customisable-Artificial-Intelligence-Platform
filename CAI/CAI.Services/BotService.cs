@@ -7,7 +7,9 @@
     using Base;
     using Data.Abstraction;
     using Data.Filtering;
+    using Models.ActivationKey;
     using Models.Bot;
+    using Models.Intention;
 
     public class BotService : BaseService, IBotService
     {
@@ -43,8 +45,7 @@
                     EnvironmentType = x.EnvironmentType,
                     CreatedOn = x.CreatedOn,
                     ModifiedOn = x.ModifiedOn
-                })
-                .AsEnumerable();
+                });
 
             return result;
         }
@@ -67,8 +68,24 @@
             {
                 Id = bot.Id,
                 Name = bot.Name,
+                BotType = bot.BotType,
+                EnvironmentType = bot.EnvironmentType,
                 CreatedOn = bot.CreatedOn,
-                ModifiedOn = bot.ModifiedOn
+                ModifiedOn = bot.ModifiedOn,
+                Intentions = bot.Intentions.Select(i => new IntentionViewModel()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    CreatedOn = i.CreatedOn,
+                    ModifiedOn = i.ModifiedOn,
+                    ActivationKeys = i.ActivationKeys.Select(a => new ActivationKeyViewModel()
+                    {
+                        Id = a.Id,
+                        Name = a.Name,
+                        CreatedOn = a.CreatedOn,
+                        ModifiedOn = a.ModifiedOn
+                    })
+                })
             };
         }
 

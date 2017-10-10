@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CAI.Services.Abstraction
+﻿namespace CAI.Services.Abstraction
 {
-    class IIntentionService
+    using System;
+    using Models.Intention;
+
+    public interface IIntentionService : IDisposable
     {
+        IntentionViewModel FindIntention(long id);
+
+        //long RegisterNewBot(BotCreateModel model, string createdBy);
+
+        bool EditIntention(IntentionViewModel model, long id, string modifiedBy);
+
+        bool DeleteIntention(long id, string deletedBy);
     }
 }

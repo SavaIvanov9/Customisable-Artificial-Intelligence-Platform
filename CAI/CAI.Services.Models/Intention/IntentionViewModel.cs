@@ -3,15 +3,12 @@
     using ActivationKey;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Base;
 
-    public class IntentionViewModel
+    public class IntentionViewModel : BaseViewModel
     {
-        public long Id { get; set; }
-
         public string Name { get; set; }
 
-        public long BotId { get; set; }
-
-        public ICollection<ActivationKeyCreateModel> ActivationKeys { get; set; }
+        public IEnumerable<ActivationKeyViewModel> ActivationKeys { get; set; }
     }
 }

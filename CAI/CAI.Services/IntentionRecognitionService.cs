@@ -66,7 +66,7 @@
 
             //bot.NeuralNetworkDatas.Add(network);
 
-            this.CheckForExistingName(bot.Name);
+            this.CheckBotForExistingName(bot.Name);
             this.Data.BotRepository.Add(bot);
             this.Data.SaveChanges();
 
@@ -112,7 +112,7 @@
 
         public bool TrainIntentionRecognitionBot(long id, Dictionary<string, long> data)
         {
-            var bot = this.FindBot(id);
+            var bot = base.FindBotById(id);
 
             if (bot.BotType != BotType.IntentionRecognizer.ToString())
             {
@@ -147,7 +147,7 @@
 
         public IntentionViewModel RecognizeIntention(long botId, string inputText)
         {
-            var bot = this.FindBot(botId);
+            var bot = base.FindBotById(botId);
             var networkData = bot.NeuralNetworkDatas.FirstOrDefault(x => x.Type == NeuralNetworkType.IntentionRecognition.ToString());
 
             if (networkData == null)
@@ -169,7 +169,7 @@
             var max = output.Max();
             var intentionId = output.ToList().FindIndex(x => Math.Abs(x - max) < 0.001);
 
-            var intention = this.FindIntention(intentionId + 1);
+            var intention = base.FindIntentionById(intentionId + 1);
 
             return new IntentionViewModel()
             {
