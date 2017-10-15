@@ -7,3 +7,33 @@
 
 <h2>title</h2>
 <h3>@ViewBag.Message</h3>
+
+<div id="msgs">
+    
+</div>
+
+
+<div>
+    <input id="minput" type="text"/>
+    <button id="send">Send</button>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/signalr")
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        $(function () {
+            $.connection.hub.start();
+
+            var chat = $.connection.chat;
+            chat.client.receiveMessage = (msg) => {
+                $('#msgs').append(msg + '<br />');
+            }
+
+            $('#send').click(() => {
+                chat.server.sendMessege($('#minput').val());
+            });
+        })
+    </script>
+}

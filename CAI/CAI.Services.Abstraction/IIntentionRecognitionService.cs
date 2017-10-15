@@ -13,5 +13,7 @@
         bool TrainIntentionRecognitionBot(long id, Dictionary<string, long> data);
 
         IntentionViewModel RecognizeIntention(long botId, string inputText);
+
+        IList<IntentionViewModel> RecognizeMultipleIntentions(long botId, string inputText);
     }
 }

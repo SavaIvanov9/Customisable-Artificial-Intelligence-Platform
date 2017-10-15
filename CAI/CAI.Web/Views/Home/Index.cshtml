@@ -6,10 +6,11 @@
 
 <div class="jumbotron">
     <div style="text-align: center;">
-        <p>This is a web platform for building great customized AI bots for your needs.</p>
+        <h1>C.A.I.</h1>
+        <h2>Customizable Artificial Intelligence</h2>
+        <h4>Welcome to C.A.I.</h4>
+        <h4>This is a web platform for building great customized AI bots for your needs.</h4>
     </div>
-    <h2>C.A.I. - Customizable Artificial Intelligence</h2>
-    <p>Welcome to C.A.I.</p>
 </div>
 
 @*<div class="panel panel-primary">
@@ -38,12 +39,7 @@
                     }
                 }
             }
-            @*<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>*@
         </ol>
-
-        <!-- Wrapper for slides -->
         <div class="carousel-inner">
 
             @{
@@ -63,7 +59,9 @@
                                 <h1 class="label label-default" style="font-size: 17px">Type: @bot.BotType</h1>
                                 <br />
                                 <br />
-                                <button type="button" class="btn-success btn-lg">Try Me</button>
+                                <button type="button" class="btn-success btn-lg" onclick="location.href='@Url.Action("Chat", "IntentionRecognition", new { botId = @bot.Id })'">
+                                    Try Bot
+                                </button>
                             </div>
                         </div>
                     }
@@ -78,7 +76,15 @@
                                 <h1 class="label label-default" style="font-size: 17px">Type: @bot.BotType</h1>
                                 <br />
                                 <br />
-                                <button type="button" class="btn-success btn-lg">Try Me</button>
+                                @*<h1 style="font-size: 20px" class="label label-">
+                                        @Html.ActionLink("Try Bot", "Chat", "IntentionRecognition", null, null)
+                                    </h1>*@
+                                <button type="button" class="btn-success btn-lg" onclick="location.href='@Url.Action("Chat", "IntentionRecognition", new { botId = @bot.Id })'">
+                                    Try Bot
+                                </button>
+                                @*<button type="button" class="btn-success btn-lg">
+                                        @Html.ActionLink("Try", "Chat", "IntentionRecognition", null, null)
+                                    </button>*@
                             </div>
                         </div>
                     }
@@ -86,7 +92,6 @@
             }
         </div>
 
-        <!-- Left and right controls -->
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
             <span class="sr-only">Previous</span>

@@ -1,0 +1,63 @@
+﻿@model CAI.Web.Models.IntentionRecognition.ChatViewModel
+
+@{
+    ViewBag.Title = "Intention Recognition";
+}
+
+@*<h2>title</h2>
+    <h3>@ViewBag.Message</h3>*@
+
+@*<div id="msgs">
+
+    </div>*@
+
+<div class="jumbotron">
+    <div class="container text-center row">
+        <h2 class="label label-default" style="font-size: 25px">Bot: @Model.Bot.Name</h2>
+        <br />
+        <h2 class="label label-default" style="font-size: 25px">Type: @Model.Bot.BotType</h2>
+    </div>
+</div>
+
+<ul id="msgs" class="list-group"></ul>
+
+<div>
+    @*<input id="minput" type="text" />*@
+    <div class="input-group">
+        <span class="input-group-addon">Input</span>
+        <input id="input-msg" type="text" class="form-control" name="msg" placeholder="Enter text">
+    </div>
+    <button type="button" class="btn-success btn-lg" id="send">Send</button>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/signalr")
+    <script src="/signalr/hubs"></script>
+
+    <script>
+        $(function () {
+            $.connection.hub.start();
+
+            var chat = $.connection.intentionRecognitionHub;
+            chat.client.receiveMessage = (botMsg) => {
+
+                for (var i = 0; i < botMsg.length; i++) {
+                    $('#msgs').append('<li class="list-group-item list-group-item-success">Bot: ' + botMsg[i] + '</li>');
+                }
+                //for (var line in botMsg) {
+                //    $('#msgs').append('<li class="list-group-item list-group-item-success">Bot: ' + line + '</li>');
+                //}
+                //$('#msgs').append('<li class="list-group-item list-group-item-success">Bot: ' + botMsg + '</li>');
+                console.log(botMsg);
+            }
+
+            $('#send').click(() => {
+                var userMsg = $('#input-msg').val();
+                $('#msgs').append('<li class="list-group-item list-group-item-warning">You: ' + userMsg + '</li>');
+                console.log(userMsg);
+
+                chat.server.sendMessege(@Model.Bot.Id, userMsg);
+            });
+        })
+    </script>
+}

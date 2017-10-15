@@ -5,16 +5,16 @@
 
     public class TestController : Controller
     {
-        private readonly ITestService service;
+        //private readonly ITestService service;
 
-        public TestController(ITestService service)
-        {
-            this.service = service;
-        }
+        //public TestController(ITestService service)
+        //{
+        //    this.service = service;
+        //}
 
         public ActionResult Index()
         {
-            this.ViewBag.Message = this.service.Test();
+            this.ViewBag.Message = "this.service.Test()";
 
             return View();
         }

@@ -11,6 +11,8 @@
 
         public long BotId { get; set; }
 
+        public double Factor { get; set; }
+
         public IEnumerable<ActivationKeyViewModel> ActivationKeys { get; set; }
     }
 }

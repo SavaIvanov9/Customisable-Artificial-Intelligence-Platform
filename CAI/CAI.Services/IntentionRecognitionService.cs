@@ -165,7 +165,18 @@
             var network = this._neuralNetworkService.LoadNeuralNetwork(networkData.Data);
 
             var output = network.Compute(input);
-            Console.WriteLine(string.Join(" ", output));
+            //Console.WriteLine(string.Join(" ", output));
+
+            //var max = output.Max();
+            //var intentionId = output.ToList().FindIndex(x => Math.Abs(x - max) < 0.001);
+
+            //var intention = base.FindIntentionById(intentionId + 1);
+
+            //return new IntentionViewModel()
+            //{
+            //    Id = intention.Id,
+            //    Name = intention.Name
+            //};
 
             var max = output.Max();
             var intentionId = output.ToList().FindIndex(x => Math.Abs(x - max) < 0.001);
@@ -177,6 +188,59 @@
                 Id = intention.Id,
                 Name = intention.Name
             };
+        }
+
+        public IList<IntentionViewModel> RecognizeMultipleIntentions(long botId, string inputText)
+        {
+            var bot = base.FindBotById(botId);
+            var networkData = bot.NeuralNetworkDatas.FirstOrDefault(x => x.Type == NeuralNetworkType.IntentionRecognition.ToString());
+
+            if (networkData == null)
+            {
+                throw new NotFoundException("Network data");
+            }
+
+            var knownKeys = this.ExtractKeys(bot);
+            var values = this._languageProcessinService
+                .Tokenize(inputText, false)
+                .Select(x => x.ToLower());
+
+            var input = knownKeys.Select(x => values.Contains(x) ? 1d : 0d).ToArray();
+            var network = this._neuralNetworkService.LoadNeuralNetwork(networkData.Data);
+
+            var output = network.Compute(input);
+            //Console.WriteLine(string.Join(" ", output));
+
+            //var max = output.Max();
+            //var intentionId = output.ToList().FindIndex(x => Math.Abs(x - max) < 0.001);
+
+            //var intention = base.FindIntentionById(intentionId + 1);
+
+            //return new IntentionViewModel()
+            //{
+            //    Id = intention.Id,
+            //    Name = intention.Name
+            //};
+
+            var intentions = new List<IntentionViewModel>();
+
+            //var max = output.Max();
+            //var intentionId = output.ToList().FindIndex(x => Math.Abs(x - max) < 0.001);
+
+            for (int i = 0; i < output.Length; i++)
+            {
+                var intention = base.FindIntentionById(i + 1);
+
+                intentions.Add(new IntentionViewModel
+                {
+                    Id = intention.Id,
+                    Name = intention.Name,
+                    Factor = output[i]
+                });
+            }
+
+            intentions = new List<IntentionViewModel>(intentions.OrderByDescending(x => x.Factor));
+            return intentions;
         }
 
         private NeuralNetworkData GenerateIntentionRecognizerBotNetwork(BotCreateModel bot)

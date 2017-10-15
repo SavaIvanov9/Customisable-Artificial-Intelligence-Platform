@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Common.CustomExceptions;
+    using Models.IntentionRecognition;
 
     public class IntentionRecognitionController : Controller
     {
@@ -135,6 +136,23 @@
             }
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Chat(long? botId)
+        {
+            if (botId == null || botId < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var bot = this._botService.FindBot(botId.Value);
+
+            if (bot == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(new ChatViewModel { Bot = bot });
         }
 
         protected override void Dispose(bool disposing)
