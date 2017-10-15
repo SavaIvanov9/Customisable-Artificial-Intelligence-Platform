@@ -22,7 +22,7 @@ namespace CAI.Data.Migrations
         protected override void Seed(CaiDbContext context)
         {
             this.SeedDefaultUsers(context);
-            this.SeedDefaultBots(context);
+            //this.SeedDefaultBots(context);
             this.SeedTestBots(context, 10);
 
             context.SaveChanges();
@@ -104,7 +104,7 @@ namespace CAI.Data.Migrations
                 //},
                 new Bot
                 {
-                    Name = "Information Finder Test Bot",
+                    Name = "Introduction Bot",
                     EnvironmentType = EnvironmentType.Test.ToString(),
                     BotType = BotType.InformationFinder.ToString(),
                     CreatedOn = DateTime.Now,

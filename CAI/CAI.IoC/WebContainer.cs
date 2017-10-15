@@ -64,8 +64,8 @@ namespace CAI.IoC
         private static void RegisterServices(IKernel kernel)
         {
             //Data
-            kernel.Bind<ICaiDbContext>().To<CaiDbContext>();
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            kernel.Bind<ICaiDbContext>().To<CaiDbContext>().InRequestScope();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
 
             //Services
             kernel.Bind<INeuralNetworkService>().To<NeuralNetworkService>();
@@ -75,7 +75,7 @@ namespace CAI.IoC
             kernel.Bind<IIntentionService>().To<IntentionService>();
             kernel.Bind<ISignInManagerService>().To<SignInManagerService>();
             kernel.Bind<IUserManagerService>().To<UserManagerService>();
-            
+            kernel.Bind<IDefaultBotsService>().To<DefaultBotsService>();
         }
     }
 }

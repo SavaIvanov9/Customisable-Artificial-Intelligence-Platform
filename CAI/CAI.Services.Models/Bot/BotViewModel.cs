@@ -12,6 +12,8 @@
 
         public string EnvironmentType { get; set; }
 
+        public string Image { get; set; }
+
         public IEnumerable<IntentionViewModel> Intentions { get; set; }
     }
 }

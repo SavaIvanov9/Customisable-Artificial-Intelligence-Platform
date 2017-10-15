@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="ActivationKeyService.cs" />
     <Compile Include="Base\BaseService.cs" />
+    <Compile Include="DefaultBotsService.cs" />
     <Compile Include="IntentionRecognitionService.cs" />
     <Compile Include="BotService.cs" />
     <Compile Include="IntentionService.cs" />

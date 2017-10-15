@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDefaultBotsService.cs" />
     <Compile Include="IIntentionRecognitionService.cs" />
     <Compile Include="IBotService.cs" />
     <Compile Include="IIntentionService.cs" />

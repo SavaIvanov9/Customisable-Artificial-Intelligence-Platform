@@ -50,6 +50,7 @@
                 Name = model.Name,
                 BotType = model.BotType.ToString(),
                 EnvironmentType = model.EnvironmentType.ToString(),
+                Image = model.Image
                 //Intentions = intentions,
                 //NeuralNetworkDatas = new List<NeuralNetworkData> { this.GenerateIntentionRecognizerBotNetwork(model) }
                 //NeuralNetworkDatas = new List<NeuralNetworkData>()

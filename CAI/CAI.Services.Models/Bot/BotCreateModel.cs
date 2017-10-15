@@ -14,6 +14,8 @@
         [Required]
         public BotType BotType { get; set; }
 
+        public string Image { get; set; }
+
         [Required]
         public EnvironmentType EnvironmentType { get; set; }
 

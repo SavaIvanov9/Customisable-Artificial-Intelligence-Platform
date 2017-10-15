@@ -29,6 +29,8 @@
         [Required]
         public string EnvironmentType { get; set; }
 
+        public string Image { get; set; }
+
         public virtual ICollection<Intention> Intentions
         {
             get => this._intentions;

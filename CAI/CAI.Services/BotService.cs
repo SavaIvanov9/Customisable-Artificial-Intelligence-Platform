@@ -43,6 +43,7 @@
                     Name = x.Name,
                     BotType = x.BotType,
                     EnvironmentType = x.EnvironmentType,
+                    Image = x.Image,
                     CreatedOn = x.CreatedOn,
                     ModifiedOn = x.ModifiedOn
                 });
