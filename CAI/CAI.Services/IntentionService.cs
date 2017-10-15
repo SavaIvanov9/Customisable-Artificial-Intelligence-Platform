@@ -27,6 +27,7 @@
             {
                 Id = intention.Id,
                 Name = intention.Name,
+                BotId = intention.BotId,
                 CreatedOn = intention.CreatedOn,
                 ModifiedOn = intention.ModifiedOn,
                 ActivationKeys = intention.ActivationKeys.Select(a => new ActivationKeyViewModel()
@@ -39,9 +40,9 @@
             };
         }
 
-        public bool EditIntention(IntentionViewModel model, long id, string modifiedBy)
+        public bool EditIntention(IntentionViewModel model, string modifiedBy)
         {
-            var intention = base.FindIntentionById(id);
+            var intention = base.FindIntentionById(model.Id);
 
             intention.Name = model.Name;
             intention.ModifiedBy = modifiedBy;

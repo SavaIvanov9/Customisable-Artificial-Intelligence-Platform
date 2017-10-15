@@ -14,32 +14,41 @@
     using Microsoft.Owin.Security;
     using Models.Account;
     using Models;
+    using Services.Abstraction;
+    using Services.Models.User;
 
     [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        //private readonly IAccountService _accountService;
+        private readonly ISignInManagerService _signInManagerService;
+        private readonly IUserManagerService _userManagerService;
 
-        public AccountController()
+        public AccountController(ISignInManagerService signInManagerService, IUserManagerService userManagerService)
         {
+            this._signInManagerService = signInManagerService;
+            this._userManagerService = userManagerService;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ISignInManagerService signInManagerService, IUserManagerService userManagerService)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            this.UserManager = userManager;
+            this.SignInManager = signInManager;
+            this._signInManagerService = signInManagerService;
+            this._userManagerService = userManagerService;
         }
 
         public ApplicationSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return this._signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set
             {
-                _signInManager = value;
+                this._signInManager = value;
             }
         }
 
@@ -71,14 +80,17 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return View(model);
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            var result = await this._signInManagerService.PasswordSignInAsync(this.SignInManager, model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -100,7 +112,8 @@
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
-            if (!await SignInManager.HasBeenVerifiedAsync())
+            //if (!await SignInManager.HasBeenVerifiedAsync())
+            if (!await this._signInManagerService.HasBeenVerifiedAsync(this.SignInManager))
             {
                 return View("Error");
             }
@@ -123,7 +136,10 @@
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+            //var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await this._signInManagerService.TwoFactorSignInAsync(this.SignInManager,
+                model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -168,6 +184,27 @@
 
                     return RedirectToAction("Index", "Home");
                 }
+
+                //if (this.ModelState.IsValid)
+                //{
+                //    var user = new UserViewModel { UserName = model.Email, Email = model.Email };
+                //    //var result = await UserManager.CreateAsync(user, model.Password);
+                //    var result = await this._userManagerService.CreateAsync(this.UserManager, user, model.Password);
+
+                //    if (result.Succeeded)
+                //    {
+                //        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                //        await this._signInManagerService.SignInAsync(this.SignInManager, user, isPersistent: false, rememberBrowser: false);
+
+                //        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                //        // Send an email with this link
+                //        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                //        return RedirectToAction("Index", "Home");
+                //    }
+
                 AddErrors(result);
             }
 
@@ -184,7 +221,10 @@
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
+
+            //var result = await UserManager.ConfirmEmailAsync(userId, code);
+            var result = await this._userManagerService.ConfirmEmailAsync(this.UserManager, userId, code);
+
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -205,8 +245,11 @@
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                //var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await this._userManagerService.FindByNameAsync(this.UserManager, model.Email);
+
+                //if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null || !(await this._userManagerService.IsEmailConfirmedAsync(this.UserManager, user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -251,17 +294,24 @@
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+
+            //var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await this._userManagerService.FindByNameAsync(this.UserManager, model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+            //var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await this._userManagerService.ResetPasswordAsync(this.UserManager, user.Id,
+                model.Code, model.Password);
+
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+
             AddErrors(result);
             return View();
         }
@@ -290,12 +340,18 @@
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
+            //var userId = await SignInManager.GetVerifiedUserIdAsync();
+            var userId = await this._signInManagerService.GetVerifiedUserIdAsync(this.SignInManager);
+
             if (userId == null)
             {
                 return View("Error");
             }
-            var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+
+            //var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
+            var userFactors = await this._userManagerService.GetValidTwoFactorProvidersAsync(
+                this.UserManager, userId);
+
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -313,7 +369,8 @@
             }
 
             // Generate the token and send it
-            if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            //if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
+            if (!await this._signInManagerService.SendTwoFactorCodeAsync(this.SignInManager, model.SelectedProvider))
             {
                 return View("Error");
             }
@@ -332,7 +389,9 @@
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            //var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await this._signInManagerService.ExternalSignInAsync(this.SignInManager, loginInfo, isPersistent: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -366,18 +425,28 @@
             {
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
+
+                //var user = new User { UserName = model.Email, Email = model.Email };
+                //var result = await UserManager.CreateAsync(user);
+
+                var user = new UserViewModel { UserName = model.Email, Email = model.Email };
+                var result = await this._userManagerService.CreateAsync(this.UserManager, user);
+
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    //result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await this._userManagerService.AddLoginAsync(this.UserManager, user.Id, info.Login);
+
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await this._signInManagerService.SignInAsync(this.SignInManager, user, isPersistent: false, rememberBrowser: false);
+
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -412,13 +481,15 @@
             {
                 if (_userManager != null)
                 {
-                    _userManager.Dispose();
+                    //_userManager.Dispose();
+                    this._userManagerService.DisposeUserManager(this.UserManager);
                     _userManager = null;
                 }
 
                 if (_signInManager != null)
                 {
-                    _signInManager.Dispose();
+                    //_signInManager.Dispose();
+                    this._signInManagerService.DisposeSignInManager(this._signInManager);
                     _signInManager = null;
                 }
             }

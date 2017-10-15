@@ -68,12 +68,14 @@ namespace CAI.IoC
             kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
 
             //Services
-            kernel.Bind<ITestService>().To<TestService>();
             kernel.Bind<INeuralNetworkService>().To<NeuralNetworkService>();
             kernel.Bind<ILanguageProcessingService>().To<LanguageProcessingService>();
             kernel.Bind<IIntentionRecognitionService>().To<IntentionRecognitionService>();
             kernel.Bind<IBotService>().To<BotService>();
             kernel.Bind<IIntentionService>().To<IntentionService>();
+            kernel.Bind<ISignInManagerService>().To<SignInManagerService>();
+            kernel.Bind<IUserManagerService>().To<UserManagerService>();
+            
         }
     }
 }

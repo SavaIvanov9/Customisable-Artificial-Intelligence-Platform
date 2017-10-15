@@ -9,6 +9,18 @@
 
     public class User : IdentityUser, IAuditableModel
     {
+        public User()
+        {
+            this.CreatedOn = DateTime.Now;
+            this.IsDeleted = false;
+        }
+
+        public User(string username) : base(username)
+        {
+            this.CreatedOn = DateTime.Now;
+            this.IsDeleted = false;
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

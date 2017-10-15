@@ -1,8 +1,9 @@
 ﻿@model CAI.Services.Models.Bot.BotViewModel
 
 <div>
-    <h4>Bot</h4>
-    <hr />
+    <br/>
+    <h3>Bot Details</h3>
+    <hr/>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -37,55 +38,47 @@
         <dd>
             @Html.DisplayFor(model => model.ModifiedOn)
         </dd>
-
-        <dt>
-            @*@Html.DropDownList("element", Model.Intentions.Select(x => new SelectListItem(){ Text = x.Name}))*@
-            @Html.DisplayNameFor(model => model.Intentions)
-        </dt>
-        @{
-            foreach (var intention in Model.Intentions)
-            {
-                <dd>
-                    @Html.DisplayFor(i => intention.Name)
-                </dd>
-            }
-        }
     </dl>
-    
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().ModifiedOn)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var intention in Model.Intentions)
-        {
+    @*@Html.DropDownList("element", Model.Intentions.Select(x => new SelectListItem(){ Text = x.Name}))*@
+
+    <label for="intentionsTable">@Html.DisplayNameFor(model => model.Intentions)</label>
+    <div id="intentionsTable">
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => intention.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => intention.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => intention.ModifiedOn)
-                </td>
-                <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                    @Html.ActionLink("Details", "Details", "Intention", new { id = intention.Id }, null) |
-                    @Html.ActionLink("Delete", "Delete", "Intention", new { id = intention.Id }, null)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Intentions.FirstOrDefault().ModifiedOn)
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>
+
+            @foreach (var intention in Model.Intentions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => intention.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => intention.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => intention.ModifiedOn)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Intention", new { id = intention.Id }, null) |
+                        @Html.ActionLink("Details", "Details", "Intention", new {id = intention.Id}, null) |
+                        @Html.ActionLink("Delete", "Delete", "Intention", new {id = intention.Id}, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@

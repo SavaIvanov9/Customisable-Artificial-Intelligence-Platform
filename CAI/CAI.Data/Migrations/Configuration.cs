@@ -7,6 +7,8 @@ namespace CAI.Data.Migrations
     using System.Linq;
     using System.Text;
     using Common.Enums;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
 
     public sealed class Configuration : DbMigrationsConfiguration<CaiDbContext>
@@ -19,10 +21,40 @@ namespace CAI.Data.Migrations
 
         protected override void Seed(CaiDbContext context)
         {
+            this.SeedDefaultUsers(context);
             this.SeedDefaultBots(context);
             this.SeedTestBots(context, 10);
 
             context.SaveChanges();
+        }
+
+        private void SeedDefaultUsers(CaiDbContext context)
+        {
+            const string administratorUserName = "admin@admin.com";
+            const string administratorPassword = administratorUserName;
+
+            if (!context.Roles.Any())
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                // Create client role
+                var roleClient = new IdentityRole { Name = UserRoleType.Admin.ToString() };
+                roleManager.Create(roleClient);
+
+                // Create admin role
+                var roleAdmin = new IdentityRole { Name = UserRoleType.Admin.ToString() };
+                roleManager.Create(roleAdmin);
+
+                // Create admin user
+                var userStore = new UserStore<User>(context);
+                var userManager = new UserManager<User>(userStore);
+                var user = new User { UserName = administratorUserName, Email = administratorUserName };
+                userManager.Create(user, administratorPassword);
+
+                // Assign user to admin role
+                userManager.AddToRole(user.Id, UserRoleType.Admin.ToString());
+            }
         }
 
         private void SeedDefaultBots(CaiDbContext context)

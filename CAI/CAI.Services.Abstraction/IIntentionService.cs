@@ -9,7 +9,7 @@
 
         //long RegisterNewBot(BotCreateModel model, string createdBy);
 
-        bool EditIntention(IntentionViewModel model, long id, string modifiedBy);
+        bool EditIntention(IntentionViewModel model, string modifiedBy);
 
         bool DeleteIntention(long id, string deletedBy);
     }

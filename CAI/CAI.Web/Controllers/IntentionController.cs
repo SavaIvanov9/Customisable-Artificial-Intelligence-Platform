@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Common.CustomExceptions;
     using Services.Abstraction;
+    using Services.Models.Intention;
 
     public class IntentionController : Controller
     {
@@ -31,6 +32,38 @@
             {
                 return HttpNotFound();
             }
+        }
+
+        public ActionResult Edit(long? id)
+        {
+            if (id == null || id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var intention = this._intentionService.FindIntention(id.Value);
+
+            if (intention == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(intention);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] IntentionViewModel intention)
+        {
+            if (this.ModelState.IsValid)
+            {
+                if (this._intentionService.EditIntention(intention, this.User.Identity.Name))
+                {
+                    return RedirectToAction("Index", "IntentionRecognition", new { area = "" });
+                }
+            }
+
+            return View(intention);
         }
 
         // GET: IntentionRecognition/Delete/5

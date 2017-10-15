@@ -9,6 +9,8 @@
     {
         public string Name { get; set; }
 
+        public long BotId { get; set; }
+
         public IEnumerable<ActivationKeyViewModel> ActivationKeys { get; set; }
     }
 }

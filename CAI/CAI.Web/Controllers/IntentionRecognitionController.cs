@@ -1,6 +1,5 @@
 ﻿namespace CAI.Web.Controllers
 {
-    using CAI.Data.Models;
     using Data.Filtering;
     using Services.Abstraction;
     using System.Data.Entity;
