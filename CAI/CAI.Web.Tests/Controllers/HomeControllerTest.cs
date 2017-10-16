@@ -1,54 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CAI.Web;
-using CAI.Web.Controllers;
-
-namespace CAI.Web.Tests.Controllers
+﻿namespace CAI.Web.Tests.Controllers
 {
+    using System.Web.Mvc;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Models.Home;
+    using Moq;
+    using NUnit.Framework;
+    using Services.Abstraction;
+    using Web.Controllers;
+    using Assert = NUnit.Framework.Assert;
+
     [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
-        public void Index()
+        private HomeController _controller;
+        private Mock<IBotService> _botService;
+        private Mock<IDefaultBotsService> _defaultBotsService;
+
+        public HomeControllerTest()
         {
-            //// Arrange
-            //HomeController controller = new HomeController();
+            this._botService = new Mock<IBotService>();
+            this._defaultBotsService = new Mock<IDefaultBotsService>();
+            this._controller = new HomeController(this._botService.Object, this._defaultBotsService.Object);
+        }
 
-            //// Act
-            //ViewResult result = controller.Index() as ViewResult;
+        [SetUp]
+        public void SetUp()
+        {
+            this._botService = new Mock<IBotService>();
+            this._defaultBotsService = new Mock<IDefaultBotsService>();
+            this._controller = new HomeController(this._botService.Object, this._defaultBotsService.Object);
+        }
 
-            //// Assert
-            //Assert.IsNotNull(result);
+        [TearDown]
+        public void TearDown()
+        {
+            this._controller.Dispose();
+        }
+
+        [TestMethod]
+        public void IndexShouldReturnNotNull()
+        {
+            var result = this._controller.Index() as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void IndexShouldReturnCorrectModelType()
+        {
+            var result = this._controller.Index() as ViewResult;
+            var model = result.ViewData.Model as HomeViewModel;
+
+            Assert.AreEqual(typeof(HomeViewModel), model.GetType());
         }
 
         [TestMethod]
         public void About()
         {
-            //// Arrange
-            //HomeController controller = new HomeController();
+            ViewResult result = this._controller.About() as ViewResult;
 
-            //// Act
-            //ViewResult result = controller.About() as ViewResult;
-
-            //// Assert
-            //Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
         [TestMethod]
         public void Contact()
         {
-            //// Arrange
-            //HomeController controller = new HomeController();
+            ViewResult result = this._controller.Contact() as ViewResult;
 
-            //// Act
-            //ViewResult result = controller.Contact() as ViewResult;
-
-            //// Assert
-            //Assert.IsNotNull(result);
+            Assert.IsNotNull(result);
         }
     }
 }
