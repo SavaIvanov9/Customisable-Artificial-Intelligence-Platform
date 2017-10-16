@@ -30,13 +30,15 @@
                 BotId = intention.BotId,
                 CreatedOn = intention.CreatedOn,
                 ModifiedOn = intention.ModifiedOn,
-                ActivationKeys = intention.ActivationKeys.Select(a => new ActivationKeyViewModel()
-                {
-                    Id = a.Id,
-                    Name = a.Name,
-                    CreatedOn = a.CreatedOn,
-                    ModifiedOn = a.ModifiedOn
-                })
+                ActivationKeys = intention.ActivationKeys
+                    .Where(a => a.IsDeleted == false)
+                    .Select(a => new ActivationKeyViewModel()
+                    {
+                        Id = a.Id,
+                        Name = a.Name,
+                        CreatedOn = a.CreatedOn,
+                        ModifiedOn = a.ModifiedOn
+                    })
             };
         }
 

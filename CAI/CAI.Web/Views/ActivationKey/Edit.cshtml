@@ -1,4 +1,4 @@
-﻿@model CAI.Services.Models.Intention.IntentionViewModel
+﻿@model CAI.Services.Models.ActivationKey.ActivationKeyViewModel
 
 @using (Html.BeginForm())
 {
@@ -27,5 +27,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back", "Details", "IntentionRecognition", new { id = Model.BotId }, null)
+    @Html.ActionLink("Back", "Details", "Intention", new { id = Model.IntentionId }, null)
 </div>

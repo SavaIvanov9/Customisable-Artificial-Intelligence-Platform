@@ -74,20 +74,26 @@
                 Image = bot.Image,
                 CreatedOn = bot.CreatedOn,
                 ModifiedOn = bot.ModifiedOn,
-                Intentions = bot.Intentions.Select(i => new IntentionViewModel()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    CreatedOn = i.CreatedOn,
-                    ModifiedOn = i.ModifiedOn,
-                    ActivationKeys = i.ActivationKeys.Select(a => new ActivationKeyViewModel()
+                Intentions = bot.Intentions
+                    .Where(i => i.IsDeleted == false)
+                    .Select(i => new IntentionViewModel()
                     {
-                        Id = a.Id,
-                        Name = a.Name,
-                        CreatedOn = a.CreatedOn,
-                        ModifiedOn = a.ModifiedOn
+                        Id = i.Id,
+                        Name = i.Name,
+                        BotId = i.BotId,
+                        CreatedOn = i.CreatedOn,
+                        ModifiedOn = i.ModifiedOn,
+                        ActivationKeys = i.ActivationKeys
+                            .Where(a => a.IsDeleted == false)
+                            .Select(a => new ActivationKeyViewModel()
+                            {
+                                Id = a.Id,
+                                Name = a.Name,
+                                IntentionId = a.IntentionId,
+                                CreatedOn = a.CreatedOn,
+                                ModifiedOn = a.ModifiedOn
+                            })
                     })
-                })
             };
         }
 

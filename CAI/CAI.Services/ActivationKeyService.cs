@@ -21,6 +21,7 @@
             {
                 Id = key.Id,
                 Name = key.Name,
+                IntentionId = key.IntentionId,
                 CreatedOn = key.CreatedOn,
                 ModifiedOn = key.ModifiedOn,
             };

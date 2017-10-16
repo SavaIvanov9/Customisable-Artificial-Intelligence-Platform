@@ -26,6 +26,44 @@
             @Html.DisplayFor(model => model.ModifiedOn)
         </dd>
     </dl>
+    
+    <label for="keysTable">@Html.DisplayNameFor(model => model.ActivationKeys)</label>
+    <div id="keysTable">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActivationKeys.FirstOrDefault().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActivationKeys.FirstOrDefault().CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActivationKeys.FirstOrDefault().ModifiedOn)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var key in Model.ActivationKeys)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => key.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => key.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => key.ModifiedOn)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "ActivationKey", new { id = key.Id }, null) |
+                        @Html.ActionLink("Details", "Details", "ActivationKey", new {id = key.Id}, null) |
+                        @Html.ActionLink("Delete", "Delete", "ActivationKey", new {id = key.Id}, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@

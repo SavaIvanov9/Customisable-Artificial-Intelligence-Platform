@@ -79,6 +79,7 @@ namespace CAI.IoC
             kernel.Bind<ISignInManagerService>().To<SignInManagerService>();
             kernel.Bind<IUserManagerService>().To<UserManagerService>();
             kernel.Bind<IDefaultBotsService>().To<DefaultBotsService>();
+            kernel.Bind<IActivationKeyService>().To<ActivationKeyService>();
         }
     }
 }

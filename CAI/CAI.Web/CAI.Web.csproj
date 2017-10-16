@@ -314,6 +314,9 @@
     <Content Include="Views\IntentionRecognition\Index.cshtml" />
     <Content Include="Views\Intention\Delete.cshtml" />
     <Content Include="Views\IntentionRecognition\Chat.cshtml" />
+    <Content Include="Views\ActivationKey\Delete.cshtml" />
+    <Content Include="Views\ActivationKey\Details.cshtml" />
+    <Content Include="Views\ActivationKey\Edit.cshtml" />
     <None Include="Views\Intention\Edit.cshtml" />
     <Content Include="Views\Intention\Details.cshtml" />
   </ItemGroup>

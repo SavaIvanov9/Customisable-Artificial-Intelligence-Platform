@@ -53,13 +53,15 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] IntentionViewModel intention)
+        public ActionResult Edit([Bind(Include = "Id,Name")] IntentionViewModel intentionModel)
         {
+            var intention = this._intentionService.FindIntention(intentionModel.Id);
+
             if (this.ModelState.IsValid)
             {
-                if (this._intentionService.EditIntention(intention, this.User.Identity.Name))
+                if (this._intentionService.EditIntention(intentionModel, this.User.Identity.Name))
                 {
-                    return RedirectToAction("Index", "IntentionRecognition", new { area = "" });
+                    return RedirectToAction("Details", "IntentionRecognition", new { id = intention.BotId });
                 }
             }
 
@@ -89,12 +91,14 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
+            var intention = this._intentionService.FindIntention(id);
+
             if (!this._intentionService.DeleteIntention(id, this.User.Identity.Name))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Conflict);
             }
 
-            return RedirectToAction("Index", "IntentionRecognition", new { area = "" });
+            return RedirectToAction("Details", "IntentionRecognition", new { id = intention.BotId });
             //return RedirectToAction("Index");
         }
 
