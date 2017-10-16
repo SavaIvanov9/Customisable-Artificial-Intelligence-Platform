@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -122,6 +123,10 @@
     <ProjectReference Include="..\CAI.Services.Abstraction\CAI.Services.Abstraction.csproj">
       <Project>{E1E198E3-B376-4E67-9056-690469CE9BBD}</Project>
       <Name>CAI.Services.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Services.Models\CAI.Services.Models.csproj">
+      <Project>{13BD51F8-E798-4CD4-A7D5-B811AA3EC731}</Project>
+      <Name>CAI.Services.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\CAI.Web\CAI.Web.csproj">
       <Project>{86C45777-554F-4A51-8C6A-AF506C79478F}</Project>
