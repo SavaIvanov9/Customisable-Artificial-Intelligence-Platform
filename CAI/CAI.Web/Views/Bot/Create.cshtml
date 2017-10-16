@@ -45,8 +45,7 @@
 
 <h2>Create new bot</h2>
 
-@using (Ajax.BeginForm("Create", "Bot",
-                            new AjaxOptions { LoadingElementId = "loader", OnSuccess = "onSuccess" }))
+@using (Ajax.BeginForm("Create", "Bot", new AjaxOptions { LoadingElementId = "loader", OnSuccess = "onSuccess" }))
 {
 
     <div class="form-group">

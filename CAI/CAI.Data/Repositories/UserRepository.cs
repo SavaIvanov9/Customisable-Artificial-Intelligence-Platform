@@ -12,9 +12,9 @@
         {
         }
 
-        public User FindById(string id, bool isDeleted = false)
+        public User FindById(string id)
         {
-            return this.Set.FirstOrDefault(x => x.Id == id && x.IsDeleted == isDeleted);
+            return this.Set.FirstOrDefault(x => x.Id == id);
         }
     }
 }

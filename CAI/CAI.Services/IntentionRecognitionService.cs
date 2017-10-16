@@ -29,6 +29,60 @@
 
         public long RegisterNewIntentionRecognitionBot(BotCreateModel model, string createdBy)
         {
+            var bot = new Bot()
+            {
+                CreatedBy = createdBy,
+                Name = model.Name,
+                BotType = model.BotType.ToString(),
+                EnvironmentType = model.EnvironmentType.ToString(),
+                Image = model.Image
+            };
+
+            this.Data.BotRepository.Add(bot);
+            this.Data.SaveChanges();
+
+            //var network = this.GenerateIntentionRecognizerBotNetwork(model);
+            //network.Bot = bot;
+            //network.BotId = bot.Id;
+            //network.CreatedBy = createdBy;
+
+            //this.Data.NeuralNetworkDataRepository.Add(network);
+            //this.Data.SaveChanges();
+
+            //foreach (var intentionModel in model.Intentions)
+            //{
+            //    var intention = new Intention
+            //    {
+            //        Bot = bot,
+            //        BotId = bot.Id,
+            //        Name = intentionModel.Name,
+            //        CreatedBy = createdBy,
+            //    };
+
+            //    this.Data.IntentionRepository.Add(intention);
+            //    this.Data.SaveChanges();
+
+            //    foreach (var keymodel in intentionModel.ActivationKeys)
+            //    {
+            //        var key = new ActivationKey
+            //        {
+            //            Name = keymodel.Name,
+            //            CreatedBy = createdBy,
+            //            Intention = intention,
+            //            IntentionId = intention.Id
+            //        };
+
+            //        this.Data.ActivationKeyRepository.Add(key);
+            //    }
+
+            //    this.Data.SaveChanges();
+            //}
+
+            return bot.Id;
+        }
+
+        public long FullRegisterNewIntentionRecognitionBot(BotCreateModel model, string createdBy)
+        {
             //var intentions = model.Intentions
             //    .Select(i => new Intention
             //    {
@@ -70,14 +124,16 @@
             //this.CheckBotForExistingName(bot.Name);
             this.Data.BotRepository.Add(bot);
             this.Data.SaveChanges();
+            
+            //var network = this.GenerateIntentionRecognizerBotNetwork(model);
+            //network.Bot = bot;
+            //network.BotId = bot.Id;
+            //network.CreatedBy = createdBy;
 
-            var network = this.GenerateIntentionRecognizerBotNetwork(model);
-            network.Bot = bot;
-            network.BotId = bot.Id;
-            network.CreatedBy = createdBy;
+            //this.Data.NeuralNetworkDataRepository.Add(network);
+            //this.Data.SaveChanges();
 
-            this.Data.NeuralNetworkDataRepository.Add(network);
-            this.Data.SaveChanges();
+            this.GenerateNetwork(model, createdBy, bot);
 
             foreach (var intentionModel in model.Intentions)
             {
@@ -125,7 +181,8 @@
 
             if (networkData == null)
             {
-                throw new NotFoundException($"{NeuralNetworkType.IntentionRecognition} neural network");
+                //throw new NotFoundException($"{NeuralNetworkType.IntentionRecognition} neural network");
+                this.GenerateNetwork(bot);
             }
 
             var knownKeys = this.ExtractKeys(bot);
@@ -243,6 +300,22 @@
             return intentions;
         }
 
+        private NeuralNetworkData GenerateIntentionRecognizerBotNetwork(Bot bot)
+        {
+            var inputLayer = 0;
+
+            foreach (var intention in bot.Intentions)
+            {
+                for (int i = 0; i < intention.ActivationKeys.Count; i++)
+                {
+                    inputLayer++;
+                }
+            }
+
+            return this._neuralNetworkService.GenerateIntentionRecognitionNeuralNetworkData(
+                inputLayer, bot.Intentions.Count);
+        }
+
         private NeuralNetworkData GenerateIntentionRecognizerBotNetwork(BotCreateModel bot)
         {
             var inputLayer = 0;
@@ -291,6 +364,28 @@
             }
 
             return new Tuple<double[][], double[][]>(input.ToArray(), output.ToArray());
+        }
+
+        private void GenerateNetwork(Bot bot)
+        {
+            var network = this.GenerateIntentionRecognizerBotNetwork(bot);
+            network.Bot = bot;
+            network.BotId = bot.Id;
+            network.CreatedBy = bot.CreatedBy;
+
+            this.Data.NeuralNetworkDataRepository.Add(network);
+            this.Data.SaveChanges();
+        }
+
+        private void GenerateNetwork(BotCreateModel model, string createdBy, Bot bot)
+        {
+            var network = this.GenerateIntentionRecognizerBotNetwork(model);
+            network.Bot = bot;
+            network.BotId = bot.Id;
+            network.CreatedBy = createdBy;
+
+            this.Data.NeuralNetworkDataRepository.Add(network);
+            this.Data.SaveChanges();
         }
     }
 }

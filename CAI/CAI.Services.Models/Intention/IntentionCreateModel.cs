@@ -9,6 +9,8 @@
         [Required]
         public string Name { get; set; }
 
+        public long BotId { get; set; }
+
         public ICollection<ActivationKeyCreateModel> ActivationKeys { get; set; }
     }
 }

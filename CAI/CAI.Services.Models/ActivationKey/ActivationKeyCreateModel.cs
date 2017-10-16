@@ -6,5 +6,7 @@
     {
         [Required]
         public string Name { get; set; }
+
+        public long IntentionId { get; set; }
     }
 }

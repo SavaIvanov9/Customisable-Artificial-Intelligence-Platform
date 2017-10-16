@@ -39,7 +39,7 @@ namespace CAI.Data.Migrations
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
 
                 // Create client role
-                var roleClient = new IdentityRole { Name = UserRoleType.Admin.ToString() };
+                var roleClient = new IdentityRole { Name = UserRoleType.Client.ToString() };
                 roleManager.Create(roleClient);
 
                 // Create admin role

@@ -43,14 +43,14 @@
 
         protected NeuralNetworkData FindNeuralNetworkDataById(long id)
         {
-            var bot = this.Data.NeuralNetworkDataRepository.FindById(id);
+            var network = this.Data.NeuralNetworkDataRepository.FindById(id);
 
-            if (bot == null)
+            if (network == null)
             {
                 throw new NotFoundException("Neural Network Data");
             }
 
-            return bot;
+            return network;
         }
 
         protected ActivationKey FindKeyById(long id)
@@ -59,10 +59,22 @@
 
             if (key == null)
             {
-                throw new NotFoundException("Intention");
+                throw new NotFoundException("key");
             }
 
             return key;
+        }
+
+        protected User FindUserById(string id)
+        {
+            var user = this.Data.UserRepository.FindById(id);
+
+            if (user == null)
+            {
+                throw new NotFoundException("user");
+            }
+
+            return user;
         }
 
         //protected void CheckBotForExistingName(string name)

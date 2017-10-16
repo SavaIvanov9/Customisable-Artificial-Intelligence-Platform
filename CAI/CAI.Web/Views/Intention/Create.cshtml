@@ -1,15 +1,12 @@
-﻿@model CAI.Services.Models.Bot.BotCreateModel
-
-@*@{
-    Layout = null;
-}*@
+﻿@model CAI.Services.Models.Intention.IntentionCreateModel
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    @*@{ Model.BotId = ViewBag.Message; }
+    @Html.HiddenFor(m => m.BotId);*@
     <div class="form-horizontal">
-        <h4>Bot</h4>
+        <h4>Intention</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -17,14 +14,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -37,5 +26,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back", "Details", "IntentionRecognition", new { id = @Model.BotId }, null)
 </div>

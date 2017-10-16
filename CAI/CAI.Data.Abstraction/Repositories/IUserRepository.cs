@@ -6,7 +6,7 @@
 
     public interface IUserRepository : IAuditableRepository<User>
     {
-        User FindById(string id, bool isDeleted = false);
+        User FindById(string id);
 
         ////IEnumerable<Bot> AllContainingInName(string query, bool isDeleted = false);
         //IEnumerable<Bot> AllContainingInName(string query, BotFilter filter = null);

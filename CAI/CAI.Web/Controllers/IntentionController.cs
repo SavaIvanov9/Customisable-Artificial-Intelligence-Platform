@@ -3,7 +3,9 @@
     using System.Net;
     using System.Web.Mvc;
     using Common.CustomExceptions;
+    using Common.Enums;
     using Services.Abstraction;
+    using Services.Models.Bot;
     using Services.Models.Intention;
 
     public class IntentionController : Controller
@@ -15,6 +17,7 @@
             this._intentionService = intentionService;
         }
 
+        [Authorize]
         public ActionResult Details(long? id)
         {
             if (id == null || id < 1)
@@ -34,6 +37,7 @@
             }
         }
 
+        [Authorize]
         public ActionResult Edit(long? id)
         {
             if (id == null || id < 1)
@@ -51,6 +55,7 @@
             return View(intention);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] IntentionViewModel intentionModel)
@@ -68,7 +73,28 @@
             return View(intention);
         }
 
-        // GET: IntentionRecognition/Delete/5
+        [Authorize]
+        public ActionResult Create(long botId)
+        {
+            return View(new IntentionCreateModel { BotId = botId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Name,BotId")] IntentionCreateModel intention)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var id = this._intentionService.RegisterIntention(intention, this.User.Identity.Name);
+
+                return RedirectToAction("Details", new { id = id });
+            }
+
+            return View(intention);
+        }
+
+        [Authorize]
         public ActionResult Delete(long? id)
         {
             if (id == null || id < 1)
@@ -86,7 +112,7 @@
             return View(intention);
         }
 
-        // POST: IntentionRecognition/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
@@ -99,7 +125,6 @@
             }
 
             return RedirectToAction("Details", "IntentionRecognition", new { id = intention.BotId });
-            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

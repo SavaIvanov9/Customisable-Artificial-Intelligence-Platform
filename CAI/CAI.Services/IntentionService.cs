@@ -42,6 +42,24 @@
             };
         }
 
+        public long RegisterIntention(IntentionCreateModel model, string createdBy)
+        {
+            var bot = this.FindBotById(model.BotId);
+
+            var intention = new Intention()
+            {
+                CreatedBy = createdBy,
+                Name = model.Name,
+                BotId = bot.Id,
+                Bot = bot
+            };
+
+            this.Data.IntentionRepository.Add(intention);
+            this.Data.SaveChanges();
+
+            return intention.Id;
+        }
+
         public bool EditIntention(IntentionViewModel model, string modifiedBy)
         {
             var intention = base.FindIntentionById(model.Id);

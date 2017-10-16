@@ -27,6 +27,9 @@
         </dd>
     </dl>
     
+    <p>
+        @Html.ActionLink("Create New", "Create", "ActivationKey", new { intentionId = @Model.Id }, null)
+    </p>
     <label for="keysTable">@Html.DisplayNameFor(model => model.ActivationKeys)</label>
     <div id="keysTable">
         <table class="table">

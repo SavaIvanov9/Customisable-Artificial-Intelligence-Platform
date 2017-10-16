@@ -56,7 +56,7 @@
                     Intentions = this.GenerateSampleIntentions()
                 };
 
-                var id = botService.RegisterNewIntentionRecognitionBot(botModel, "admin");
+                var id = botService.FullRegisterNewIntentionRecognitionBot(botModel, "admin");
 
                 Console.WriteLine("Creating new bot done.");
                 Console.WriteLine();

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Common.CustomExceptions;
+    using Common.Enums;
     using Models.IntentionRecognition;
     using Services.Models.Bot;
 
@@ -22,7 +23,7 @@
             this._botService = botService;
         }
 
-        // GET: IntentionRecognition
+        [Authorize]
         public ActionResult Index()
         {
             var filter = new BotFilter() { IsDeleted = false };
@@ -31,7 +32,7 @@
             return View(data);
         }
 
-        // GET: IntentionRecognition/Details/5
+        [Authorize]
         public ActionResult Details(long? id)
         {
             if (id == null || id < 1)
@@ -51,29 +52,33 @@
             }
         }
 
-        // GET: IntentionRecognition/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
-        //// POST: IntentionRecognition/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] Bot bot)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Bots.Add(bot);
-        //        db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
+        // POST: IntentionRecognition/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Image")] BotCreateModel bot)
+        {
+            if (this.ModelState.IsValid)
+            {
+                bot.BotType = BotType.IntentionRecognizer;
+                bot.EnvironmentType = EnvironmentType.Production;
+                this._intentionRecognitionService.RegisterNewIntentionRecognitionBot(bot, this.User.Identity.Name);
 
-        //    return View(bot);
-        //}
+                return RedirectToAction("Index");
+            }
 
+            return View(bot);
+        }
+
+        [Authorize]
         // GET: IntentionRecognition/Edit/5
         public ActionResult Edit(long? id)
         {
@@ -95,6 +100,7 @@
         // POST: IntentionRecognition/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Image")] BotViewModel bot)
@@ -110,6 +116,7 @@
         }
 
         // GET: IntentionRecognition/Delete/5
+        [Authorize]
         public ActionResult Delete(long? id)
         {
             if (id == null || id < 1)
@@ -128,6 +135,7 @@
         }
 
         // POST: IntentionRecognition/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

@@ -41,7 +41,10 @@
     </dl>
 
     @*@Html.DropDownList("element", Model.Intentions.Select(x => new SelectListItem(){ Text = x.Name}))*@
-
+    
+    <p>
+        @Html.ActionLink("Create New", "Create", "Intention", new { botId = @Model.Id }, null)
+    </p>
     <label for="intentionsTable">@Html.DisplayNameFor(model => model.Intentions)</label>
     <div id="intentionsTable">
         <table class="table">

@@ -6,7 +6,7 @@
     {
         ActivationKeyViewModel FindKey(long id);
 
-        //long RegisterNewBot(BotCreateModel model, string createdBy);
+        long RegisterKey(ActivationKeyCreateModel model, string createdBy);
 
         bool EditKey(ActivationKeyViewModel model, string modifiedBy);
 

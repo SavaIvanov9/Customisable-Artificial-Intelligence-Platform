@@ -5,6 +5,7 @@
     using Abstraction;
     using Base;
     using Data.Abstraction;
+    using Data.Models;
     using Models.ActivationKey;
 
     public class ActivationKeyService : BaseService, IActivationKeyService
@@ -25,6 +26,24 @@
                 CreatedOn = key.CreatedOn,
                 ModifiedOn = key.ModifiedOn,
             };
+        }
+
+        public long RegisterKey(ActivationKeyCreateModel model, string createdBy)
+        {
+            var intention = this.FindIntentionById(model.IntentionId);
+
+            var key = new ActivationKey()
+            {
+                CreatedBy = createdBy,
+                Name = model.Name,
+                IntentionId = intention.Id,
+                Intention = intention
+            };
+
+            this.Data.IntentionRepository.Add(intention);
+            this.Data.SaveChanges();
+
+            return intention.Id;
         }
 
         public bool EditKey(ActivationKeyViewModel model, string modifiedBy)

@@ -57,7 +57,7 @@
                 Intentions = this.GenerateSampleIntentions()
             };
 
-            var id = this._botService.RegisterNewIntentionRecognitionBot(botModel, "admin");
+            var id = this._botService.FullRegisterNewIntentionRecognitionBot(botModel, "admin");
 
             Console.WriteLine("Creating new bot done.");
             Console.WriteLine();
@@ -102,7 +102,7 @@
                     Intentions = this.GenerateSampleIntentions()
                 };
 
-                var id = this._botService.RegisterNewIntentionRecognitionBot(botModel, "admin");
+                var id = this._botService.FullRegisterNewIntentionRecognitionBot(botModel, "admin");
 
                 Console.WriteLine("Creating new bot done.");
                 Console.WriteLine();

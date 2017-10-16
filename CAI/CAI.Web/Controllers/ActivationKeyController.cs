@@ -16,6 +16,7 @@
             this._activationKeyService = activationKeyService;
         }
 
+        [Authorize]
         public ActionResult Details(long? id)
         {
             if (id == null || id < 1)
@@ -35,6 +36,7 @@
             }
         }
 
+        [Authorize]
         public ActionResult Edit(long? id)
         {
             if (id == null || id < 1)
@@ -52,6 +54,7 @@
             return View(key);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,IntentionId")] ActivationKeyViewModel keyModel)
@@ -69,7 +72,28 @@
             return View(key);
         }
 
-        // GET: IntentionRecognition/Delete/5
+        [Authorize]
+        public ActionResult Create(long intentionId)
+        {
+            return View(new ActivationKeyCreateModel { IntentionId = intentionId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Name,IntentionId")] ActivationKeyCreateModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var id = this._activationKeyService.RegisterKey(model, this.User.Identity.Name);
+
+                return RedirectToAction("Details", new { id = id });
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
         public ActionResult Delete(long? id)
         {
             if (id == null || id < 1)
@@ -88,6 +112,7 @@
         }
 
         // POST: IntentionRecognition/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

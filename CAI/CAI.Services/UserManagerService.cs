@@ -4,14 +4,16 @@
     using System.Threading.Tasks;
     using Abstraction;
     using Base;
+    using Common.Enums;
     using Data.Abstraction;
     using Data.Models;
     using Identity;
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;
     using Models.User;
 
-    public class UserManagerService : IUserManagerService
+    public class UserManagerService : BaseService, IUserManagerService
     {
         public async Task<IdentityResult> CreateAsync(ApplicationUserManager userManager, UserViewModel userModel, string password)
         {
@@ -178,9 +180,20 @@
             return user?.PasswordHash;
         }
 
+        //public void AttchRole(User user, UserRoleType role)
+        //{
+        //    var userStore = new UserStore<User>(context);
+        //    var userManager = new UserManager<User>(userStore);
+        //    userManager.AddToRole(user.Id, UserRoleType.Admin.ToString());
+        //}
+
         public void Dispose(ApplicationUserManager userManager)
         {
             userManager.Dispose();
+        }
+
+        public UserManagerService(IUnitOfWork data) : base(data)
+        {
         }
     }
 }

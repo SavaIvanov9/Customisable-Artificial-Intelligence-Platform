@@ -208,6 +208,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivationKeyController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntentionController.cs" />
@@ -317,6 +318,11 @@
     <Content Include="Views\ActivationKey\Delete.cshtml" />
     <Content Include="Views\ActivationKey\Details.cshtml" />
     <Content Include="Views\ActivationKey\Edit.cshtml" />
+    <Content Include="Views\Intention\Create.cshtml" />
+    <Content Include="Views\ActivationKey\Create.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
     <None Include="Views\Intention\Edit.cshtml" />
     <Content Include="Views\Intention\Details.cshtml" />
   </ItemGroup>
