@@ -8,6 +8,7 @@
     using System.Web.Mvc;
     using Common.CustomExceptions;
     using Models.IntentionRecognition;
+    using Services.Models.Bot;
 
     public class IntentionRecognitionController : Controller
     {
@@ -73,39 +74,40 @@
         //    return View(bot);
         //}
 
-        //// GET: IntentionRecognition/Edit/5
-        //public async Task<ActionResult> Edit(long? id)
-        //{
-        //    if (id == null || id < 1)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
+        // GET: IntentionRecognition/Edit/5
+        public ActionResult Edit(long? id)
+        {
+            if (id == null || id < 1)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //    Bot bot = await db.Bots.FindAsync(id);
+            var bot = this._botService.FindBot(id.Value);
 
-        //    if (bot == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
+            if (bot == null)
+            {
+                return HttpNotFound();
+            }
 
-        //    return View(bot);
-        //}
+            return View(bot);
+        }
 
-        //// POST: IntentionRecognition/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] Bot bot)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(bot).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(bot);
-        //}
+        // POST: IntentionRecognition/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,Image")] BotViewModel bot)
+        {
+            if (this.ModelState.IsValid)
+            {
+                this._botService.EditBot(bot, this.User.Identity.Name);
+
+                return RedirectToAction("Index");
+            }
+
+            return View(bot);
+        }
 
         // GET: IntentionRecognition/Delete/5
         public ActionResult Delete(long? id)

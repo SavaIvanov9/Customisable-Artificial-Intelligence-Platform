@@ -21,7 +21,6 @@
         [ForeignKey("Bot")]
         public long BotId { get; set; }
 
-        [Required]
         public Bot Bot { get; set; }
 
         public virtual ICollection<ActivationKey> ActivationKeys

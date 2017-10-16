@@ -71,6 +71,7 @@
                 Name = bot.Name,
                 BotType = bot.BotType,
                 EnvironmentType = bot.EnvironmentType,
+                Image = bot.Image,
                 CreatedOn = bot.CreatedOn,
                 ModifiedOn = bot.ModifiedOn,
                 Intentions = bot.Intentions.Select(i => new IntentionViewModel()
@@ -90,14 +91,16 @@
             };
         }
 
-        public bool EditBot(BotCreateModel model, long id, string modifiedBy)
+        public bool EditBot(BotViewModel model, string modifiedBy)
         {
-            this.CheckBotForExistingName(model.Name);
+            //this.CheckBotForExistingName(model.Name);
 
-            var bot = base.FindBotById(id);
+            var bot = base.FindBotById(model.Id);
 
             bot.Name = model.Name;
             bot.ModifiedBy = modifiedBy;
+            bot.Image = model.Image;
+
             this.Data.BotRepository.Update(bot);
 
             return Convert.ToBoolean(this.Data.SaveChanges());

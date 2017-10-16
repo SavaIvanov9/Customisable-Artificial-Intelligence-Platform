@@ -53,13 +53,13 @@
             return bot;
         }
 
-        protected void CheckBotForExistingName(string name)
-        {
-            if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
-            {
-                throw new ExistingObjectException("Bot", "Use different name!");
-            }
-        }
+        //protected void CheckBotForExistingName(string name)
+        //{
+        //    if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
+        //    {
+        //        throw new ExistingObjectException("Bot", "Use different name!");
+        //    }
+        //}
 
         public void Dispose()
         {

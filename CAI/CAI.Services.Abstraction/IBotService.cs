@@ -15,7 +15,7 @@
 
         //long RegisterNewBot(BotCreateModel model, string createdBy);
 
-        bool EditBot(BotCreateModel model, long id, string modifiedBy);
+        bool EditBot(BotViewModel model, string modifiedBy);
 
         bool DeleteBot(long id, string deletedBy);
     }

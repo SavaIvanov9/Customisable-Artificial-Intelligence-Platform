@@ -67,7 +67,7 @@
 
             //bot.NeuralNetworkDatas.Add(network);
 
-            this.CheckBotForExistingName(bot.Name);
+            //this.CheckBotForExistingName(bot.Name);
             this.Data.BotRepository.Add(bot);
             this.Data.SaveChanges();
 

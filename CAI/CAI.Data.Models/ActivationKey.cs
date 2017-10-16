@@ -13,7 +13,6 @@
         [ForeignKey("Intention")]
         public long IntentionId { get; set; }
 
-        [Required]
         public Intention Intention { get; set; }
     }
 }

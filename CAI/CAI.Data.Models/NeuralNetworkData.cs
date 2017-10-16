@@ -15,7 +15,6 @@
         [ForeignKey("Bot")]
         public long BotId { get; set; }
 
-        [Required]
         public Bot Bot { get; set; }
 
         [Required]

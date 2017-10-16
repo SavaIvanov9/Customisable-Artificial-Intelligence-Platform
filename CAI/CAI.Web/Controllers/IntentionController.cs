@@ -53,7 +53,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,BotType,EnvironmentType,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,IsDeleted,DeletedOn,DeletedBy")] IntentionViewModel intention)
+        public ActionResult Edit([Bind(Include = "Id,Name")] IntentionViewModel intention)
         {
             if (this.ModelState.IsValid)
             {

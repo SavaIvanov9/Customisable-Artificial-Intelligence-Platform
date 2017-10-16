@@ -12,7 +12,7 @@
             @Html.DisplayNameFor(model => model.BotType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EnvironmentType)
+            @Html.DisplayNameFor(model => model.Image)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CreatedOn)
@@ -33,7 +33,12 @@
                 @Html.DisplayFor(modelItem => item.BotType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EnvironmentType)
+                @{
+                    if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <img src=@item.Image style="height: 100px; display: block; margin: 0 auto;">
+                    }
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedOn)
@@ -42,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.ModifiedOn)
             </td>
             <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>

@@ -46,19 +46,19 @@
             return RedirectToAction("Index");
         }
 
-        [HttpPut]
-        [Authorize]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Edit(BotCreateModel model, long id)
-        {
-            if (!ModelState.IsValid)
-            {
+        //[HttpPut]
+        //[Authorize]
+        ////[ValidateAntiForgeryToken]
+        //public ActionResult Edit(BotCreateModel model, long id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
 
-            }
+        //    }
 
-            this._botService.EditBot(model, id, this.User.Identity.Name);
-            return RedirectToAction("Index");
-        }
+        //    this._botService.EditBot(model, id, this.User.Identity.Name);
+        //    return RedirectToAction("Index");
+        //}
 
         [HttpDelete]
         [Authorize]
