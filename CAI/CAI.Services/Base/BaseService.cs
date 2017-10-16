@@ -53,6 +53,18 @@
             return bot;
         }
 
+        protected ActivationKey FindKeyById(long id)
+        {
+            var key = this.Data.ActivationKeyRepository.FindById(id);
+
+            if (key == null)
+            {
+                throw new NotFoundException("Intention");
+            }
+
+            return key;
+        }
+
         //protected void CheckBotForExistingName(string name)
         //{
         //    if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
