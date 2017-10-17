@@ -102,6 +102,7 @@
     <Compile Include="SignInManagerService.cs" />
     <Compile Include="TestService.cs" />
     <Compile Include="AccountService.cs" />
+    <Compile Include="TrainingDataService.cs" />
     <Compile Include="UserManagerService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>

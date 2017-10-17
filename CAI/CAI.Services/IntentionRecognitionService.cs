@@ -17,25 +17,31 @@
     {
         private readonly INeuralNetworkService _neuralNetworkService;
         private readonly ILanguageProcessingService _languageProcessinService;
+        private readonly ITrainingDataService _trainingDataService;
 
         public IntentionRecognitionService(IUnitOfWork data,
             INeuralNetworkService neuralNetworkService,
-            ILanguageProcessingService languageProcessinService)
+            ILanguageProcessingService languageProcessinService, ITrainingDataService trainingDataService)
             : base(data)
         {
             this._neuralNetworkService = neuralNetworkService;
             this._languageProcessinService = languageProcessinService;
+            this._trainingDataService = trainingDataService;
         }
 
         public long RegisterNewIntentionRecognitionBot(BotCreateModel model, string createdBy)
         {
+            var user = this.FindUserById(model.UserId);
+
             var bot = new Bot()
             {
                 CreatedBy = createdBy,
                 Name = model.Name,
                 BotType = model.BotType.ToString(),
                 EnvironmentType = model.EnvironmentType.ToString(),
-                Image = model.Image
+                Image = model.Image,
+                User = user,
+                UserId = user.Id
             };
 
             this.Data.BotRepository.Add(bot);
@@ -97,14 +103,18 @@
             //            .ToArray()
             //    })
             //    .ToArray();
-            
+
+            var user = this.FindUserById(model.UserId);
+
             var bot = new Bot()
             {
                 CreatedBy = createdBy,
                 Name = model.Name,
                 BotType = model.BotType.ToString(),
                 EnvironmentType = model.EnvironmentType.ToString(),
-                Image = model.Image
+                Image = model.Image,
+                User = user,
+                UserId = user.Id
                 //Intentions = intentions,
                 //NeuralNetworkDatas = new List<NeuralNetworkData> { this.GenerateIntentionRecognizerBotNetwork(model) }
                 //NeuralNetworkDatas = new List<NeuralNetworkData>()
@@ -124,7 +134,7 @@
             //this.CheckBotForExistingName(bot.Name);
             this.Data.BotRepository.Add(bot);
             this.Data.SaveChanges();
-            
+
             //var network = this.GenerateIntentionRecognizerBotNetwork(model);
             //network.Bot = bot;
             //network.BotId = bot.Id;
@@ -165,6 +175,22 @@
             }
 
             return bot.Id;
+        }
+
+        public bool TrainIntentionRecognitionBot(long id)
+        {
+            var bot = base.FindBotById(id);
+            var data = new Dictionary<string, long>();
+
+            foreach (var intention in bot.Intentions)
+            {
+                foreach (var trainData in intention.TrainingData)
+                {
+                    data.Add(trainData.Content, intention.Id);
+                }
+            }
+
+            return this.TrainIntentionRecognitionBot(bot.Id, data);
         }
 
         public bool TrainIntentionRecognitionBot(long id, Dictionary<string, long> data)
@@ -286,7 +312,13 @@
 
             for (int i = 0; i < output.Length; i++)
             {
-                var intention = base.FindIntentionById(i + 1);
+                var knownIntentions = bot.Intentions
+                    .ToArray();
+
+                var intention = knownIntentions[i];
+
+                //var intention = base.FindIntentionById(i + 1);
+                //var intention = bot.Intentions.ToArray()[i + 1];
 
                 intentions.Add(new IntentionViewModel
                 {

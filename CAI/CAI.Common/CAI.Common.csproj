@@ -50,6 +50,7 @@
     <Compile Include="Enums\EnvironmentType.cs" />
     <Compile Include="Enums\NeuralNetworkType.cs" />
     <Compile Include="Enums\UserRoleType.cs" />
+    <Compile Include="GlobalConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

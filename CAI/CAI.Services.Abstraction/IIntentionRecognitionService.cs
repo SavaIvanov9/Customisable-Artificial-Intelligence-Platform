@@ -12,6 +12,8 @@
 
         long RegisterNewIntentionRecognitionBot(BotCreateModel model, string createdBy);
 
+        bool TrainIntentionRecognitionBot(long id);
+
         bool TrainIntentionRecognitionBot(long id, Dictionary<string, long> data);
 
         IntentionViewModel RecognizeIntention(long botId, string inputText);

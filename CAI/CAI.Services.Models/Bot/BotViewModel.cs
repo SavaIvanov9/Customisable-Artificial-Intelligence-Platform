@@ -14,6 +14,8 @@
 
         public string Image { get; set; }
 
+        public string UserId { get; set; }
+
         public IEnumerable<IntentionViewModel> Intentions { get; set; }
     }
 }

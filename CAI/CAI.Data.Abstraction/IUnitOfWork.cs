@@ -16,6 +16,8 @@
 
         INeuralNetworkDataRepository NeuralNetworkDataRepository { get; }
 
+        ITrainingDataRepository TrainingDataRepository { get; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync();

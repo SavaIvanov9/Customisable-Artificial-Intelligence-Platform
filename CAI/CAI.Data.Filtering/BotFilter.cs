@@ -10,5 +10,7 @@
         public string BotType { get; set; }
 
         public string EnvironmentType { get; set; }
+
+        public string UserId { get; set; }
     }
 }

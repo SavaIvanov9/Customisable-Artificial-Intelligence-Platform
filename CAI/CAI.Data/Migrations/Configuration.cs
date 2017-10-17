@@ -6,6 +6,7 @@ namespace CAI.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using System.Text;
+    using Common;
     using Common.Enums;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -23,14 +24,14 @@ namespace CAI.Data.Migrations
         {
             this.SeedDefaultUsers(context);
             //this.SeedDefaultBots(context);
-            this.SeedTestBots(context, 10);
+            //this.SeedTestBots(context, 10);
 
             context.SaveChanges();
         }
 
         private void SeedDefaultUsers(CaiDbContext context)
         {
-            const string administratorUserName = "admin@admin.com";
+            const string administratorUserName = GlobalConstants.AdminUsername;
             const string administratorPassword = administratorUserName;
 
             if (!context.Roles.Any())

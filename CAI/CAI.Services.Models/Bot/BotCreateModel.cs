@@ -16,6 +16,8 @@
 
         public string Image { get; set; }
 
+        public string UserId { get; set; }
+
         [Required]
         public EnvironmentType EnvironmentType { get; set; }
 

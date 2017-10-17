@@ -12,6 +12,7 @@
     using Models.ActivationKey;
     using Models.Bot;
     using Models.Intention;
+    using Models.TrainingData;
 
     public class IntentionService : BaseService, IIntentionService
     {
@@ -36,6 +37,16 @@
                     {
                         Id = a.Id,
                         Name = a.Name,
+                        CreatedOn = a.CreatedOn,
+                        ModifiedOn = a.ModifiedOn
+                    }),
+                TrainingData = intention.TrainingData
+                    .Where(a => a.IsDeleted == false)
+                    .Select(a => new TrainingDataViewModel()
+                    {
+                        Id = a.Id,
+                        Content = a.Content,
+                        IntentionId = intention.Id,
                         CreatedOn = a.CreatedOn,
                         ModifiedOn = a.ModifiedOn
                     })

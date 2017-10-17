@@ -31,6 +31,12 @@
 
         public string Image { get; set; }
 
+        [Required]
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+
+        public User User { get; set; }
+
         public virtual ICollection<Intention> Intentions
         {
             get => this._intentions;

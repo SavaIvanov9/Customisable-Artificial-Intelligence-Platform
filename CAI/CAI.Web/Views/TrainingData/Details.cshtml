@@ -1,14 +1,14 @@
-﻿@model CAI.Services.Models.ActivationKey.ActivationKeyViewModel
+﻿@model CAI.Services.Models.TrainingData.TrainingDataViewModel
 
 <div>
-    <h4>Activation key</h4>
+    <h4>Training data</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Content)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Content)
         </dd>
 
         <dt>
@@ -29,5 +29,5 @@
 </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
-    @Html.ActionLink("Back to List", "Index", "IntentionRecognition", null, null)
+    @Html.ActionLink("Back to List", "Details", "Intention", new { id = Model.IntentionId }, null)
 </p>

@@ -81,6 +81,7 @@ namespace CAI.IoC
             kernel.Bind<IDefaultBotsService>().To<DefaultBotsService>();
             kernel.Bind<IActivationKeyService>().To<ActivationKeyService>();
             kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<ITrainingDataService>().To<TrainingDataService>();
         }
     }
 }

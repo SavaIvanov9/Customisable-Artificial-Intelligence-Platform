@@ -51,6 +51,7 @@
     <Compile Include="Intention\IntentionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrainingData\TrainingDataCreateModel.cs" />
+    <Compile Include="TrainingData\TrainingDataViewModel.cs" />
     <Compile Include="User\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

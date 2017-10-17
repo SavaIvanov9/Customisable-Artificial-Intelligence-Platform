@@ -4,16 +4,16 @@
     using System.Web.Mvc;
     using Common.CustomExceptions;
     using Services.Abstraction;
-    using Services.Models.ActivationKey;
     using Services.Models.Intention;
+    using Services.Models.TrainingData;
 
-    public class ActivationKeyController : Controller
+    public class TrainingDataController : Controller
     {
-        private readonly IActivationKeyService _activationKeyService;
+        private readonly ITrainingDataService _trainingDataService;
 
-        public ActivationKeyController(IActivationKeyService activationKeyService)
+        public TrainingDataController(ITrainingDataService trainingDataService)
         {
-            this._activationKeyService = activationKeyService;
+            this._trainingDataService = trainingDataService;
         }
 
         [Authorize]
@@ -26,9 +26,9 @@
 
             try
             {
-                var key = this._activationKeyService.FindKey(id.Value);
+                var data = this._trainingDataService.Find(id.Value);
 
-                return View(key);
+                return View(data);
             }
             catch (NotFoundException)
             {
@@ -44,54 +44,54 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var key = this._activationKeyService.FindKey(id.Value);
+            var data = this._trainingDataService.Find(id.Value);
 
-            if (key == null)
+            if (data == null)
             {
                 return HttpNotFound();
             }
 
-            return View(key);
+            return View(data);
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,IntentionId")] ActivationKeyViewModel keyModel)
+        public ActionResult Edit([Bind(Include = "Id,Content,IntentionId")] TrainingDataViewModel dataModel)
         {
-            var key = this._activationKeyService.FindKey(keyModel.Id);
+            var data = this._trainingDataService.Find(dataModel.Id);
 
             if (this.ModelState.IsValid)
             {
-                if (this._activationKeyService.EditKey(keyModel, this.User.Identity.Name))
+                if (this._trainingDataService.Edit(dataModel, this.User.Identity.Name))
                 {
-                    return RedirectToAction("Details", "Intention", new { id = key.IntentionId });
+                    return RedirectToAction("Details", "Intention", new {id = data.IntentionId});
                 }
             }
 
-            return View(key);
+            return View(data);
         }
 
         [Authorize]
         public ActionResult Create(long intentionId)
         {
-            return View(new ActivationKeyCreateModel { IntentionId = intentionId });
+            return View(new TrainingDataCreateModel() {IntentionId = intentionId });
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,IntentionId")] ActivationKeyCreateModel model)
+        public ActionResult Create([Bind(Include = "Id,Content,IntentionId")] TrainingDataCreateModel dataModel)
         {
             if (this.ModelState.IsValid)
             {
-                var id = this._activationKeyService.RegisterKey(model, this.User.Identity.Name);
+                var id = this._trainingDataService.Register(dataModel, this.User.Identity.Name);
 
-                //return RedirectToAction("Details", new { id = id });
-                return RedirectToAction("Details", "Intention", new { id = model.IntentionId });
+                return RedirectToAction("Details", "Intention", new { id = dataModel.IntentionId });
+                //return RedirectToAction("Details", new {id = id});
             }
 
-            return View(model);
+            return View(dataModel);
         }
 
         [Authorize]
@@ -102,30 +102,29 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var key = this._activationKeyService.FindKey(id.Value);
+            var data = this._trainingDataService.Find(id.Value);
 
-            if (key == null)
+            if (data == null)
             {
                 return HttpNotFound();
             }
 
-            return View(key);
+            return View(data);
         }
 
-        // POST: IntentionRecognition/Delete/5
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var key = this._activationKeyService.FindKey(id);
+            var data = this._trainingDataService.Find(id);
 
-            if (!this._activationKeyService.DeleteKey(id, this.User.Identity.Name))
+            if (!this._trainingDataService.Delete(id, this.User.Identity.Name))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Conflict);
             }
 
-            return RedirectToAction("Details", "Intention", new { id = key.IntentionId });
+            return RedirectToAction("Details", "Intention", new {id = data.IntentionId});
         }
     }
 }

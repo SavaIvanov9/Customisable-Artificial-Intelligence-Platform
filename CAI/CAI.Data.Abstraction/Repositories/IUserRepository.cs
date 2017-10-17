@@ -8,6 +8,8 @@
     {
         User FindById(string id);
 
+        User FindByName(string username);
+
         ////IEnumerable<Bot> AllContainingInName(string query, bool isDeleted = false);
         //IEnumerable<Bot> AllContainingInName(string query, BotFilter filter = null);
 

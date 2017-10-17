@@ -40,7 +40,7 @@
                 Intention = intention
             };
 
-            this.Data.IntentionRepository.Add(intention);
+            this.Data.ActivationKeyRepository.Add(key);
             this.Data.SaveChanges();
 
             return intention.Id;

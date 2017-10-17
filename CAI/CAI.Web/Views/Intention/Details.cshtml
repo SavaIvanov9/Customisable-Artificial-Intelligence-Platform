@@ -1,7 +1,7 @@
 ﻿@model CAI.Services.Models.Intention.IntentionViewModel
 
 <div>
-    <h4>Bot</h4>
+    <h4>Intention</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -62,6 +62,47 @@
                         @Html.ActionLink("Edit", "Edit", "ActivationKey", new { id = key.Id }, null) |
                         @Html.ActionLink("Details", "Details", "ActivationKey", new {id = key.Id}, null) |
                         @Html.ActionLink("Delete", "Delete", "ActivationKey", new {id = key.Id}, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    
+    <p>
+        @Html.ActionLink("Create New", "Create", "TrainingData", new { intentionId = @Model.Id }, null)
+    </p>
+    <label for="keysTable">@Html.DisplayNameFor(model => model.TrainingData)</label>
+    <div id="keysTable">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TrainingData.FirstOrDefault().Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TrainingData.FirstOrDefault().CreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TrainingData.FirstOrDefault().ModifiedOn)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var key in Model.TrainingData)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => key.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => key.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => key.ModifiedOn)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "TrainingData", new { id = key.Id }, null) |
+                        @Html.ActionLink("Details", "Details", "TrainingData", new { id = key.Id }, null) |
+                        @Html.ActionLink("Delete", "Delete", "TrainingData", new { id = key.Id }, null)
                     </td>
                 </tr>
             }

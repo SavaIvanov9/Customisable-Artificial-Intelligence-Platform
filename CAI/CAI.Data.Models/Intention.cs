@@ -8,10 +8,12 @@
     public class Intention : DataModel
     {
         private ICollection<ActivationKey> _activationKeys;
+        private ICollection<TrainingData> _trainingData;
 
         public Intention()
         {
             this._activationKeys = new HashSet<ActivationKey>();
+            this._trainingData = new HashSet<TrainingData>();
         }
 
         [Required]
@@ -27,6 +29,12 @@
         {
             get => this._activationKeys;
             set => this._activationKeys = value;
+        }
+
+        public virtual ICollection<TrainingData> TrainingData
+        {
+            get => this._trainingData;
+            set => this._trainingData = value;
         }
     }
 }

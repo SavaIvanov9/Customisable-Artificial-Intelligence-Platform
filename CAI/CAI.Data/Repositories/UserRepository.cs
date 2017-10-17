@@ -16,5 +16,10 @@
         {
             return this.Set.FirstOrDefault(x => x.Id == id);
         }
+
+        public User FindByName(string username)
+        {
+            return this.Set.FirstOrDefault(x => x.UserName == username);
+        }
     }
 }

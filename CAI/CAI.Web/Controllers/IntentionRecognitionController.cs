@@ -8,6 +8,7 @@
     using System.Web.Mvc;
     using Common.CustomExceptions;
     using Common.Enums;
+    using Microsoft.AspNet.Identity;
     using Models.IntentionRecognition;
     using Services.Models.Bot;
 
@@ -26,7 +27,7 @@
         [Authorize]
         public ActionResult Index()
         {
-            var filter = new BotFilter() { IsDeleted = false };
+            var filter = new BotFilter() { IsDeleted = false, UserId = this.User.Identity.GetUserId() };
             var data = this._botService.GetAllBotsByFilter(filter);
 
             return View(data);
@@ -70,6 +71,7 @@
             {
                 bot.BotType = BotType.IntentionRecognizer;
                 bot.EnvironmentType = EnvironmentType.Production;
+                bot.UserId = this.User.Identity.GetUserId();
                 this._intentionRecognitionService.RegisterNewIntentionRecognitionBot(bot, this.User.Identity.Name);
 
                 return RedirectToAction("Index");
@@ -132,6 +134,15 @@
             }
 
             return View(bot);
+        }
+
+        public ActionResult TrainBot(long botId)
+        {
+            this._intentionRecognitionService.TrainIntentionRecognitionBot(botId);
+
+            this.ViewBag.Message = "Training done";
+
+            return RedirectToAction("Index");
         }
 
         // POST: IntentionRecognition/Delete/5

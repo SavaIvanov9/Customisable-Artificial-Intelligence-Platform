@@ -15,7 +15,7 @@
             this._data = data;
         }
 
-        protected IUnitOfWork Data { get => this._data;  }
+        protected IUnitOfWork Data { get => this._data; }
 
         protected Bot FindBotById(long id)
         {
@@ -77,6 +77,18 @@
             return user;
         }
 
+        protected TrainingData FindTrainingDataById(long id)
+        {
+            var data = this.Data.TrainingDataRepository.FindById(id);
+
+            if (data == null)
+            {
+                throw new NotFoundException("TrainingData");
+            }
+
+            return data;
+
+        }
         //protected void CheckBotForExistingName(string name)
         //{
         //    if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)

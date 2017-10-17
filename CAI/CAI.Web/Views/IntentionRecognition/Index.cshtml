@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<CAI.Services.Models.Bot.BotViewModel>
 
+<h3>@ViewBag.Message</h3>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -47,11 +49,12 @@
                 @Html.DisplayFor(modelItem => item.ModifiedOn)
             </td>
             <td>
+                @Html.ActionLink("Train", "TrainBot", new { botId = item.Id }) |
+                @Html.ActionLink("Use Bot", "Chat", new { botId = item.Id }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
-
 </table>

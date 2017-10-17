@@ -34,7 +34,9 @@
         public INeuralNetworkDataRepository NeuralNetworkDataRepository => (NeuralNetworkDataRepository)this.GetDataRepository<NeuralNetworkData>();
 
         public IUserRepository UserRepository => (UserRepository)this.GetAuditableRepository<User>();
-        
+
+        public ITrainingDataRepository TrainingDataRepository => (TrainingDataRepository)this.GetAuditableRepository<TrainingData>();
+
         public int SaveChanges()
         {
             return this._context.SaveChanges();
@@ -89,6 +91,8 @@
                 type = typeof(ActivationKeyRepository);
             else if (repositoryType.IsAssignableFrom(typeof(NeuralNetworkData)))
                 type = typeof(NeuralNetworkDataRepository);
+            else if (repositoryType.IsAssignableFrom(typeof(TrainingData)))
+                type = typeof(TrainingDataRepository);
         }
 
         public void Dispose()

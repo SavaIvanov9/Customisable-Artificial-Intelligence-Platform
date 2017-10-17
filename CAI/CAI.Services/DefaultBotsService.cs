@@ -11,6 +11,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Common;
+    using Data.Models;
 
     public class DefaultBotsService : BaseService, IDefaultBotsService
     {
@@ -37,12 +39,14 @@
 
             if (defaultBots == null || !defaultBots.Any())
             {
-                this.CreateAndTrainIntroductionBot();
-                this.CreateAndTrainPizzaLoverBot();
+                var admin = this.Data.UserRepository.FindByName(GlobalConstants.AdminUsername);
+
+                this.CreateAndTrainIntroductionBot(admin);
+                this.CreateAndTrainPizzaLoverBot(admin);
             }
         }
 
-        private void CreateAndTrainIntroductionBot()
+        private void CreateAndTrainIntroductionBot(User user)
         {
             //{ "i", "like", "pizza", "eat", "lunch", "every", "day"})
             //{"i", "am", "name", "is", "hello", "hi", "how", "are", "you", "who", "what"})
@@ -50,6 +54,7 @@
 
             var botModel = new BotCreateModel()
             {
+                UserId = user.Id,
                 Name = "Introduction Bot",
                 BotType = BotType.IntentionRecognizer,
                 EnvironmentType = EnvironmentType.Test,
@@ -87,7 +92,7 @@
         }
 
 
-        private void CreateAndTrainPizzaLoverBot()
+        private void CreateAndTrainPizzaLoverBot(User user)
         {
                 //{ "i", "like", "pizza", "eat", "lunch", "every", "day"})
                 //{"i", "am", "name", "is", "hello", "hi", "how", "are", "you", "who", "what"})
@@ -95,6 +100,7 @@
 
                 var botModel = new BotCreateModel()
                 {
+                    UserId = user.Id,
                     Name = "Pizza lover Bot",
                     BotType = BotType.IntentionRecognizer,
                     EnvironmentType = EnvironmentType.Test,
