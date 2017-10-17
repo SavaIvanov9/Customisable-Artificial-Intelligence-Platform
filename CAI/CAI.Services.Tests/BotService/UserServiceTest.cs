@@ -5,14 +5,11 @@
     using Data.Abstraction;
     using Data.Models;
     using FizzWare.NBuilder;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Models.User;
     using Moq;
     using NUnit.Framework;
-    using Assert = NUnit.Framework.Assert;
-    using BotService = Services.BotService;
 
-    [TestClass]
+    [TestFixture]
     public class UserServiceTest
     {
         private IList<User> _controlData;
@@ -47,7 +44,7 @@
                 .Build();
         }
 
-        [TestMethod]
+        [Test]
         public void GetAllUsersShouldReturnNotNullWhenThereIsdata()
         {
             var result = this._service.GetAllUsers();
@@ -55,7 +52,7 @@
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAllUsersShouldReturnCorrectDataType()
         {
             var result = this._service.GetAllUsers();
@@ -64,7 +61,7 @@
             Assert.IsInstanceOf(expectedType, result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAllUsersShouldReturnCorrectData()
         {
             var result = this._service.GetAllUsers().ToList();

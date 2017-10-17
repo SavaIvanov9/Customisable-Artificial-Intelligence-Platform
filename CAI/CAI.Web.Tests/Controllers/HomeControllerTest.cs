@@ -1,15 +1,13 @@
 ﻿namespace CAI.Web.Tests.Controllers
 {
     using System.Web.Mvc;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Models.Home;
     using Moq;
     using NUnit.Framework;
     using Services.Abstraction;
     using Web.Controllers;
-    using Assert = NUnit.Framework.Assert;
 
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
         private HomeController _controller;
@@ -37,7 +35,7 @@
             this._controller.Dispose();
         }
 
-        [TestMethod]
+        [Test]
         public void IndexShouldReturnNotNull()
         {
             var result = this._controller.Index() as ViewResult;
@@ -45,7 +43,7 @@
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void IndexShouldReturnCorrectModelType()
         {
             var result = this._controller.Index() as ViewResult;
@@ -54,7 +52,7 @@
             Assert.AreEqual(typeof(HomeViewModel), model.GetType());
         }
 
-        [TestMethod]
+        [Test]
         public void About()
         {
             ViewResult result = this._controller.About() as ViewResult;
@@ -62,7 +60,7 @@
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void Contact()
         {
             ViewResult result = this._controller.Contact() as ViewResult;
