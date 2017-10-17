@@ -38,10 +38,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CAI.Services.Abstraction, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\CAI.Web\Bin\CAI.Services.Abstraction.dll</HintPath>
-    </Reference>
     <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.1.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -76,13 +72,33 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CAI.Common\CAI.Common.csproj">
+      <Project>{ab877ee0-95c6-4992-9001-1d6bc6f853ac}</Project>
+      <Name>CAI.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CAI.Data.Abstraction\CAI.Data.Abstraction.csproj">
-      <Project>{A2BCD0BD-D125-4D0C-934F-305ED0FCE15D}</Project>
+      <Project>{a2bcd0bd-d125-4d0c-934f-305ed0fce15d}</Project>
       <Name>CAI.Data.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data.Filtering\CAI.Data.Filtering.csproj">
+      <Project>{c88227b3-57bf-4bb5-867c-141ab9b7bbcb}</Project>
+      <Name>CAI.Data.Filtering</Name>
     </ProjectReference>
     <ProjectReference Include="..\CAI.Data.Models\CAI.Data.Models.csproj">
       <Project>{E9779A9E-32AF-4DEE-B9CF-DC138CB45E2C}</Project>
       <Name>CAI.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Data\CAI.Data.csproj">
+      <Project>{0f040a2e-83bd-47e2-ac76-a541f18799dc}</Project>
+      <Name>CAI.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.DeepLearning\CAI.DeepLearning.csproj">
+      <Project>{c6a7095f-7cdf-48f7-8bc3-0b371bdecddc}</Project>
+      <Name>CAI.DeepLearning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CAI.Services.Abstraction\CAI.Services.Abstraction.csproj">
+      <Project>{e1e198e3-b376-4e67-9056-690469ce9bbd}</Project>
+      <Name>CAI.Services.Abstraction</Name>
     </ProjectReference>
     <ProjectReference Include="..\CAI.Services.Models\CAI.Services.Models.csproj">
       <Project>{13BD51F8-E798-4CD4-A7D5-B811AA3EC731}</Project>
