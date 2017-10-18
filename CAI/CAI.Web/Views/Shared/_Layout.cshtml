@@ -27,7 +27,7 @@
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+                        <li>@Html.ActionLink("Admin Panel", "Index", "Admin", new { area = "Admin" }, null)</li>
                     }
                     @if (User.IsInRole("Client") || User.IsInRole("Admin"))
                     {

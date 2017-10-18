@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Areas.Admin.Controllers;
     using Models.Home;
     using Moq;
     using NUnit.Framework;

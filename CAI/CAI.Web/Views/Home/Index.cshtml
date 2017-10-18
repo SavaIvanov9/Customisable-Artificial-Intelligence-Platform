@@ -50,8 +50,10 @@
                     if (i == 0)
                     {
                         <div class="item active">
+                            
+                            @Html.Partial("_IndexBotInfoPartial", @bot)
 
-                            <img src=@bot.Image style="height:500px; display: block; margin: 0 auto;">
+                            @*<img src=@bot.Image style="height:500px; display: block; margin: 0 auto;">
                             <div class="carousel-caption">
                                 <h1 class="label label-default" style="font-size: 17px">Name: @bot.Name</h1>
                                 <br />
@@ -62,13 +64,15 @@
                                 <button type="button" class="btn-success btn-lg" onclick="location.href='@Url.Action("Chat", "IntentionRecognition", new { botId = @bot.Id })'">
                                     Try Bot
                                 </button>
-                            </div>
+                            </div>*@
                         </div>
                     }
                     else
                     {
                         <div class="item">
-                            <img src=@bot.Image style="height:500px; display: block; margin: 0 auto;">
+                            
+                            @Html.Partial("_IndexBotInfoPartial", @bot)
+                            @*<img src=@bot.Image style="height:500px; display: block; margin: 0 auto;">
                             <div class="carousel-caption">
                                 <h1 class="label label-default" style="font-size: 17px">Name: @bot.Name</h1>
                                 <br />
@@ -76,16 +80,10 @@
                                 <h1 class="label label-default" style="font-size: 17px">Type: @bot.BotType</h1>
                                 <br />
                                 <br />
-                                @*<h1 style="font-size: 20px" class="label label-">
-                                        @Html.ActionLink("Try Bot", "Chat", "IntentionRecognition", null, null)
-                                    </h1>*@
                                 <button type="button" class="btn-success btn-lg" onclick="location.href='@Url.Action("Chat", "IntentionRecognition", new { botId = @bot.Id })'">
                                     Try Bot
                                 </button>
-                                @*<button type="button" class="btn-success btn-lg">
-                                        @Html.ActionLink("Try", "Chat", "IntentionRecognition", null, null)
-                                    </button>*@
-                            </div>
+                            </div>*@
                         </div>
                     }
                 }

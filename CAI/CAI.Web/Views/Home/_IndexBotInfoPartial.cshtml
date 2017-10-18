@@ -1,0 +1,14 @@
+@model CAI.Services.Models.Bot.BotViewModel
+
+<img src=@Model.Image style="height:500px; display: block; margin: 0 auto;">
+<div class="carousel-caption">
+    <h1 class="label label-default" style="font-size: 17px">Name: @Model.Name</h1>
+    <br />
+    <br />
+    <h1 class="label label-default" style="font-size: 17px">Type: @Model.BotType</h1>
+    <br />
+    <br />
+    <button type="button" class="btn-success btn-lg" onclick="location.href='@Url.Action("Chat", "IntentionRecognition" , new { botId=@Model.Id })'">
+        Try Bot
+    </button>
+</div>

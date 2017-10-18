@@ -1,9 +1,8 @@
-﻿namespace CAI.Web.Controllers
+﻿namespace CAI.Web.Areas.Admin.Controllers
 {
     using System.Net;
     using System.Web.Mvc;
     using Services.Abstraction;
-    using Services.Models.Bot;
     using Services.Models.User;
 
     public class AdminController : Controller
