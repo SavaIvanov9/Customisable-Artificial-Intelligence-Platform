@@ -75,6 +75,11 @@
 
         protected User FindUserById(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentException("Id must benot null or empty");
+            }
+
             var user = this.Data.UserRepository.FindById(id);
 
             if (user == null)

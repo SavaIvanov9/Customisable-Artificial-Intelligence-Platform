@@ -74,6 +74,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntentionRecognitionServiceTests.cs" />
     <Compile Include="NeuralNetworkServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserServiceTest.cs" />
