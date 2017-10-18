@@ -11,6 +11,7 @@ Used technologies:
 - Machine learning and neural networks with AForge.Net
 - Websocket communication with SignalR
 - Dependency injection wit Ninject
+- Unit testing with NUnit, Moq and NBuilder
   
 ### Usage
 After registration in the system, the user can create personal bots. Steps to setup bot:
