@@ -1,11 +1,14 @@
 ﻿namespace CAI.Web.Controllers
 {
-    using System.Linq;
-    using Services.Abstraction;
-    using System.Web.Mvc;
     using Common.Enums;
+    using CustomAttributes;
     using Data.Filtering;
     using Models.Home;
+    using Services.Abstraction;
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.UI;
 
     public class HomeController : Controller
     {
@@ -18,24 +21,38 @@
             this._defaultBotsService = defaultBotsService;
         }
 
+        [OutputCacheLongLived]
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult CachedSampleBots()
         {
             this._defaultBotsService.InitDefaultBots();
 
             var defaultBots = this._botService.GetAllBotsByFilter(
-                new BotFilter() {EnvironmentType = EnvironmentType.Test.ToString(), IsDeleted = false});
+                new BotFilter() { EnvironmentType = EnvironmentType.Test.ToString(), IsDeleted = false });
 
             var homeModel = new HomeViewModel()
             {
-                DefaultBots = defaultBots.ToList()
+                DefaultBots = defaultBots.ToList(),
+                Date = DateTime.Now
             };
 
-            return View(homeModel);
+            //return View(homeModel);
+
+
+            return this.PartialView("_SampleBotsPartial", homeModel);
         }
 
+        //[OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
+        [OutputCacheLongLived]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            var r = new Random();
+            ViewBag.Message = $"{r.Next()} Your application description page.";
 
             return View();
         }

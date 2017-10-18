@@ -217,6 +217,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TrainingDataController.cs" />
+    <Compile Include="CustomAttributes\OutputCacheLongLivedAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -328,6 +329,7 @@
     <Content Include="Areas\Admin\Views\Admin\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Edit.cshtml" />
     <None Include="Views\Home\_IndexBotInfoPartial.cshtml" />
+    <Content Include="Views\Home\_SampleBotsPartial.cshtml" />
     <None Include="Views\Intention\Edit.cshtml" />
     <Content Include="Views\Intention\Details.cshtml" />
     <Content Include="Views\TrainingData\Create.cshtml" />
