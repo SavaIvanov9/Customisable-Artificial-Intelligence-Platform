@@ -20,7 +20,6 @@ After registration in the system, the user can create personal bots. Steps to se
 4. Press "Train" button to train the bot from the confiurations inserted in previous steps. The time to finish the training, depends of the amount of learning data.
 5. Press "Use" and you are ready to comunicate with the bot.
   
-```
 ## Project Аssignment
 
 Design and implement an **ASP.NET MVC application**. It can be a discussion forum, blog system, e-commerce site, online gaming site, social network, or any other web application by your choice.
