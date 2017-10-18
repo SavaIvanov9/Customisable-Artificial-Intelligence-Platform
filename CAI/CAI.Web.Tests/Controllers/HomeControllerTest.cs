@@ -43,14 +43,14 @@
             Assert.IsNotNull(result);
         }
 
-        [Test]
-        public void IndexShouldReturnCorrectModelType()
-        {
-            var result = this._controller.Index() as ViewResult;
-            var model = result.ViewData.Model as HomeViewModel;
+        //[Test]
+        //public void IndexShouldReturnCorrectModelType()
+        //{
+        //    var result = this._controller.Index() as ViewResult;
+        //    var model = result.ViewData.Model as HomeViewModel;
 
-            Assert.AreEqual(typeof(HomeViewModel), model.GetType());
-        }
+        //    Assert.AreEqual(typeof(HomeViewModel), model.GetType());
+        //}
 
         [Test]
         public void About()
