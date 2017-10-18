@@ -19,6 +19,8 @@
 
         protected Bot FindBotById(long id)
         {
+            this.ValidateId(id);
+
             var bot = this.Data.BotRepository.FindById(id);
 
             if (bot == null)
@@ -31,6 +33,8 @@
 
         protected Intention FindIntentionById(long id)
         {
+            this.ValidateId(id);
+
             var intention = this.Data.IntentionRepository.FindById(id);
 
             if (intention == null)
@@ -43,6 +47,8 @@
 
         protected NeuralNetworkData FindNeuralNetworkDataById(long id)
         {
+            this.ValidateId(id);
+
             var network = this.Data.NeuralNetworkDataRepository.FindById(id);
 
             if (network == null)
@@ -55,6 +61,8 @@
 
         protected ActivationKey FindKeyById(long id)
         {
+            this.ValidateId(id);
+
             var key = this.Data.ActivationKeyRepository.FindById(id);
 
             if (key == null)
@@ -79,6 +87,8 @@
 
         protected TrainingData FindTrainingDataById(long id)
         {
+            this.ValidateId(id);
+
             var data = this.Data.TrainingDataRepository.FindById(id);
 
             if (data == null)
@@ -89,6 +99,15 @@
             return data;
 
         }
+
+        protected void ValidateId(long id)
+        {
+            if (id < 1)
+            {
+                throw new ArgumentException("Id must be greater than 0");
+            }
+        }
+
         //protected void CheckBotForExistingName(string name)
         //{
         //    if (this.Data.BotRepository.FindFirstByFilter(new BotFilter { Name = name }) != null)
