@@ -30,9 +30,9 @@
 
                 return View(data);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
-                return HttpNotFound();
+                return HttpNotFound(ex.Message);
             }
         }
 
@@ -44,14 +44,16 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var data = this._trainingDataService.Find(id.Value);
-
-            if (data == null)
+            try
             {
-                return HttpNotFound();
-            }
+                var data = this._trainingDataService.Find(id.Value);
 
-            return View(data);
+                return View(data);
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
@@ -59,23 +61,30 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Content,IntentionId")] TrainingDataViewModel dataModel)
         {
-            var data = this._trainingDataService.Find(dataModel.Id);
-
-            if (this.ModelState.IsValid)
+            try
             {
-                if (this._trainingDataService.Edit(dataModel, this.User.Identity.Name))
-                {
-                    return RedirectToAction("Details", "Intention", new {id = data.IntentionId});
-                }
-            }
+                var data = this._trainingDataService.Find(dataModel.Id);
 
-            return View(data);
+                if (this.ModelState.IsValid)
+                {
+                    if (this._trainingDataService.Edit(dataModel, this.User.Identity.Name))
+                    {
+                        return RedirectToAction("Details", "Intention", new { id = data.IntentionId });
+                    }
+                }
+
+                return View(data);
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
         public ActionResult Create(long intentionId)
         {
-            return View(new TrainingDataCreateModel() {IntentionId = intentionId });
+            return View(new TrainingDataCreateModel() { IntentionId = intentionId });
         }
 
         [Authorize]
@@ -83,15 +92,22 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Content,IntentionId")] TrainingDataCreateModel dataModel)
         {
-            if (this.ModelState.IsValid)
+            try
             {
-                var id = this._trainingDataService.Register(dataModel, this.User.Identity.Name);
+                if (this.ModelState.IsValid)
+                {
+                    var id = this._trainingDataService.Register(dataModel, this.User.Identity.Name);
 
-                return RedirectToAction("Details", "Intention", new { id = dataModel.IntentionId });
-                //return RedirectToAction("Details", new {id = id});
+                    return RedirectToAction("Details", "Intention", new { id = dataModel.IntentionId });
+                    //return RedirectToAction("Details", new {id = id});
+                }
+
+                return View(dataModel);
             }
-
-            return View(dataModel);
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
@@ -102,14 +118,16 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var data = this._trainingDataService.Find(id.Value);
-
-            if (data == null)
+            try
             {
-                return HttpNotFound();
-            }
+                var data = this._trainingDataService.Find(id.Value);
 
-            return View(data);
+                return View(data);
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
@@ -117,14 +135,21 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var data = this._trainingDataService.Find(id);
-
-            if (!this._trainingDataService.Delete(id, this.User.Identity.Name))
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
-            }
+                var data = this._trainingDataService.Find(id);
 
-            return RedirectToAction("Details", "Intention", new {id = data.IntentionId});
+                if (!this._trainingDataService.Delete(id, this.User.Identity.Name))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+                }
+
+                return RedirectToAction("Details", "Intention", new { id = data.IntentionId });
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
     }
 }

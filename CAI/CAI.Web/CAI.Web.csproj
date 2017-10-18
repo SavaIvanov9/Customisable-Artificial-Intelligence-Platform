@@ -210,7 +210,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivationKeyController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
-    <Compile Include="Controllers\BotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntentionController.cs" />
     <Compile Include="Controllers\IntentionRecognitionController.cs" />
@@ -234,7 +233,7 @@
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
     <Compile Include="Models\BotsScreenModel.cs" />
     <Compile Include="Models\CAIWebContext.cs" />
-    <Compile Include="Models\Home\HomeViewModel.cs" />
+    <Compile Include="Models\Home\SampleBotsViewModel.cs" />
     <Compile Include="Models\IntentionRecognition\ChatViewModel.cs" />
     <Compile Include="Models\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Models\Manage\ChangePasswordViewModel.cs" />
@@ -311,8 +310,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Bot\Index.cshtml" />
-    <Content Include="Views\Bot\Create.cshtml" />
     <Content Include="Views\IntentionRecognition\Create.cshtml" />
     <Content Include="Views\IntentionRecognition\Delete.cshtml" />
     <Content Include="Views\IntentionRecognition\Details.cshtml" />

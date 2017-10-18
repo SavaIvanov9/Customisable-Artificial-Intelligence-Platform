@@ -35,31 +35,25 @@
             var defaultBots = this._botService.GetAllBotsByFilter(
                 new BotFilter() { EnvironmentType = EnvironmentType.Test.ToString(), IsDeleted = false });
 
-            var homeModel = new HomeViewModel()
+            var homeModel = new SampleBotsViewModel()
             {
                 DefaultBots = defaultBots.ToList(),
                 Date = DateTime.Now
             };
 
-            //return View(homeModel);
-
-
             return this.PartialView("_SampleBotsPartial", homeModel);
         }
 
-        //[OutputCache(Duration = 30, Location = OutputCacheLocation.Client)]
-        [OutputCacheLongLived]
         public ActionResult About()
         {
-            var r = new Random();
-            ViewBag.Message = $"{r.Next()} Your application description page.";
+            this.ViewBag.Message = $"Your application description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            this.ViewBag.Message = "Your contact page.";
 
             return View();
         }

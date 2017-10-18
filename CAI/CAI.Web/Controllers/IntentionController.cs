@@ -1,5 +1,6 @@
 ﻿namespace CAI.Web.Controllers
 {
+    using System;
     using System.Net;
     using System.Web.Mvc;
     using Common.CustomExceptions;
@@ -31,9 +32,9 @@
 
                 return View(intention);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
-                return HttpNotFound();
+                return HttpNotFound(ex.Message);
             }
         }
 
@@ -45,14 +46,21 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var intention = this._intentionService.FindIntention(id.Value);
-
-            if (intention == null)
+            try
             {
-                return HttpNotFound();
-            }
+                var intention = this._intentionService.FindIntention(id.Value);
 
-            return View(intention);
+                if (intention == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(intention);
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
@@ -60,17 +68,24 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] IntentionViewModel intentionModel)
         {
-            var intention = this._intentionService.FindIntention(intentionModel.Id);
-
-            if (this.ModelState.IsValid)
+            try
             {
-                if (this._intentionService.EditIntention(intentionModel, this.User.Identity.Name))
-                {
-                    return RedirectToAction("Details", "IntentionRecognition", new { id = intention.BotId });
-                }
-            }
+                var intention = this._intentionService.FindIntention(intentionModel.Id);
 
-            return View(intention);
+                if (this.ModelState.IsValid)
+                {
+                    if (this._intentionService.EditIntention(intentionModel, this.User.Identity.Name))
+                    {
+                        return RedirectToAction("Details", "IntentionRecognition", new { id = intention.BotId });
+                    }
+                }
+
+                return View(intention);
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
@@ -102,14 +117,15 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var intention = this._intentionService.FindIntention(id.Value);
-
-            if (intention == null)
+            try
             {
-                return HttpNotFound();
+                var intention = this._intentionService.FindIntention(id.Value);
+                return View(intention);
             }
-
-            return View(intention);
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
@@ -117,14 +133,21 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var intention = this._intentionService.FindIntention(id);
-
-            if (!this._intentionService.DeleteIntention(id, this.User.Identity.Name))
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
-            }
+                var intention = this._intentionService.FindIntention(id);
 
-            return RedirectToAction("Details", "IntentionRecognition", new { id = intention.BotId });
+                if (!this._intentionService.DeleteIntention(id, this.User.Identity.Name))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+                }
+
+                return RedirectToAction("Details", "IntentionRecognition", new { id = intention.BotId });
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         protected override void Dispose(bool disposing)

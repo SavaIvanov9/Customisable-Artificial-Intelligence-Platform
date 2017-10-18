@@ -47,9 +47,9 @@
 
                 return View(bot);
             }
-            catch (NotFoundException)
+            catch (NotFoundException ex)
             {
-                return HttpNotFound();
+                return HttpNotFound(ex.Message);
             }
         }
 
@@ -59,7 +59,6 @@
             return View();
         }
 
-        // POST: IntentionRecognition/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
@@ -67,21 +66,27 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Image")] BotCreateModel bot)
         {
-            if (this.ModelState.IsValid)
+            try
             {
-                bot.BotType = BotType.IntentionRecognizer;
-                bot.EnvironmentType = EnvironmentType.Production;
-                bot.UserId = this.User.Identity.GetUserId();
-                this._intentionRecognitionService.RegisterNewIntentionRecognitionBot(bot, this.User.Identity.Name);
+                if (this.ModelState.IsValid)
+                {
+                    bot.BotType = BotType.IntentionRecognizer;
+                    bot.EnvironmentType = EnvironmentType.Production;
+                    bot.UserId = this.User.Identity.GetUserId();
+                    this._intentionRecognitionService.RegisterNewIntentionRecognitionBot(bot, this.User.Identity.Name);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+
+                return View(bot);
             }
-
-            return View(bot);
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         [Authorize]
-        // GET: IntentionRecognition/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null || id < 1)
@@ -89,17 +94,18 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var bot = this._botService.FindBot(id.Value);
-
-            if (bot == null)
+            try
             {
-                return HttpNotFound();
-            }
+                var bot = this._botService.FindBot(id.Value);
 
-            return View(bot);
+                return View(bot);
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
-        // POST: IntentionRecognition/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
@@ -107,17 +113,23 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Image")] BotViewModel bot)
         {
-            if (this.ModelState.IsValid)
+            try
             {
-                this._botService.EditBot(bot, this.User.Identity.Name);
+                if (this.ModelState.IsValid)
+                {
+                    this._botService.EditBot(bot, this.User.Identity.Name);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+
+                return View(bot);
             }
-
-            return View(bot);
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
-        // GET: IntentionRecognition/Delete/5
         [Authorize]
         public ActionResult Delete(long? id)
         {
@@ -126,37 +138,52 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var bot = this._botService.FindBot(id.Value);
-
-            if (bot == null)
+            try
             {
-                return HttpNotFound();
-            }
+                var bot = this._botService.FindBot(id.Value);
 
-            return View(bot);
+                return View(bot);
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         public ActionResult TrainBot(long botId)
         {
-            this._intentionRecognitionService.TrainIntentionRecognitionBot(botId);
+            try
+            {
+                this._intentionRecognitionService.TrainIntentionRecognitionBot(botId);
 
-            this.ViewBag.Message = "Training done";
+                this.ViewBag.Message = "Training done";
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
-        // POST: IntentionRecognition/Delete/5
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            if (!this._botService.DeleteBot(id, this.User.Identity.Name))
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
-            }
+                if (!this._botService.DeleteBot(id, this.User.Identity.Name))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+                }
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         public ActionResult Chat(long? botId)
@@ -166,14 +193,21 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var bot = this._botService.FindBot(botId.Value);
-
-            if (bot == null)
+            try
             {
-                return HttpNotFound();
-            }
+                var bot = this._botService.FindBot(botId.Value);
 
-            return View(new ChatViewModel { Bot = bot });
+                if (bot == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(new ChatViewModel { Bot = bot });
+            }
+            catch (NotFoundException ex)
+            {
+                return HttpNotFound(ex.Message);
+            }
         }
 
         protected override void Dispose(bool disposing)
